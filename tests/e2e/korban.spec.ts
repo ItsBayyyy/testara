@@ -1,4 +1,7 @@
 import { expect, test } from "@playwright/test";
+import { useUniqueIp } from "./helpers";
+
+useUniqueIp();
 
 test.describe("sisi korban", () => {
   test("kirim laporan, terima kode, lihat status", async ({ page }) => {
@@ -9,7 +12,7 @@ test.describe("sisi korban", () => {
 
     await page.getByLabel("Desa Anda").fill("taba teru");
     await page.getByRole("button", { name: /Desa Taba Terunjam/ }).click();
-    await page.getByRole("button", { name: "Air bersih" }).click();
+    await page.getByRole("checkbox", { name: "Air bersih" }).check();
     await page.getByLabel("Lansia").check();
     await page.getByLabel("Ceritakan apa yang terjadi").fill("air sdh masuk rmh, nenek di dlm");
     await page.getByLabel(/Saya setuju laporan ini disimpan/).check();
@@ -41,20 +44,17 @@ test.describe("sisi korban", () => {
   test("draf tetap ada setelah halaman dimuat ulang", async ({ page }) => {
     await page.goto("/lapor");
     await page.getByLabel("Ceritakan apa yang terjadi").fill("jalan ke dusun 2 putus");
-    await page.getByRole("button", { name: "Makanan" }).click();
+    await page.getByRole("checkbox", { name: "Makanan" }).check();
     await page.reload();
     await expect(page.getByLabel("Ceritakan apa yang terjadi")).toHaveValue(
       "jalan ke dusun 2 putus",
     );
-    await expect(page.getByRole("button", { name: "Makanan" })).toHaveAttribute(
-      "aria-pressed",
-      "true",
-    );
+    await expect(page.getByRole("checkbox", { name: "Makanan" })).toBeChecked();
   });
 
   test("tanpa sinyal: tawarkan kirim lewat WhatsApp", async ({ page, context }) => {
     await page.goto("/lapor");
-    await page.getByRole("button", { name: "Evakuasi/terjebak" }).click();
+    await page.getByRole("checkbox", { name: "Evakuasi/terjebak" }).check();
     await page
       .getByLabel("Ceritakan apa yang terjadi")
       .fill("kakek terjebak di loteng, desa srikaton");
@@ -86,4 +86,20 @@ test.describe("sisi korban", () => {
     await page.getByRole("button", { name: "Lihat status" }).click();
     await expect(page.getByText("Kode harus 8 huruf/angka setelah TS")).toBeVisible();
   });
+});
+
+test("laporan keenam dalam satu jam dibatasi dan tetap ditawari WhatsApp", async ({ page }) => {
+  for (let i = 0; i < 6; i++) {
+    await page.goto("/lapor");
+    await page.getByRole("checkbox", { name: "Makanan" }).check();
+    await page.getByLabel(/Saya setuju laporan ini disimpan/).check();
+    await page.getByLabel("Ceritakan apa yang terjadi").fill(`uji batas ${i}, desa srikaton`);
+    await page.getByRole("button", { name: "Kirim laporan" }).click();
+    if (i < 5)
+      await expect(
+        page.getByRole("heading", { name: "Laporan Anda sudah kami terima." }),
+      ).toBeVisible();
+  }
+  await expect(page.getByText(/Sudah 5 laporan dari jaringan ini dalam satu jam/)).toBeVisible();
+  await expect(page.getByRole("link", { name: "Kirim lewat WhatsApp" })).toBeVisible();
 });

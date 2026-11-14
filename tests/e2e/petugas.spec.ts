@@ -1,5 +1,8 @@
 import { expect, test } from "@playwright/test";
 import path from "node:path";
+import { useUniqueIp } from "./helpers";
+
+useUniqueIp();
 
 test.describe("sisi petugas (mode demo, AI mati)", () => {
   test("laporan korban muncul di atas antrean dan status korban ikut berubah", async ({ page }) => {
@@ -7,7 +10,7 @@ test.describe("sisi petugas (mode demo, AI mati)", () => {
     await expect(page.getByRole("heading", { name: "Lapor kejadian" })).toBeVisible();
     await page.getByLabel("Desa Anda").fill("srikat");
     await page.getByRole("button", { name: /Desa Srikaton/ }).click();
-    await page.getByRole("button", { name: "Obat/perawatan" }).click();
+    await page.getByRole("checkbox", { name: "Obat/perawatan" }).check();
     await page.getByLabel("Lansia").check();
     await page
       .getByLabel("Ceritakan apa yang terjadi")
