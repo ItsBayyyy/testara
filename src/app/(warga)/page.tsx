@@ -21,6 +21,27 @@ export default function HomePage() {
 
       <EmergencyNotice number={config.emergencyNumber} />
 
+      <section
+        aria-labelledby="judul-demo"
+        className="panel rounded-[var(--radius-field)] border-dashed px-4 py-4"
+      >
+        <h2 id="judul-demo" className="text-lg">
+          Mode demo untuk juri
+        </h2>
+        <p className="text-base text-ink-2">
+          Coba kedua sisi tanpa mendaftar. Data contoh fiktif, hanya terlihat di perangkat Anda, dan
+          dihapus setelah 24 jam.
+        </p>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <a href="/demo/korban" className="btn btn-secondary">
+            Coba sebagai korban
+          </a>
+          <a href="/demo/petugas" className="btn btn-secondary">
+            Coba sebagai petugas
+          </a>
+        </div>
+      </section>
+
       <ul className="flex flex-col gap-3">
         <li>
           <Link href="/info" className="font-bold underline">

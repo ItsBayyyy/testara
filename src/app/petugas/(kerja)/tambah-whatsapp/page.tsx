@@ -5,7 +5,7 @@ import { WhatsAppImport } from "./WhatsAppImport";
 export const metadata: Metadata = { title: "Tambah dari WhatsApp", robots: { index: false } };
 
 export default async function TambahWhatsAppPage() {
-  await requireStaff();
+  const staff = await requireStaff();
   return (
     <div className="mx-auto max-w-3xl px-4 py-6">
       <h1 className="text-2xl">Tambah laporan dari WhatsApp</h1>
@@ -14,7 +14,7 @@ export default async function TambahWhatsAppPage() {
         perangkat ini sebelum dikirim. Pesan yang berisi laporan masuk antrean dengan sumber
         WhatsApp.
       </p>
-      <WhatsAppImport />
+      <WhatsAppImport sampleUrl={staff.demo ? "/contoh/whatsapp-grup.txt" : null} />
     </div>
   );
 }

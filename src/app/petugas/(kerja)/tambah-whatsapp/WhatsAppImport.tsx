@@ -13,7 +13,7 @@ type Progress =
 
 const MAX_FILE_BYTES = 2_000_000;
 
-export function WhatsAppImport() {
+export function WhatsAppImport({ sampleUrl }: { sampleUrl: string | null }) {
   const [raw, setRaw] = useState("");
   const [fileError, setFileError] = useState<string | null>(null);
   const [progress, setProgress] = useState<Progress>({ kind: "siap" });
@@ -35,6 +35,13 @@ export function WhatsAppImport() {
       return;
     }
     setRaw(await file.text());
+  }
+
+  async function loadSample() {
+    if (!sampleUrl) return;
+    const res = await fetch(sampleUrl).catch(() => null);
+    if (res?.ok) setRaw(await res.text());
+    else setFileError("Contoh chat belum bisa dimuat. Periksa sinyal, lalu coba lagi.");
   }
 
   async function run() {
@@ -78,6 +85,14 @@ export function WhatsAppImport() {
 
   return (
     <div className="mt-6 flex flex-col gap-5">
+      {sampleUrl && (
+        <div className="panel flex flex-wrap items-center justify-between gap-3 px-4 py-3">
+          <p>Mode demo: pakai contoh ekspor grup WhatsApp kepala desa (fiktif).</p>
+          <button type="button" className="btn btn-secondary" onClick={loadSample} disabled={busy}>
+            Pakai contoh chat
+          </button>
+        </div>
+      )}
       <div>
         <label htmlFor="tempel" className="label">
           Tempel pesan
