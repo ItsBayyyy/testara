@@ -23,7 +23,7 @@ export default function HomePage() {
 
       <section
         aria-labelledby="judul-demo"
-        className="panel rounded-[var(--radius-field)] border-dashed px-4 py-4"
+        className="panel rounded-[var(--radius-field)] px-4 py-4"
       >
         <h2 id="judul-demo" className="text-lg">
           Mode demo untuk juri

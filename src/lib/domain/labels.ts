@@ -57,6 +57,11 @@ export const HAZARD_LABELS: Record<Hazard, string> = {
   lainnya: "Lainnya",
 };
 
+/** Judul kejadian; "lainnya" biasanya berarti laporan belum dirapikan AI. */
+export function incidentTitle(hazard: Hazard): string {
+  return hazard === "lainnya" ? "Jenis bencana belum diketahui" : HAZARD_LABELS[hazard];
+}
+
 export const FIELD_LABELS: Record<ClaimField, string> = {
   meninggal: "Meninggal",
   hilang: "Hilang",

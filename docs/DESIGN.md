@@ -203,3 +203,18 @@ Klik angka: panel kanan menggulir ke pesan dan kutipan diberi sapuan stabilo.
 
 - Rencana awal memberi beranda tiga blok berdampingan (lapor, papan info, status). Itu mendekati "grid tiga kartu", jadi diganti satu tombol utama besar dan dua tautan teks di bawahnya.
 - Rencana awal memakai latar oranye penuh untuk pita "terancam nyawa". Terlalu memicu panik; diganti panel putih dengan garis kiri oranye dan tombol telepon berwarna tinta.
+
+## Kritik setelah screenshot (Fase 5)
+
+Tangkapan layar 375 px dan 1440 px ada di `docs/screenshots/` (buat ulang dengan `npm run screenshots`). Temuan dan perbaikannya:
+
+| Temuan | Perbaikan |
+|---|---|
+| Kode laporan di tanda terima patah dua baris di 375 px ("TS-EYXQ-MNG / V"). Ini elemen yang paling diingat, jadi tidak boleh patah. | Ukuran kode memakai `clamp()` dan `white-space: nowrap`. |
+| "Evakuasi/terjebak" menempel ke tepi kartu di 360–375 px. | `<wbr>` setelah garis miring, padding kartu dikurangi. Nama yang dibacakan pembaca layar tetap "Evakuasi/terjebak" lewat `aria-label`. |
+| Tautan butir jawaban tanya berbunyi "Titik bantuan: Air bersih: Tandon air bersih". | Butir titik bantuan cukup menampilkan judulnya. |
+| Tanpa AI, judul kejadian tertulis "Lainnya, Desa ...", seolah jenis bencananya "lainnya". | Ditulis "Jenis bencana belum diketahui". |
+| Pada jaringan lambat, formulir bisa dikirim sebelum JavaScript termuat dan isian hilang. | Formulir dibuat progressive enhancement: kirim biasa ke `/api/reports/form` tanpa JS, tombol kebutuhan memakai checkbox asli, isian tidak dikendalikan React sehingga tidak terhapus saat hidrasi. |
+| Hiasan yang dibuang: garis putus-putus di panel mode demo beranda. Tidak membawa makna. | Diganti garis biasa seperti panel lain. |
+
+Cek ulang terhadap daftar larangan: tidak ada gradien hiasan (sapuan stabilo memakai `background-size` satu warna sebagai animasi fungsional), tidak ada emoji/ikon AI, tidak ada label kapital berjarak, tidak ada panah di tombol, tidak ada kartu seragam berbayangan. Meja periksa dengan angka berbeda belum bisa difoto dalam keadaan sebenarnya karena angka hanya muncul dari ekstraksi AI, dan kunci AI belum tersedia.

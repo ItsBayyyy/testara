@@ -20,7 +20,7 @@ function ItemList({ items, label }: { items: BoardItem[]; label: string }) {
         {items.map((i) => (
           <li key={i.id}>
             <a href={`#butir-${i.id}`} className="underline">
-              {SECTION_LABELS[i.section]}: {i.title}
+              {i.section === "titik_bantuan" ? i.title : `${SECTION_LABELS[i.section]}: ${i.title}`}
             </a>
           </li>
         ))}

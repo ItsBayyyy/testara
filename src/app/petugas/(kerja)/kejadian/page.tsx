@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { requireStaff, staffScope } from "@/lib/auth/staff";
 import { getStore } from "@/lib/db";
-import { HAZARD_LABELS } from "@/lib/domain/labels";
+import { incidentTitle } from "@/lib/domain/labels";
 import { differingLeft } from "@/lib/extract/review";
 import { formatDateTime } from "@/lib/format";
 import { loadIncidents } from "@/lib/incidents";
@@ -45,7 +45,7 @@ export default async function IncidentsPage() {
                   className="block px-4 py-3 no-underline hover:bg-bg"
                 >
                   <span className="font-bold underline">
-                    {HAZARD_LABELS[g.hazard]}, {village ? villageLabel(village) : g.villageCode}
+                    {incidentTitle(g.hazard)}, {village ? villageLabel(village) : g.villageCode}
                   </span>
                   <span className="block text-[0.9375rem] text-ink-2">
                     <span className="num">{g.reportIds.length}</span> laporan, terakhir{" "}

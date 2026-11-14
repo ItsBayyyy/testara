@@ -5,7 +5,7 @@ import { CopyButton } from "@/components/CopyButton";
 import { HighlightedText } from "@/components/petugas/HighlightedText";
 import { requireStaff, staffScope } from "@/lib/auth/staff";
 import { getStore } from "@/lib/db";
-import { FIELD_LABELS, HAZARD_LABELS, STATUS_LABELS } from "@/lib/domain/labels";
+import { FIELD_LABELS, incidentTitle, STATUS_LABELS } from "@/lib/domain/labels";
 import { ALWAYS_SHOWN, differingLeft, summaryValues } from "@/lib/extract/review";
 import { formatDateTime } from "@/lib/format";
 import { loadIncidents } from "@/lib/incidents";
@@ -50,7 +50,7 @@ export default async function IncidentPage({ params }: PageProps<"/petugas/kejad
   const summaryText = buildIncidentSummary({
     villageLabel: label,
     districtName: village?.districtName ?? "",
-    hazardLabel: HAZARD_LABELS[group.hazard],
+    hazardLabel: incidentTitle(group.hazard),
     reportCount: group.reportIds.length,
     values: summaryValues(group, review),
     reviewedAt: review ? formatDateTime(review.reviewedAt) : null,
@@ -67,7 +67,7 @@ export default async function IncidentPage({ params }: PageProps<"/petugas/kejad
           Semua kejadian
         </Link>
         <h1 id="judul-kejadian" className="mt-2 text-2xl">
-          {HAZARD_LABELS[group.hazard]}, {label}
+          {incidentTitle(group.hazard)}, {label}
         </h1>
         <p className="text-ink-2">
           <span className="num">{group.reportIds.length}</span> laporan.{" "}

@@ -222,8 +222,23 @@ export function ReportForm({
         <div className="grid grid-cols-2 gap-3">
           {NEEDS.map((n) => (
             <label key={n} className="choice">
-              <input type="checkbox" name="needs" value={n} className="choice-input" />
-              {NEED_LABELS[n]}
+              <input
+                type="checkbox"
+                name="needs"
+                value={n}
+                className="choice-input"
+                aria-label={NEED_LABELS[n]}
+              />
+              {/* <wbr> agar "Evakuasi/terjebak" bisa patah baris di layar 360 px. */}
+              <span aria-hidden>
+                {NEED_LABELS[n].split("/").map((part, i) => (
+                  <span key={part}>
+                    {i > 0 && "/"}
+                    {i > 0 && <wbr />}
+                    {part}
+                  </span>
+                ))}
+              </span>
             </label>
           ))}
         </div>

@@ -56,7 +56,7 @@ export default async function StatusPage({ params, searchParams }: PageProps<"/s
         className="panel flex flex-col items-start gap-4 rounded-[var(--radius-receipt)] border-2 border-ink px-5 py-6"
       >
         <p className="text-base text-ink-2">Kode laporan</p>
-        <p className="code-text break-all text-[2.5rem] font-bold leading-none tracking-wide">
+        <p className="code-text whitespace-nowrap text-[clamp(1.6rem,8.2vw,2.5rem)] font-bold leading-none">
           {report.publicCode}
         </p>
         <CopyButton text={report.publicCode} label="Salin kode" doneLabel="Kode disalin." />
