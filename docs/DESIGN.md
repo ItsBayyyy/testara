@@ -12,21 +12,21 @@ Diputuskan dalam mode otonom (CLAUDE.md Bagian 0A dan 7). Silakan tinjau; semua 
 
 ## Palet
 
-| Token | Hex | Peran | Kontras |
-|---|---|---|---|
-| `bg` | `#F3F5F4` | latar halaman | |
-| `surface` | `#FFFFFF` | panel, kolom isian | |
-| `ink` | `#1B2A3A` | teks utama, tombol utama | 14,6:1 di `surface`, 13,4:1 di `bg` |
-| `ink-2` | `#566573` | teks sekunder | 6,0:1 di `surface`, 5,5:1 di `bg` |
-| `line` | `#C9D1CD` | pemisah 1 px, bingkai isian | (non-teks) |
-| `line-strong` | `#7A8890` | bingkai isian dan checkbox | 3,6:1 di `surface` (komponen UI, min. 3:1) |
-| `action` | `#E8620C` | penanda urgensi tinggi, angka berbeda, belum diperiksa (garis, titik, bingkai) | 3,4:1 (non-teks, min. 3:1) |
-| `action-ink` | `#A84505` | teks oranye | 6,0:1 di `surface`, 5,2:1 di `action-wash` |
-| `action-wash` | `#FDEBDD` | latar tipis baris mendesak | |
-| `mark` | `#FFE14D` | stabilo kutipan sumber | teks `ink` di atasnya 11,2:1 |
-| `done` | `#2E7D4F` | selesai/terkonfirmasi | 5,1:1 di `surface`; tidak dipakai sebagai teks di atas `done-wash` (4,3:1) |
-| `done-wash` | `#E3F1E8` | latar tipis langkah selesai | |
-| `focus` | `#1F5FBF` | cincin fokus 3 px | 6,1:1 di `surface` |
+| Token         | Hex       | Peran                                                                          | Kontras                                                                    |
+| ------------- | --------- | ------------------------------------------------------------------------------ | -------------------------------------------------------------------------- |
+| `bg`          | `#F3F5F4` | latar halaman                                                                  |                                                                            |
+| `surface`     | `#FFFFFF` | panel, kolom isian                                                             |                                                                            |
+| `ink`         | `#1B2A3A` | teks utama, tombol utama                                                       | 14,6:1 di `surface`, 13,4:1 di `bg`                                        |
+| `ink-2`       | `#566573` | teks sekunder                                                                  | 6,0:1 di `surface`, 5,5:1 di `bg`                                          |
+| `line`        | `#C9D1CD` | pemisah 1 px, bingkai isian                                                    | (non-teks)                                                                 |
+| `line-strong` | `#7A8890` | bingkai isian dan checkbox                                                     | 3,6:1 di `surface` (komponen UI, min. 3:1)                                 |
+| `action`      | `#E8620C` | penanda urgensi tinggi, angka berbeda, belum diperiksa (garis, titik, bingkai) | 3,4:1 (non-teks, min. 3:1)                                                 |
+| `action-ink`  | `#A84505` | teks oranye                                                                    | 6,0:1 di `surface`, 5,2:1 di `action-wash`                                 |
+| `action-wash` | `#FDEBDD` | latar tipis baris mendesak                                                     |                                                                            |
+| `mark`        | `#FFE14D` | stabilo kutipan sumber                                                         | teks `ink` di atasnya 11,2:1                                               |
+| `done`        | `#2E7D4F` | selesai/terkonfirmasi                                                          | 5,1:1 di `surface`; tidak dipakai sebagai teks di atas `done-wash` (4,3:1) |
+| `done-wash`   | `#E3F1E8` | latar tipis langkah selesai                                                    |                                                                            |
+| `focus`       | `#1F5FBF` | cincin fokus 3 px                                                              | 6,1:1 di `surface`                                                         |
 
 Perubahan dari token awal: menambah `line`, `line-strong`, `action-ink`, `action-wash`, `done-wash`, dan `focus`. Alasan: `#E8620C` sebagai teks hanya 3,4:1 sehingga butuh varian gelap; cincin fokus perlu warna yang tidak bentrok dengan oranye (urgensi) maupun hijau (selesai).
 
@@ -184,20 +184,20 @@ Klik angka: panel kanan menggulir ke pesan dan kutipan diberi sapuan stabilo.
 
 ## Cek terhadap daftar larangan
 
-| Larangan | Status |
-|---|---|
-| Krem hangat + serif + terakota; latar hampir hitam + neon; gaya koran | Tidak dipakai. Latar abu dingin, satu sans, aksen oranye fungsional. |
-| Kartu membulat identik, radius seragam, bayangan tipis seragam, gradien, glass, blob | Radius berhierarki, panel petugas tanpa radius, bayangan hanya untuk toast. |
-| Label kapital berjarak lebar, meta "A · B · C", "KATA — penggalan", panah di tombol, mono dekoratif | Meta ditulis dengan koma. Mono hanya untuk kode dan angka. Tidak ada panah. |
-| Satu kata di judul diberi gaya berbeda | Tidak ada. |
-| Penanda 01/02/03 non-urutan | Hanya linimasa status, yang memang berurutan, dan tanpa nomor. |
-| Sparkle, "Powered by AI", emoji | Label AI berupa kalimat biasa: "Dirapikan otomatis. Periksa sebelum ditindaklanjuti." |
-| Ilustrasi bencana, merah alarm, hitung mundur | Tidak ada gambar. Merah tidak dipakai; urgensi oranye sebagai garis. |
-| Hero pemasaran, grid tiga kartu, testimoni/logo/statistik palsu | Beranda berisi tombol utama, tautan papan info, pita demo. Statistik hanya dua fakta bersumber di "Cara kerja". |
-| Animasi scroll, hover membesar | Tidak ada. Hover hanya ganti warna latar/garis. |
-| Inter/Poppins/dst, palet bawaan Tailwind | Atkinson Hyperlegible; warna hanya dari token `@theme` sendiri. |
-| shadcn bawaan | Tidak memakai shadcn. Komponen ditulis sendiri. |
-| Kata promosi | Dicek di salinan UI. |
+| Larangan                                                                                            | Status                                                                                                          |
+| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| Krem hangat + serif + terakota; latar hampir hitam + neon; gaya koran                               | Tidak dipakai. Latar abu dingin, satu sans, aksen oranye fungsional.                                            |
+| Kartu membulat identik, radius seragam, bayangan tipis seragam, gradien, glass, blob                | Radius berhierarki, panel petugas tanpa radius, bayangan hanya untuk toast.                                     |
+| Label kapital berjarak lebar, meta "A · B · C", "KATA — penggalan", panah di tombol, mono dekoratif | Meta ditulis dengan koma. Mono hanya untuk kode dan angka. Tidak ada panah.                                     |
+| Satu kata di judul diberi gaya berbeda                                                              | Tidak ada.                                                                                                      |
+| Penanda 01/02/03 non-urutan                                                                         | Hanya linimasa status, yang memang berurutan, dan tanpa nomor.                                                  |
+| Sparkle, "Powered by AI", emoji                                                                     | Label AI berupa kalimat biasa: "Dirapikan otomatis. Periksa sebelum ditindaklanjuti."                           |
+| Ilustrasi bencana, merah alarm, hitung mundur                                                       | Tidak ada gambar. Merah tidak dipakai; urgensi oranye sebagai garis.                                            |
+| Hero pemasaran, grid tiga kartu, testimoni/logo/statistik palsu                                     | Beranda berisi tombol utama, tautan papan info, pita demo. Statistik hanya dua fakta bersumber di "Cara kerja". |
+| Animasi scroll, hover membesar                                                                      | Tidak ada. Hover hanya ganti warna latar/garis.                                                                 |
+| Inter/Poppins/dst, palet bawaan Tailwind                                                            | Atkinson Hyperlegible; warna hanya dari token `@theme` sendiri.                                                 |
+| shadcn bawaan                                                                                       | Tidak memakai shadcn. Komponen ditulis sendiri.                                                                 |
+| Kata promosi                                                                                        | Dicek di salinan UI.                                                                                            |
 
 ## Yang saya ubah setelah cek
 
@@ -208,13 +208,13 @@ Klik angka: panel kanan menggulir ke pesan dan kutipan diberi sapuan stabilo.
 
 Tangkapan layar 375 px dan 1440 px ada di `docs/screenshots/` (buat ulang dengan `npm run screenshots`). Temuan dan perbaikannya:
 
-| Temuan | Perbaikan |
-|---|---|
-| Kode laporan di tanda terima patah dua baris di 375 px ("TS-EYXQ-MNG / V"). Ini elemen yang paling diingat, jadi tidak boleh patah. | Ukuran kode memakai `clamp()` dan `white-space: nowrap`. |
-| "Evakuasi/terjebak" menempel ke tepi kartu di 360–375 px. | `<wbr>` setelah garis miring, padding kartu dikurangi. Nama yang dibacakan pembaca layar tetap "Evakuasi/terjebak" lewat `aria-label`. |
-| Tautan butir jawaban tanya berbunyi "Titik bantuan: Air bersih: Tandon air bersih". | Butir titik bantuan cukup menampilkan judulnya. |
-| Tanpa AI, judul kejadian tertulis "Lainnya, Desa ...", seolah jenis bencananya "lainnya". | Ditulis "Jenis bencana belum diketahui". |
-| Pada jaringan lambat, formulir bisa dikirim sebelum JavaScript termuat dan isian hilang. | Formulir dibuat progressive enhancement: kirim biasa ke `/api/reports/form` tanpa JS, tombol kebutuhan memakai checkbox asli, isian tidak dikendalikan React sehingga tidak terhapus saat hidrasi. |
-| Hiasan yang dibuang: garis putus-putus di panel mode demo beranda. Tidak membawa makna. | Diganti garis biasa seperti panel lain. |
+| Temuan                                                                                                                              | Perbaikan                                                                                                                                                                                          |
+| ----------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Kode laporan di tanda terima patah dua baris di 375 px ("TS-EYXQ-MNG / V"). Ini elemen yang paling diingat, jadi tidak boleh patah. | Ukuran kode memakai `clamp()` dan `white-space: nowrap`.                                                                                                                                           |
+| "Evakuasi/terjebak" menempel ke tepi kartu di 360–375 px.                                                                           | `<wbr>` setelah garis miring, padding kartu dikurangi. Nama yang dibacakan pembaca layar tetap "Evakuasi/terjebak" lewat `aria-label`.                                                             |
+| Tautan butir jawaban tanya berbunyi "Titik bantuan: Air bersih: Tandon air bersih".                                                 | Butir titik bantuan cukup menampilkan judulnya.                                                                                                                                                    |
+| Tanpa AI, judul kejadian tertulis "Lainnya, Desa ...", seolah jenis bencananya "lainnya".                                           | Ditulis "Jenis bencana belum diketahui".                                                                                                                                                           |
+| Pada jaringan lambat, formulir bisa dikirim sebelum JavaScript termuat dan isian hilang.                                            | Formulir dibuat progressive enhancement: kirim biasa ke `/api/reports/form` tanpa JS, tombol kebutuhan memakai checkbox asli, isian tidak dikendalikan React sehingga tidak terhapus saat hidrasi. |
+| Hiasan yang dibuang: garis putus-putus di panel mode demo beranda. Tidak membawa makna.                                             | Diganti garis biasa seperti panel lain.                                                                                                                                                            |
 
 Cek ulang terhadap daftar larangan: tidak ada gradien hiasan (sapuan stabilo memakai `background-size` satu warna sebagai animasi fungsional), tidak ada emoji/ikon AI, tidak ada label kapital berjarak, tidak ada panah di tombol, tidak ada kartu seragam berbayangan. Meja periksa dengan angka berbeda belum bisa difoto dalam keadaan sebenarnya karena angka hanya muncul dari ekstraksi AI, dan kunci AI belum tersedia.

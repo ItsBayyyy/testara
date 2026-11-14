@@ -2,7 +2,7 @@
 
 Saat bencana, korban dan keluarganya tidak tahu harus melapor ke mana, tidak tahu apakah laporannya dibaca, dan menerima kabar simpang siur soal pengungsian dan bantuan. Di sisi lain, petugas BPBD dan posko yang jumlahnya terbatas menerima laporan berulang dengan angka berbeda dari banyak arah, termasuk grup WhatsApp kepala desa, lalu membacanya satu per satu. Bencana sangat sering terjadi: sepanjang 2025 BNPB mencatat 3.233 kejadian bencana ([Indonesia Baik](https://indonesiabaik.id/infografis/indonesia-tangguh-menghadapi-bencana-2025)), dan angka korban sering dikoreksi belakangan, misalnya koreksi data banjir Sumatra menjadi 770 meninggal dan 462 hilang pada 3 Desember 2025 ([CNN Indonesia](https://www.cnnindonesia.com/nasional/20251203190705-20-1302487/bnpb-koreksi-data-korban-banjir-sumatra-770-meninggal-462-hilang)).
 
-Testara (dari kata Latin *testis*, saksi) membuat korban cukup bercerita dengan cara paling mudah, lalu tahu bahwa ceritanya sampai, ditangani, dan dibalas dengan informasi yang benar. Petugas mendapat antrean yang mendahulukan kelompok rentan dan angka yang setiap nilainya punya kalimat sumber.
+Testara (dari kata Latin _testis_, saksi) membuat korban cukup bercerita dengan cara paling mudah, lalu tahu bahwa ceritanya sampai, ditangani, dan dibalas dengan informasi yang benar. Petugas mendapat antrean yang mendahulukan kelompok rentan dan angka yang setiap nilainya punya kalimat sumber.
 
 Dibuat untuk Lomba Web Development IT RUSH 2026, subtema Mitigasi Bencana dan Perubahan Iklim.
 
@@ -19,10 +19,10 @@ Mode demo memakai cookie sesi: semua data hanya terlihat di perangkat Anda, teri
 
 ## Tangkapan layar
 
-| Sisi korban (375 px) | Sisi petugas (1440 px) |
-|---|---|
-| ![Halaman lapor](docs/screenshots/02-lapor-375.png) | ![Antrean petugas](docs/screenshots/08-detail-laporan-1440.png) |
-| ![Tanda terima](docs/screenshots/05-tanda-terima-375.png) | ![Meja periksa](docs/screenshots/10-meja-periksa-1440.png) |
+| Sisi korban (375 px)                                      | Sisi petugas (1440 px)                                          |
+| --------------------------------------------------------- | --------------------------------------------------------------- |
+| ![Halaman lapor](docs/screenshots/02-lapor-375.png)       | ![Antrean petugas](docs/screenshots/08-detail-laporan-1440.png) |
+| ![Tanda terima](docs/screenshots/05-tanda-terima-375.png) | ![Meja periksa](docs/screenshots/10-meja-periksa-1440.png)      |
 
 Semua tangkapan layar (375 px dan 1440 px) ada di [`docs/screenshots/`](docs/screenshots). Rencana desain dan kritiknya: [`docs/DESIGN.md`](docs/DESIGN.md).
 
@@ -60,12 +60,12 @@ Prinsip yang dipegang: **laporan disimpan dulu, AI belakangan.** Route simpan ti
 
 ## Cara AI dipakai dan batasannya
 
-| Alur | Masukan ke AI | Penjaga deterministik |
-|---|---|---|
-| Rapikan laporan warga | Cerita tersamar + pilihan formulir | Kutipan wajib substring cerita; angka hitungan wajib ada di kutipannya; ringkasan dengan angka tanpa saksi diganti template; urgensi AI hanya boleh menaikkan |
-| Pesan WhatsApp | Isi pesan tersamar (nama pengirim tidak dikirim) | Sama seperti di atas; pesan "siap pak", stiker, dan terusan peringatan cuaca tidak dijadikan laporan |
-| Usulan papan info | Laporan desa yang sudah resmi | Usulan tanpa kutipan atau dengan angka tanpa saksi dibuang; petugas yang menyunting dan menerbitkan |
-| Tanya papan info | Pertanyaan + JSON papan terbit desa itu dan desa sekecamatan | Setiap butir rujukan harus ada; setiap angka, jam, dan nama tempat di jawaban harus muncul di butir yang dirujuk; jika gagal: "Belum ada informasi resmi untuk itu" + kontak posko + butir relevan |
+| Alur                  | Masukan ke AI                                                | Penjaga deterministik                                                                                                                                                                              |
+| --------------------- | ------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Rapikan laporan warga | Cerita tersamar + pilihan formulir                           | Kutipan wajib substring cerita; angka hitungan wajib ada di kutipannya; ringkasan dengan angka tanpa saksi diganti template; urgensi AI hanya boleh menaikkan                                      |
+| Pesan WhatsApp        | Isi pesan tersamar (nama pengirim tidak dikirim)             | Sama seperti di atas; pesan "siap pak", stiker, dan terusan peringatan cuaca tidak dijadikan laporan                                                                                               |
+| Usulan papan info     | Laporan desa yang sudah resmi                                | Usulan tanpa kutipan atau dengan angka tanpa saksi dibuang; petugas yang menyunting dan menerbitkan                                                                                                |
+| Tanya papan info      | Pertanyaan + JSON papan terbit desa itu dan desa sekecamatan | Setiap butir rujukan harus ada; setiap angka, jam, dan nama tempat di jawaban harus muncul di butir yang dirujuk; jika gagal: "Belum ada informasi resmi untuk itu" + kontak posko + butir relevan |
 
 - **Aturan urgensi** ada di kode (`src/lib/triage/`), bukan di LLM. Urgensi minimal "tinggi" jika kebutuhan evakuasi dipilih, jika ada orang yang perlu didahulukan bersama kebutuhan evakuasi atau obat, atau jika cerita memuat kata bahaya (terjebak, tidak bisa keluar, hanyut, tertimbun, sesak napas, pingsan, luka parah, pendarahan, beserta singkatan dan salah ketik umum seperti "tdk bisa keluar", "trjebak"). Sumber urgensi disimpan: `aturan`, `ai`, atau `petugas`.
 - **Ketahanan**: cache sha256 (teks tersamar + versi prompt + model), anggaran harian global (`DAILY_AI_REQUEST_BUDGET`), fallback otomatis Groq ke Gemini saat 429, 5xx, atau timeout 25 detik, validasi Zod dengan satu kali ulang. Batas laju per IP (di-hash): 5 laporan, 10 proses WhatsApp, 20 pertanyaan per jam.
@@ -92,28 +92,28 @@ Tanpa Supabase, aplikasi memakai penyimpanan memori (data hilang saat server dim
 
 Perintah lain:
 
-| Perintah | Isi |
-|---|---|
-| `npm run lint` / `npm run typecheck` / `npm test` / `npm run build` | Gerbang setiap fase dan CI |
-| `npm run test:e2e` | Playwright: alur demo juri, tanpa sinyal, Slow 3G, tanpa JavaScript, batas laju |
-| `npm run screenshots` | Tangkapan layar 375 px dan 1440 px ke `docs/screenshots/` |
-| `npm run eval` | Evaluasi akurasi dengan AI sungguhan, menulis `eval/RESULTS.md` |
-| `npm run demo:generate` | Menjalankan AI sungguhan atas data contoh, menulis `data/demo/ai-results.json` |
+| Perintah                                                            | Isi                                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `npm run lint` / `npm run typecheck` / `npm test` / `npm run build` | Gerbang setiap fase dan CI                                                      |
+| `npm run test:e2e`                                                  | Playwright: alur demo juri, tanpa sinyal, Slow 3G, tanpa JavaScript, batas laju |
+| `npm run screenshots`                                               | Tangkapan layar 375 px dan 1440 px ke `docs/screenshots/`                       |
+| `npm run eval`                                                      | Evaluasi akurasi dengan AI sungguhan, menulis `eval/RESULTS.md`                 |
+| `npm run demo:generate`                                             | Menjalankan AI sungguhan atas data contoh, menulis `data/demo/ai-results.json`  |
 
 ### Variabel lingkungan
 
-| Nama | Isi |
-|---|---|
+| Nama                             | Isi                                                                                      |
+| -------------------------------- | ---------------------------------------------------------------------------------------- |
 | `GROQ_API_KEY`, `GEMINI_API_KEY` | Kunci penyedia AI (server saja). `GEMINI_MODEL` opsional, bawaan `gemini-3.5-flash-lite` |
-| `SUPABASE_URL` | URL proyek Supabase |
-| `SUPABASE_ANON_KEY` | Kunci publishable (`sb_publishable_...`), dipakai untuk sesi masuk petugas |
-| `SUPABASE_SERVICE_ROLE_KEY` | Kunci secret (`sb_secret_...`), hanya di server |
-| `DAILY_AI_REQUEST_BUDGET` | Batas panggilan AI per hari (bawaan 300) |
-| `IP_HASH_SALT` | Garam hash IP untuk batas laju |
-| `CRON_SECRET` | Rahasia route retensi |
-| `EMERGENCY_NUMBER_LABEL` | Nomor darurat yang tampil (bawaan 112) |
-| `POSKO_WHATSAPP_NUMBER` | Nomor WhatsApp posko untuk cadangan laporan (bawaan nomor contoh) |
-| `REGENCY_CODE` | Kode kabupaten layanan (bawaan `17.09`, Bengkulu Tengah) |
+| `SUPABASE_URL`                   | URL proyek Supabase                                                                      |
+| `SUPABASE_ANON_KEY`              | Kunci publishable (`sb_publishable_...`), dipakai untuk sesi masuk petugas               |
+| `SUPABASE_SERVICE_ROLE_KEY`      | Kunci secret (`sb_secret_...`), hanya di server                                          |
+| `DAILY_AI_REQUEST_BUDGET`        | Batas panggilan AI per hari (bawaan 300)                                                 |
+| `IP_HASH_SALT`                   | Garam hash IP untuk batas laju                                                           |
+| `CRON_SECRET`                    | Rahasia route retensi                                                                    |
+| `EMERGENCY_NUMBER_LABEL`         | Nomor darurat yang tampil (bawaan 112)                                                   |
+| `POSKO_WHATSAPP_NUMBER`          | Nomor WhatsApp posko untuk cadangan laporan (bawaan nomor contoh)                        |
+| `REGENCY_CODE`                   | Kode kabupaten layanan (bawaan `17.09`, Bengkulu Tengah)                                 |
 
 Tidak ada kunci rahasia yang memakai awalan `NEXT_PUBLIC_`.
 
