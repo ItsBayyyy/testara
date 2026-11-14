@@ -9,9 +9,11 @@ Diperbarui otomatis selama mode otonom. Waktu: 15 November 2026.
 
 - **Fase 2. AI laporan** (lokal): penyedia Groq (`openai/gpt-oss-120b`) dan Gemini (`gemini-3.5-flash-lite`) di balik `AIProvider`, cache sha256, anggaran harian, fallback otomatis saat 429/5xx/timeout, validasi Zod dengan satu kali ulang, verifikasi kutipan, penjaga angka ringkasan, aturan urgensi. Belum pernah diuji dengan panggilan AI sungguhan karena kunci belum ada; perilaku diuji dengan penyedia palsu di unit test.
 
+- **Fase 3. Sisi petugas** (lokal): masuk petugas (Supabase Auth, belum bisa diuji tanpa proyek Supabase) dan petugas demo satu klik, antrean urut urgensi lalu waktu dengan filter desa/status, detail laporan dengan stabilo kutipan, ubah status/urgensi/desa, tambah dari WhatsApp (tempel atau .txt, nomor disamarkan di browser, batch 18 pesan), meja periksa kejadian dengan angka berbeda yang wajib dipilih, salin ringkasan WhatsApp. E2E: status korban berubah saat petugas bertindak.
+
 ## Sedang dikerjakan
 
-- Fase 3. Sisi petugas.
+- Fase 4. Papan info dan tanya.
 
 ## Langkah berikutnya
 
