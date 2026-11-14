@@ -7,9 +7,11 @@ Diperbarui otomatis selama mode otonom. Waktu: 15 November 2026.
 - **Fase 0. Persiapan** (lokal): Next.js 16 + TS strict + Tailwind token sendiri + ESLint/Prettier + Vitest + Playwright, skema Supabase + RLS (`supabase/migrations/`), `.env.example`, CI GitHub Actions, rencana desain (`docs/DESIGN.md`), keputusan (`docs/DECISIONS.md`), data wilayah Bengkulu.
 - **Fase 1. Sisi korban tanpa AI** (lokal): halaman lapor, simpan laporan, kode dan tanda terima, halaman status dengan linimasa, draf di perangkat, cadangan WhatsApp. E2E lulus termasuk skenario jaringan dimatikan.
 
+- **Fase 2. AI laporan** (lokal): penyedia Groq (`openai/gpt-oss-120b`) dan Gemini (`gemini-3.5-flash-lite`) di balik `AIProvider`, cache sha256, anggaran harian, fallback otomatis saat 429/5xx/timeout, validasi Zod dengan satu kali ulang, verifikasi kutipan, penjaga angka ringkasan, aturan urgensi. Belum pernah diuji dengan panggilan AI sungguhan karena kunci belum ada; perilaku diuji dengan penyedia palsu di unit test.
+
 ## Sedang dikerjakan
 
-- Fase 2. AI laporan.
+- Fase 3. Sisi petugas.
 
 ## Langkah berikutnya
 
