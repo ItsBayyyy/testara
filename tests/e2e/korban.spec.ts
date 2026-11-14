@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
-import { useUniqueIp } from "./helpers";
+import { varyClientIp } from "./helpers";
 
-useUniqueIp();
+varyClientIp();
 
 test.describe("sisi korban", () => {
   test("kirim laporan, terima kode, lihat status", async ({ page }) => {

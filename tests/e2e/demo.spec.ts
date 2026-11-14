@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
-import { useUniqueIp } from "./helpers";
+import { varyClientIp } from "./helpers";
 
-useUniqueIp();
+varyClientIp();
 
 // Alur demo juri (CLAUDE.md 6.1) harus selesai kurang dari 2 menit, dengan AI mati.
 test("alur demo juri: korban, petugas, papan info, kembali ke korban", async ({ page }) => {

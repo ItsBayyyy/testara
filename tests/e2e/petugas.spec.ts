@@ -1,8 +1,8 @@
 import { expect, test } from "@playwright/test";
 import path from "node:path";
-import { useUniqueIp } from "./helpers";
+import { varyClientIp } from "./helpers";
 
-useUniqueIp();
+varyClientIp();
 
 test.describe("sisi petugas (mode demo, AI mati)", () => {
   test("laporan korban muncul di atas antrean dan status korban ikut berubah", async ({ page }) => {

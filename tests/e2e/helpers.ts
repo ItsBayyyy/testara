@@ -6,7 +6,7 @@ export function uniqueIp(): string {
   return `10.${n()}.${n()}.${n()}`;
 }
 
-export function useUniqueIp() {
+export function varyClientIp() {
   test.beforeEach(async ({ context }) => {
     await context.setExtraHTTPHeaders({ "x-forwarded-for": uniqueIp() });
   });

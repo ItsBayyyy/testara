@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
-import { uniqueIp, useUniqueIp } from "./helpers";
+import { uniqueIp, varyClientIp } from "./helpers";
 
-useUniqueIp();
+varyClientIp();
 
 // Halaman lapor harus tetap bisa diisi dan dikirim pada jaringan "Slow 3G"
 // (preset DevTools: latensi 2 detik, unduh sekitar 50 KB/detik, unggah sekitar 50 KB/detik).
