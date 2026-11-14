@@ -11,9 +11,11 @@ Diperbarui otomatis selama mode otonom. Waktu: 15 November 2026.
 
 - **Fase 3. Sisi petugas** (lokal): masuk petugas (Supabase Auth, belum bisa diuji tanpa proyek Supabase) dan petugas demo satu klik, antrean urut urgensi lalu waktu dengan filter desa/status, detail laporan dengan stabilo kutipan, ubah status/urgensi/desa, tambah dari WhatsApp (tempel atau .txt, nomor disamarkan di browser, batch 18 pesan), meja periksa kejadian dengan angka berbeda yang wajib dipilih, salin ringkasan WhatsApp. E2E: status korban berubah saat petugas bertindak.
 
+- **Fase 4. Papan info dan tanya** (lokal): penyunting papan terstruktur (pengungsian, titik bantuan, kebutuhan, kontak, catatan), usulan isi dari laporan resmi (AI dengan verifikasi kutipan, atau tanpa AI dari kebutuhan yang paling sering dipilih), terbitkan dengan riwayat versi, halaman publik per desa dengan bagikan ke WhatsApp, tanya papan info dengan penjaga jawaban. Test: 6 jenis jawaban tak didukung selalu diganti "Belum ada informasi resmi".
+
 ## Sedang dikerjakan
 
-- Fase 4. Papan info dan tanya.
+- Fase 5. Demo dan rilis.
 
 ## Langkah berikutnya
 
