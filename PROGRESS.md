@@ -1,41 +1,50 @@
 # Progres Testara
 
-Diperbarui otomatis selama mode otonom. Waktu: 15 November 2026.
+Diperbarui di akhir sesi mode otonom, 15 November 2026. Batas pengumpulan: 20 November 2026 pukul 23.59 WIB.
 
-## Fase selesai
+## Fase selesai (semua masih lokal, belum di-push)
 
-- **Fase 0. Persiapan** (lokal): Next.js 16 + TS strict + Tailwind token sendiri + ESLint/Prettier + Vitest + Playwright, skema Supabase + RLS (`supabase/migrations/`), `.env.example`, CI GitHub Actions, rencana desain (`docs/DESIGN.md`), keputusan (`docs/DECISIONS.md`), data wilayah Bengkulu.
-- **Fase 1. Sisi korban tanpa AI** (lokal): halaman lapor, simpan laporan, kode dan tanda terima, halaman status dengan linimasa, draf di perangkat, cadangan WhatsApp. E2E lulus termasuk skenario jaringan dimatikan.
+- **Fase 0. Persiapan**: Next.js 16.4 + TS strict + Tailwind dengan token sendiri + ESLint/Prettier + Vitest + Playwright, skema Supabase + RLS (`supabase/migrations/`), `.env.example`, CI GitHub Actions, rencana desain (`docs/DESIGN.md`), keputusan (`docs/DECISIONS.md`), data wilayah Bengkulu (MIT).
+- **Fase 1. Sisi korban tanpa AI**: halaman lapor, simpan laporan, kode dan tanda terima, halaman status dengan linimasa, draf di perangkat, cadangan WhatsApp saat sinyal jelek. Formulir juga bekerja tanpa JavaScript.
+- **Fase 2. AI laporan**: Groq `openai/gpt-oss-120b` + cadangan Gemini `gemini-3.5-flash-lite`, cache, anggaran harian, fallback, validasi Zod dengan satu kali ulang, verifikasi kutipan, penjaga angka, aturan urgensi.
+- **Fase 3. Sisi petugas**: masuk petugas (Supabase Auth) dan petugas demo satu klik, antrean, tambah dari WhatsApp, meja periksa dengan angka berbeda, salin ringkasan WhatsApp.
+- **Fase 4. Papan info dan tanya**: penyunting papan, usulan dari laporan resmi, terbitkan dengan riwayat versi, halaman publik, tanya dengan penjaga jawaban.
+- **Fase 5. Demo dan rilis**: sesi demo dengan 12 laporan contoh dan papan 2 desa, contoh chat WhatsApp, retensi harian (`/api/cron/retensi` + workflow), batas laju, anggaran, `/api/health`, uji Slow 3G dan tanpa JS, screenshot 375/1440 dan kritik desain, E2E alur demo juri, skrip eval, README, halaman Cara kerja dan Privasi.
 
-- **Fase 2. AI laporan** (lokal): penyedia Groq (`openai/gpt-oss-120b`) dan Gemini (`gemini-3.5-flash-lite`) di balik `AIProvider`, cache sha256, anggaran harian, fallback otomatis saat 429/5xx/timeout, validasi Zod dengan satu kali ulang, verifikasi kutipan, penjaga angka ringkasan, aturan urgensi. Belum pernah diuji dengan panggilan AI sungguhan karena kunci belum ada; perilaku diuji dengan penyedia palsu di unit test.
-
-- **Fase 3. Sisi petugas** (lokal): masuk petugas (Supabase Auth, belum bisa diuji tanpa proyek Supabase) dan petugas demo satu klik, antrean urut urgensi lalu waktu dengan filter desa/status, detail laporan dengan stabilo kutipan, ubah status/urgensi/desa, tambah dari WhatsApp (tempel atau .txt, nomor disamarkan di browser, batch 18 pesan), meja periksa kejadian dengan angka berbeda yang wajib dipilih, salin ringkasan WhatsApp. E2E: status korban berubah saat petugas bertindak.
-
-- **Fase 4. Papan info dan tanya** (lokal): penyunting papan terstruktur (pengungsian, titik bantuan, kebutuhan, kontak, catatan), usulan isi dari laporan resmi (AI dengan verifikasi kutipan, atau tanpa AI dari kebutuhan yang paling sering dipilih), terbitkan dengan riwayat versi, halaman publik per desa dengan bagikan ke WhatsApp, tanya papan info dengan penjaga jawaban. Test: 6 jenis jawaban tak didukung selalu diganti "Belum ada informasi resmi".
+Hasil gerbang terakhir: `prettier --check` bersih, `lint` bersih, `typecheck` bersih, 138 unit test lulus, `build` lulus, 15 E2E lulus (alur demo juri selesai sekitar 4 detik dengan AI mati).
 
 ## Sedang dikerjakan
 
-- Fase 5. Demo dan rilis.
+Tidak ada. Fase 6 tidak dimulai (sesuai Bagian 0A).
 
 ## Langkah berikutnya
 
-Fase 2 sampai 5 sesuai CLAUDE.md Bagian 11.
+1. Selesaikan "Butuh tindakan saya" di bawah (urut sesuai nomor).
+2. Setelah kunci AI ada: `npm run demo:generate`, `npm run eval`, commit `data/demo/ai-results.json` dan `eval/RESULTS.md`, lalu tambahkan kasus eval berlabel manual di `eval/cases/`.
+3. Uji langsung di URL produksi: alur demo, `/api/health` (harus `"storage": "supabase"`), dan satu pertanyaan tanya papan info dengan AI menyala.
 
 ## Butuh tindakan saya
 
-1. **Repo GitHub belum ada, jadi belum ada push dan belum ada deploy Vercel.** Saat mulai, repo lokal tidak punya remote. Saya mencoba membuat repo privat `ItsBayyyy/testara` dengan `gh repo create`, tapi perintah itu ditolak oleh pengaman mode otomatis Claude Code (dianggap komunikasi keluar yang tidak diizinkan). Saya tidak mencoba jalan lain. Semua commit ada di branch lokal `main`. Langkah untuk Anda:
+1. **Repo GitHub dan push.** Repo lokal tidak punya remote. Saya mencoba `gh repo create ItsBayyyy/testara --private ...`, tapi perintah itu ditolak pengaman mode otomatis Claude Code, dan saya tidak mencoba jalan lain. Semua commit ada di branch lokal `main`. Jalankan:
    ```bash
    gh repo create ItsBayyyy/testara --private --source=. --remote=origin --push
    ```
-   Lalu di Vercel: Import Project dari repo itu (framework Next.js terdeteksi otomatis), isi variabel lingkungan dari `.env.example`. Lomba mewajibkan repo **publik** sebelum 20 November.
-2. **Proyek Supabase belum ada.** Akun Supabase Anda sudah punya dua proyek free tier (`Bot Wa`, `aplikasi keuangan`), dan saya tidak membuat proyek baru karena itu mengubah akun Anda dan bisa melewati batas free tier. Tanpa Supabase, aplikasi memakai penyimpanan memori (data hilang saat server mulai ulang; `/api/health` menampilkan `"storage": "memori"`). Langkah:
-   - Buat proyek Supabase baru (region Singapura/Tokyo), lalu jalankan `supabase/migrations/20261115000000_init.sql` di SQL Editor atau `supabase db push`.
-   - Isi `SUPABASE_URL`, `SUPABASE_ANON_KEY` (kunci publishable `sb_publishable_...`), `SUPABASE_SERVICE_ROLE_KEY` (kunci secret `sb_secret_...`). Lihat `docs/DECISIONS.md` D6.
-3. **Kunci AI belum ada** (`GROQ_API_KEY`, `GEMINI_API_KEY`). Tanpa kunci, laporan tetap tersimpan dengan urgensi dari aturan dan label "belum dirapikan AI".
+   Lomba mewajibkan repo **publik**; ubah visibilitas sebelum 20 November.
+2. **Vercel.** Import repo di Vercel (Next.js terdeteksi otomatis), isi variabel lingkungan dari `.env.example`, deploy. Isi tautan live di README bagian "Coba dalam 2 menit".
+3. **Supabase.** Akun Anda sudah punya dua proyek free tier, jadi saya tidak membuat proyek baru. Buat proyek baru (atau pakai yang ada), jalankan `supabase/migrations/20261115000000_init.sql`, isi `SUPABASE_URL`, `SUPABASE_ANON_KEY` (kunci `sb_publishable_...`), `SUPABASE_SERVICE_ROLE_KEY` (kunci `sb_secret_...`). Tanpa ini aplikasi memakai penyimpanan memori yang **tidak andal di Vercel** (data bisa hilang antar permintaan).
+4. **Kunci AI**: `GROQ_API_KEY` dan `GEMINI_API_KEY` di `.env.local` dan Vercel. Lalu langkah 2 di "Langkah berikutnya".
+5. **Rahasia lain**: `IP_HASH_SALT` dan `CRON_SECRET` (string acak panjang) di Vercel; secret repo GitHub `APP_URL` dan `CRON_SECRET` untuk workflow retensi.
+6. **Akun petugas** untuk uji masuk sungguhan: buat di Supabase Dashboard lalu `insert into public.staff ...` (lihat README). Alur masuk petugas sungguhan belum pernah diuji karena belum ada proyek Supabase.
+7. **README**: isi bagian Tim dan tautan live.
 
 ## Perlu ditinjau
 
-- Rencana desain dan palet: `docs/DESIGN.md` (saya memutuskan sendiri sesuai Bagian 7).
-- Kabupaten demo: Bengkulu Tengah (`REGENCY_CODE=17.09`), lihat `docs/DECISIONS.md` D5.
-- Cache Components Next.js dimatikan (D1).
-- Desa di formulir lapor tidak wajib: jika desa tidak ditemukan, cerita wajib diisi supaya lokasinya tetap tertulis.
+- **Belum pernah ada panggilan AI sungguhan.** Prompt, skema strict Groq, dan format `responseJsonSchema` Gemini ditulis dari dokumentasi resmi (dicek 15 Nov 2026), tapi baru diuji dengan penyedia palsu. Dokumentasi Gemini menyebut dua nama field structured output; jika Gemini menolak, cek `src/lib/ai/providers/gemini.ts`.
+- **Demo tanpa hasil AI**: 12 laporan contoh tampil "belum dirapikan AI", dan meja periksa demo belum menampilkan angka berbeda sampai `npm run demo:generate` dijalankan (D14).
+- **TPM Groq free tier 8K**: batch WhatsApp 18 pesan bisa mendekati batas; saat 429, sistem pindah ke Gemini. Jika sering terjadi, turunkan ukuran batch di `src/lib/whatsapp/parse.ts` (`toBatches`).
+- Rencana desain dan palet: `docs/DESIGN.md`, termasuk tabel kritik setelah screenshot.
+- Kabupaten demo Bengkulu Tengah (`REGENCY_CODE=17.09`), D5.
+- Cache Components Next.js dimatikan, D1.
+- Formulir lapor dibuat bisa jalan tanpa JavaScript, D11.
+- Desa tidak wajib di formulir; jika kosong, cerita wajib, D17.
+- `CLAUDE.md` dan `.claude/settings.json` ikut di-commit (brief proyek dan aturan izin). Hapus dari repo sebelum dipublikasikan jika tidak ingin terlihat juri.
