@@ -67,4 +67,32 @@ test.describe("sisi petugas (mode demo, AI mati)", () => {
     });
     expect(res.status()).toBe(401);
   });
+  test("terbitkan papan info, warga melihat dan bertanya (AI mati)", async ({ page }) => {
+    await page.goto("/demo/petugas");
+    await page.getByRole("link", { name: "Papan info" }).click();
+    await page
+      .getByLabel("Sunting papan desa")
+      .selectOption({ label: "Srikaton, Kec. Pondok Kelapa" });
+    await page.getByRole("button", { name: "Buka" }).click();
+    await expect(page.getByRole("heading", { name: "Papan info Desa Srikaton" })).toBeVisible();
+
+    await page.getByRole("button", { name: "Tambah pengungsian" }).click();
+    await page.getByLabel("Nama tempat").fill("Masjid Al Huda");
+    await page.getByLabel("Lokasi", { exact: true }).fill("Dusun 1, dekat pasar");
+    await page.getByRole("button", { name: "Tambah kontak" }).click();
+    await page.getByLabel("Nama posko/petugas").fill("Posko Srikaton (nomor contoh)");
+    await page.getByLabel("Nomor telepon").fill("0812-0000-0202");
+    await page.getByRole("button", { name: "Terbitkan papan info" }).click();
+    await expect(page.getByText("Papan info diterbitkan.")).toBeVisible();
+    await expect(page.getByText("(tampil sekarang)")).toBeVisible();
+
+    await page.goto("/info/1709032010");
+    await expect(page.getByRole("heading", { name: "Papan info Desa Srikaton" })).toBeVisible();
+    await expect(page.getByText("Masjid Al Huda")).toBeVisible();
+    await page.getByLabel("Pertanyaan").fill("posko terdekat di mana?");
+    await page.getByRole("button", { name: "Tanya" }).click();
+    await expect(page.getByText("Belum ada informasi resmi untuk itu.")).toBeVisible();
+    await expect(page.getByRole("link", { name: "Pengungsian: Masjid Al Huda" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "0812-0000-0202" }).first()).toBeVisible();
+  });
 });
