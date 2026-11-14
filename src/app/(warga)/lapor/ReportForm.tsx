@@ -150,6 +150,10 @@ function ReportFormInner({
     if (result.kind === "ok") {
       rememberReport(result.code);
       clearDraft();
+      // Perapian AI berjalan terpisah; kegagalannya tidak memengaruhi pelapor.
+      fetch(`/api/reports/${result.id}/process`, { method: "POST", keepalive: true }).catch(
+        () => {},
+      );
       router.push(`/status/${result.code}?baru=1`);
       return;
     }
