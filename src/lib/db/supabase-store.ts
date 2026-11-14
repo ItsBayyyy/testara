@@ -171,16 +171,14 @@ export class SupabaseStore implements Store {
 
   async addEvents(events: ReportEvent[]) {
     if (events.length === 0) return;
-    const { error } = await this.db
-      .from("report_events")
-      .insert(
-        events.map((e) => ({
-          report_id: e.reportId,
-          status: e.status,
-          actor: e.actor,
-          created_at: e.createdAt,
-        })),
-      );
+    const { error } = await this.db.from("report_events").insert(
+      events.map((e) => ({
+        report_id: e.reportId,
+        status: e.status,
+        actor: e.actor,
+        created_at: e.createdAt,
+      })),
+    );
     if (error) fail("insert events", error);
   }
 
