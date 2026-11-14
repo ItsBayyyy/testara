@@ -91,7 +91,15 @@ export function capitalizedPhrases(text: string): string[] {
   return out;
 }
 
-export function guardAnswer(output: AskModelOutput, items: BoardItem[]): GuardResult {
+/**
+ * `extraAllowed` berisi teks yang boleh disebut walau tidak ada di butir papan,
+ * mis. nomor darurat yang memang diberikan ke model.
+ */
+export function guardAnswer(
+  output: AskModelOutput,
+  items: BoardItem[],
+  extraAllowed: string[] = [],
+): GuardResult {
   if (!output.found) return { ok: false, reason: "model menyatakan data tidak ada" };
   if (!output.answer.trim()) return { ok: false, reason: "jawaban kosong" };
   if (output.usedItems.length === 0) return { ok: false, reason: "tidak merujuk butir papan" };
@@ -104,7 +112,7 @@ export function guardAnswer(output: AskModelOutput, items: BoardItem[]): GuardRe
     used.push(item);
   }
 
-  const evidence = used.map((i) => i.text);
+  const evidence = [...used.map((i) => i.text), ...extraAllowed];
   const allowedNumbers = new Set(evidence.flatMap(numbersInText));
   const missingNumber = numbersInText(output.answer).find((n) => !allowedNumbers.has(n));
   if (missingNumber !== undefined) {
