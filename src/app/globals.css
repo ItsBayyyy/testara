@@ -1,0 +1,266 @@
+@import "tailwindcss";
+
+/* Token desain Testara. Palet bawaan Tailwind dimatikan agar hanya token ini
+   yang bisa dipakai. Alasan setiap nilai: docs/DESIGN.md. */
+@theme {
+  --color-*: initial;
+  --color-bg: #f3f5f4;
+  --color-surface: #ffffff;
+  --color-ink: #1b2a3a;
+  --color-ink-2: #566573;
+  --color-line: #c9d1cd;
+  --color-line-strong: #7a8890;
+  --color-action: #e8620c;
+  --color-action-ink: #a84505;
+  --color-action-wash: #fdebdd;
+  --color-mark: #ffe14d;
+  --color-done: #2e7d4f;
+  --color-done-wash: #e3f1e8;
+  --color-focus: #1f5fbf;
+  --color-white: #ffffff;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --font-sans: var(--font-atkinson), system-ui, sans-serif;
+  --font-mono: var(--font-atkinson-mono), ui-monospace, monospace;
+
+  --radius-field: 8px;
+  --radius-choice: 12px;
+  --radius-receipt: 16px;
+
+  --shadow-float: 0 6px 24px rgb(27 42 58 / 0.18);
+}
+
+@layer base {
+  html {
+    background: var(--color-bg);
+    color: var(--color-ink);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.55;
+    min-height: 100dvh;
+  }
+
+  /* Sisi korban memakai teks dasar 18 px; sisi petugas 16 px (lebih padat). */
+  .face-warga {
+    font-size: 1.125rem;
+  }
+
+  .face-petugas {
+    font-size: 1rem;
+  }
+
+  h1,
+  h2,
+  h3 {
+    line-height: 1.25;
+    font-weight: 700;
+    text-wrap: balance;
+  }
+
+  a {
+    color: inherit;
+    text-underline-offset: 3px;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: var(--color-mark);
+    color: var(--color-ink);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Tombol */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 48px;
+    padding: 0.625rem 1.25rem;
+    border-radius: var(--radius-field);
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition:
+      background-color 120ms ease,
+      border-color 120ms ease;
+  }
+
+  .btn:disabled,
+  .btn[aria-disabled="true"] {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .btn-primary {
+    background: var(--color-ink);
+    color: var(--color-white);
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    background: #2b3e52;
+  }
+
+  .btn-secondary {
+    background: var(--color-surface);
+    color: var(--color-ink);
+    border-color: var(--color-ink);
+  }
+
+  .btn-secondary:hover:not(:disabled) {
+    background: var(--color-bg);
+  }
+
+  .btn-quiet {
+    background: transparent;
+    color: var(--color-ink);
+    border-color: var(--color-line-strong);
+  }
+
+  .btn-quiet:hover:not(:disabled) {
+    background: var(--color-surface);
+  }
+
+  .btn-compact {
+    min-height: 40px;
+    padding: 0.375rem 0.875rem;
+    font-size: 0.9375rem;
+  }
+
+  /* Kolom isian */
+  .field {
+    display: block;
+    width: 100%;
+    min-height: 48px;
+    padding: 0.625rem 0.75rem;
+    border: 1.5px solid var(--color-line-strong);
+    border-radius: var(--radius-field);
+    background: var(--color-surface);
+    color: var(--color-ink);
+  }
+
+  .field::placeholder {
+    color: var(--color-ink-2);
+  }
+
+  .field[aria-invalid="true"] {
+    border-color: var(--color-action);
+    border-width: 2px;
+  }
+
+  .label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 0.375rem;
+  }
+
+  .hint {
+    color: var(--color-ink-2);
+    font-size: 0.9375rem;
+  }
+
+  .error-text {
+    color: var(--color-action-ink);
+    font-weight: 700;
+  }
+
+  /* Tombol pilihan kebutuhan korban: besar dan berisi. */
+  .choice {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    min-height: 64px;
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--color-line-strong);
+    border-radius: var(--radius-choice);
+    background: var(--color-surface);
+    font-weight: 700;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .choice[aria-pressed="true"] {
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+    color: var(--color-white);
+  }
+
+  .check {
+    width: 24px;
+    height: 24px;
+    accent-color: var(--color-ink);
+    flex-shrink: 0;
+  }
+
+  /* Penanda urgensi tinggi / angka berbeda: garis oranye, bukan latar merah. */
+  .flag-action {
+    border-left: 4px solid var(--color-action);
+  }
+
+  /* Stabilo kutipan sumber. Sapuan singkat saat disorot. */
+  .mark-source {
+    background: linear-gradient(var(--color-mark), var(--color-mark)) no-repeat left / 100% 100%;
+    color: var(--color-ink);
+    border-radius: 2px;
+    padding: 0 1px;
+  }
+
+  .mark-source[data-sweep="true"] {
+    animation: sweep 200ms ease-out;
+  }
+
+  .num {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .code-text {
+    font-family: var(--font-mono);
+    letter-spacing: 0.02em;
+  }
+
+  .panel {
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+  }
+
+  .sr-only-focusable:not(:focus) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+@keyframes sweep {
+  from {
+    background-size: 0% 100%;
+  }
+  to {
+    background-size: 100% 100%;
+  }
+}

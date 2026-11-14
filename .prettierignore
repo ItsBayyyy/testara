@@ -1,0 +1,7 @@
+.next
+node_modules
+package-lock.json
+data/wilayah/bengkulu.json
+playwright-report
+test-results
+CLAUDE.md
