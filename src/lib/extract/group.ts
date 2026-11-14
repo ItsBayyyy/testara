@@ -17,6 +17,8 @@ export type GroupableReport = {
 
 export type ValueEvidence = {
   reportId: string;
+  /** Urutan klaim di laporan, untuk menunjuk kutipan yang tepat di layar. */
+  claimIndex: number;
   publicCode: string;
   quote: string;
   approximate: boolean;
@@ -81,10 +83,11 @@ export function groupIncidents(reports: GroupableReport[]): IncidentGroup[] {
     g.reportIds.push(r.id);
     if (r.at > g.lastAt) g.lastAt = r.at;
 
-    for (const c of r.claims) {
+    for (const [claimIndex, c] of r.claims.entries()) {
       const list = g.byField.get(c.field) ?? [];
       const evidence: ValueEvidence = {
         reportId: r.id,
+        claimIndex,
         publicCode: r.publicCode,
         quote: c.quote,
         approximate: c.approximate,
