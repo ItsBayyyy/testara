@@ -264,3 +264,8 @@
     background-size: 100% 100%;
   }
 }
+
+/* Cincin fokus biru tidak terlihat di atas latar tinta; pakai warna stabilo. */
+.bg-ink :focus-visible {
+  outline-color: var(--color-mark);
+}
