@@ -1,0 +1,24 @@
+name: Retensi data harian
+
+# Menghapus laporan lewat 30 hari dan data demo lebih dari 24 jam.
+# Butuh secret repo: APP_URL (mis. https://testara.vercel.app) dan CRON_SECRET.
+on:
+  schedule:
+    - cron: "17 19 * * *" # 02.17 WIB
+  workflow_dispatch:
+
+jobs:
+  retensi:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Panggil route retensi
+        env:
+          APP_URL: ${{ secrets.APP_URL }}
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: |
+          if [ -z "$APP_URL" ] || [ -z "$CRON_SECRET" ]; then
+            echo "Secret APP_URL atau CRON_SECRET belum diisi."; exit 1
+          fi
+          curl --fail --silent --show-error -X POST \
+            -H "Authorization: Bearer $CRON_SECRET" \
+            "$APP_URL/api/cron/retensi"
