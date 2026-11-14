@@ -35,3 +35,26 @@ Atkinson Hyperlegible Next (variabel, mendukung `tnum`) dan Atkinson Hyperlegibl
 
 ### D10. Repo GitHub dibuat **privat**
 Tidak ada remote saat mulai. Agar bisa "push ke main", repo `testara` dibuat di akun GitHub yang sudah login dengan visibilitas **privat**, karena membuat kode publik adalah keputusan Anda. Lomba mewajibkan repo publik: ubah visibilitas sebelum pengumpulan (lihat PROGRESS.md).
+
+## Fase 1 sampai 5
+
+### D11. Formulir lapor tanpa ketergantungan JavaScript
+Uji Slow 3G menunjukkan formulir bisa dikirim sebelum JavaScript termuat, dan isian hilang. Formulir sekarang berupa `<form method="post" action="/api/reports/form">` biasa yang diperkaya JS: tombol kebutuhan adalah checkbox asli bergaya kartu, isian tidak dikendalikan React (teks yang diketik sebelum hidrasi tidak terhapus), dan desa yang hanya diketik dicocokkan di server. Tanpa JS, perapian AI dijalankan lewat `after()` di server.
+
+### D12. Petugas demo tanpa kata sandi
+Masuk petugas demo hanya menyalakan cookie `demo_petugas` di dalam sesi demo. Lingkup datanya diambil dari sesi demo itu, jadi tidak pernah bisa melihat data sungguhan. Petugas sungguhan selalu memakai lingkup data sungguhan, walau perangkatnya punya cookie demo.
+
+### D13. Status laporan dan linimasa
+Petugas bisa langsung memilih "Masuk laporan resmi" atau "Perlu konfirmasi" dari "Diterima"; linimasa korban tetap mencatat "Dibaca petugas" lebih dulu karena status akhir mustahil tanpa dibaca. "Resmi" dan "Perlu konfirmasi" boleh saling berganti.
+
+### D14. Hasil AI data contoh belum ada
+CLAUDE.md melarang membuat hasil AI tanpa memanggil AI. Kunci AI belum tersedia, jadi `data/demo/ai-results.json` masih kosong dan 12 laporan contoh tampil "belum dirapikan AI". Akibatnya meja periksa demo belum menampilkan angka berbeda. Setelah kunci diisi, jalankan `npm run demo:generate` dan commit hasilnya.
+
+### D15. Contoh chat WhatsApp di `public/contoh/`
+Contoh ekspor grup WhatsApp disajikan sebagai berkas statis supaya juri bisa memakainya dengan satu tombol di mode demo atau mengunduhnya. Baris pertama berkas menandainya sebagai contoh fiktif (baris sebelum pesan pertama diabaikan parser).
+
+### D16. Batas laju di E2E
+Setiap tes E2E memakai header `x-forwarded-for` acak agar batas 5 laporan per jam tidak saling memengaruhi. Di Vercel, header itu diisi oleh platform, bukan oleh klien.
+
+### D17. Desa pada laporan
+Desa tidak wajib dipilih di formulir. Jika tidak dipilih, cerita wajib diisi (lokasinya tertulis di sana), AI mencoba mencocokkan lokasi, dan petugas bisa menetapkan desa di detail laporan.
