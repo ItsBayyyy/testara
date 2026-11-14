@@ -52,15 +52,17 @@ export function quickValidate(d: ReportDraft): Record<string, string> {
 export function readDraft(): ReportDraft | null {
   try {
     const raw = localStorage.getItem(DRAFT_KEY);
-    const village = localStorage.getItem(VILLAGE_KEY);
-    const parsed = raw ? (JSON.parse(raw) as Partial<ReportDraft>) : {};
-    if (!raw && !village) return null;
-    return {
-      ...EMPTY_DRAFT,
-      ...parsed,
-      villageCode: parsed.villageCode ?? village ?? null,
-      consent: false,
-    };
+    if (!raw) return null;
+    return { ...EMPTY_DRAFT, ...(JSON.parse(raw) as Partial<ReportDraft>), consent: false };
+  } catch {
+    return null;
+  }
+}
+
+/** Desa yang terakhir dipilih di perangkat ini, dari draf atau laporan sebelumnya. */
+export function readLastVillage(): string | null {
+  try {
+    return readDraft()?.villageCode ?? localStorage.getItem(VILLAGE_KEY);
   } catch {
     return null;
   }

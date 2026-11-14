@@ -189,6 +189,7 @@
 
   /* Tombol pilihan kebutuhan korban: besar dan berisi. */
   .choice {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 0.625rem;
@@ -202,10 +203,35 @@
     cursor: pointer;
   }
 
-  .choice[aria-pressed="true"] {
+  /* Kotak centang asli disembunyikan secara visual; kartu ikut status centangnya,
+     jadi tetap berfungsi tanpa JavaScript dan terbaca pembaca layar. */
+  .choice-input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+  }
+
+  .choice:has(.choice-input:checked) {
     background: var(--color-ink);
     border-color: var(--color-ink);
     color: var(--color-white);
+  }
+
+  .choice:has(.choice-input:checked)::before {
+    content: "";
+    width: 0.625rem;
+    height: 1.125rem;
+    margin: 0 0.125rem -0.125rem 0.125rem;
+    border: solid var(--color-white);
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg) translateY(-3px);
+    flex-shrink: 0;
+  }
+
+  .choice:has(.choice-input:focus-visible) {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
   }
 
   .check {

@@ -81,7 +81,7 @@ export function VillagePicker({
         className="field"
         placeholder="Cari desa..."
         autoComplete="off"
-        value={query}
+        name="desaCari"
         onChange={(e) => setQuery(e.target.value)}
         aria-describedby={`${id}-hint ${error ? `${id}-error` : ""}`}
         aria-invalid={error ? true : undefined}

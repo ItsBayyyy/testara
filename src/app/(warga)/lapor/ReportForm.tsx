@@ -3,12 +3,12 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState, useSyncExternalStore, type FormEvent } from "react";
 import { NEED_LABELS, VULNERABLE_LABELS } from "@/lib/domain/labels";
-import { NEEDS, VULNERABLE, type Need, type Vulnerable } from "@/lib/domain/types";
+import { NEEDS, VULNERABLE } from "@/lib/domain/types";
 import {
   clearDraft,
-  EMPTY_DRAFT,
   quickValidate,
   readDraft,
+  readLastVillage,
   rememberReport,
   writeDraft,
   type ReportDraft,
@@ -17,7 +17,13 @@ import { buildFallbackReportMessage, whatsappLink } from "@/lib/whatsapp/format"
 import { CopyButton } from "@/components/CopyButton";
 import { VillagePicker, type VillageOption } from "./VillagePicker";
 
-type Phase = { kind: "isi" } | { kind: "mengirim" } | { kind: "gagal"; message: string };
+// Formulir ini bekerja tanpa JavaScript (kirim biasa ke /api/reports/form), lalu
+// diperkaya setelah JS termuat: validasi di tempat, draf, coba ulang, cadangan WhatsApp.
+// Isian sengaja tidak dikendalikan React supaya teks yang diketik sebelum JS
+// selesai dimuat (sinyal lambat) tidak terhapus saat hidrasi.
+
+type Phase =
+  { kind: "isi" } | { kind: "mengirim" } | { kind: "gagal"; message: string; text: string };
 
 type SendResult =
   | { kind: "ok"; id: string; code: string }
@@ -43,8 +49,9 @@ async function postOnce(draft: ReportDraft): Promise<SendResult | "ulang"> {
       fields?: Record<string, string>;
       message?: string;
     };
-    if (res.status === 201 && data.id && data.code)
+    if (res.status === 201 && data.id && data.code) {
       return { kind: "ok", id: data.id, code: data.code };
+    }
     if (res.status === 400) return { kind: "isian", fields: data.fields ?? {} };
     if (res.status === 429) return { kind: "gagal", message: data.message ?? SIGNAL_MESSAGE };
     return "ulang";
@@ -64,81 +71,81 @@ async function sendReport(draft: ReportDraft): Promise<SendResult> {
   return second === "ulang" ? { kind: "gagal", message: SIGNAL_MESSAGE } : second;
 }
 
-type FormProps = {
-  villages: VillageOption[];
-  poskoWhatsApp: string;
-  poskoIsExample: boolean;
-};
+function readForm(form: HTMLFormElement): ReportDraft {
+  const fd = new FormData(form);
+  return {
+    villageCode: String(fd.get("villageCode") ?? "") || null,
+    needs: fd.getAll("needs").map(String) as ReportDraft["needs"],
+    vulnerable: fd.getAll("vulnerable").map(String) as ReportDraft["vulnerable"],
+    story: String(fd.get("story") ?? ""),
+    forSelf: fd.get("forSelf") !== "0",
+    phone: String(fd.get("phone") ?? ""),
+    consent: fd.get("consent") === "1",
+  };
+}
+
+/** Isi kolom dari draf tersimpan, hanya jika pengguna belum mulai mengisi. */
+function restoreDraft(form: HTMLFormElement, draft: ReportDraft) {
+  const current = readForm(form);
+  const untouched =
+    current.story === "" &&
+    current.phone === "" &&
+    current.needs.length === 0 &&
+    current.vulnerable.length === 0;
+  if (!untouched) return;
+  const story = form.elements.namedItem("story");
+  if (story instanceof HTMLTextAreaElement) story.value = draft.story;
+  const phone = form.elements.namedItem("phone");
+  if (phone instanceof HTMLInputElement) phone.value = draft.phone;
+  for (const box of form.querySelectorAll<HTMLInputElement>('input[name="needs"]')) {
+    box.checked = (draft.needs as string[]).includes(box.value);
+  }
+  for (const box of form.querySelectorAll<HTMLInputElement>('input[name="vulnerable"]')) {
+    box.checked = (draft.vulnerable as string[]).includes(box.value);
+  }
+  for (const radio of form.querySelectorAll<HTMLInputElement>('input[name="forSelf"]')) {
+    radio.checked = radio.value === (draft.forSelf ? "1" : "0");
+  }
+}
 
 const noSubscribe = () => () => {};
 
-/**
- * Draf hanya ada di perangkat, jadi formulir dirender ulang sekali setelah
- * terbuka di browser dengan isian yang tersimpan.
- */
-export function ReportForm(props: FormProps) {
-  const onClient = useSyncExternalStore(
-    noSubscribe,
-    () => true,
-    () => false,
-  );
-  return (
-    <ReportFormInner
-      key={onClient ? "perangkat" : "server"}
-      initial={onClient ? (readDraft() ?? EMPTY_DRAFT) : EMPTY_DRAFT}
-      {...props}
-    />
-  );
-}
-
-function ReportFormInner({
-  initial,
+export function ReportForm({
   villages,
   poskoWhatsApp,
   poskoIsExample,
-}: FormProps & { initial: ReportDraft }) {
+}: {
+  villages: VillageOption[];
+  poskoWhatsApp: string;
+  poskoIsExample: boolean;
+}) {
   const router = useRouter();
-  const [draft, setDraft] = useState<ReportDraft>(initial);
-  const [errors, setErrors] = useState<Record<string, string>>({});
-  const [phase, setPhase] = useState<Phase>({ kind: "isi" });
+  const formRef = useRef<HTMLFormElement>(null);
   const summaryRef = useRef<HTMLDivElement>(null);
   const fallbackRef = useRef<HTMLDivElement>(null);
+  // Desa terakhir dibaca dari perangkat; `undefined` berarti belum memilih di kunjungan ini.
+  const storedVillage = useSyncExternalStore(noSubscribe, readLastVillage, () => null);
+  const [chosenVillage, setChosenVillage] = useState<string | null | undefined>(undefined);
+  const villageCode = chosenVillage === undefined ? storedVillage : chosenVillage;
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [phase, setPhase] = useState<Phase>({ kind: "isi" });
+
+  useEffect(() => {
+    const saved = readDraft();
+    if (formRef.current && saved) restoreDraft(formRef.current, saved);
+  }, []);
 
   useEffect(() => {
     if (phase.kind === "gagal") fallbackRef.current?.focus();
   }, [phase]);
 
-  // Simpan ke perangkat di setiap perubahan agar tidak hilang saat halaman dimuat ulang.
-  const update = (patch: Partial<ReportDraft>) => {
-    const next = { ...draft, ...patch };
-    setDraft(next);
-    writeDraft(next);
-  };
+  function saveDraft() {
+    if (formRef.current) writeDraft(readForm(formRef.current));
+  }
 
-  const toggleNeed = (n: Need) =>
-    update({
-      needs: draft.needs.includes(n) ? draft.needs.filter((x) => x !== n) : [...draft.needs, n],
-    });
-
-  const toggleVulnerable = (v: Vulnerable) =>
-    update({
-      vulnerable: draft.vulnerable.includes(v)
-        ? draft.vulnerable.filter((x) => x !== v)
-        : [...draft.vulnerable, v],
-    });
-
-  const villageLabel = villages.find((v) => v.code === draft.villageCode)?.label ?? null;
-  const fallbackText = buildFallbackReportMessage({
-    villageLabel,
-    needs: draft.needs,
-    vulnerable: draft.vulnerable,
-    story: draft.story,
-    forSelf: draft.forSelf,
-    phone: draft.phone.trim() || null,
-  });
-
-  async function onSubmit(e: FormEvent) {
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const draft = readForm(e.currentTarget);
     const found = quickValidate(draft);
     setErrors(found);
     if (Object.keys(found).length > 0) {
@@ -163,14 +170,30 @@ function ReportFormInner({
       requestAnimationFrame(() => summaryRef.current?.focus());
       return;
     }
-    setPhase({ kind: "gagal", message: result.message });
+    const text = buildFallbackReportMessage({
+      villageLabel: villages.find((v) => v.code === draft.villageCode)?.label ?? null,
+      needs: draft.needs,
+      vulnerable: draft.vulnerable,
+      story: draft.story,
+      forSelf: draft.forSelf,
+      phone: draft.phone.trim() || null,
+    });
+    setPhase({ kind: "gagal", message: result.message, text });
   }
 
   const errorList = Object.values(errors);
   const sending = phase.kind === "mengirim";
 
   return (
-    <form onSubmit={onSubmit} noValidate className="flex flex-col gap-8">
+    <form
+      ref={formRef}
+      method="post"
+      action="/api/reports/form"
+      onSubmit={onSubmit}
+      onChange={saveDraft}
+      noValidate
+      className="flex flex-col gap-8"
+    >
       {errorList.length > 0 && (
         <div ref={summaryRef} tabIndex={-1} role="alert" className="flag-action panel px-4 py-3">
           <p className="font-bold">Laporan belum bisa dikirim:</p>
@@ -182,10 +205,14 @@ function ReportFormInner({
         </div>
       )}
 
+      <input type="hidden" name="villageCode" value={villageCode ?? ""} />
       <VillagePicker
         villages={villages}
-        value={draft.villageCode}
-        onChange={(code) => update({ villageCode: code })}
+        value={villageCode}
+        onChange={(code) => {
+          setChosenVillage(code);
+          if (formRef.current) writeDraft({ ...readForm(formRef.current), villageCode: code });
+        }}
         error={errors.villageCode}
       />
 
@@ -194,15 +221,10 @@ function ReportFormInner({
         <p className="hint mb-2">Boleh pilih lebih dari satu.</p>
         <div className="grid grid-cols-2 gap-3">
           {NEEDS.map((n) => (
-            <button
-              key={n}
-              type="button"
-              className="choice"
-              aria-pressed={draft.needs.includes(n)}
-              onClick={() => toggleNeed(n)}
-            >
+            <label key={n} className="choice">
+              <input type="checkbox" name="needs" value={n} className="choice-input" />
               {NEED_LABELS[n]}
-            </button>
+            </label>
           ))}
         </div>
         {errors.needs && <p className="error-text mt-2">{errors.needs}</p>}
@@ -213,12 +235,7 @@ function ReportFormInner({
         <div className="grid grid-cols-1 gap-x-4 gap-y-1 min-[400px]:grid-cols-2">
           {VULNERABLE.map((v) => (
             <label key={v} className="flex min-h-12 cursor-pointer items-center gap-3">
-              <input
-                type="checkbox"
-                className="check"
-                checked={draft.vulnerable.includes(v)}
-                onChange={() => toggleVulnerable(v)}
-              />
+              <input type="checkbox" name="vulnerable" value={v} className="check" />
               {VULNERABLE_LABELS[v]}
             </label>
           ))}
@@ -234,10 +251,9 @@ function ReportFormInner({
         </p>
         <textarea
           id="cerita"
+          name="story"
           className="field min-h-36"
-          value={draft.story}
           maxLength={2000}
-          onChange={(e) => update({ story: e.target.value })}
           aria-describedby={`cerita-hint${errors.story ? " cerita-error" : ""}`}
           aria-invalid={errors.story ? true : undefined}
         />
@@ -251,21 +267,14 @@ function ReportFormInner({
       <fieldset>
         <legend className="label">Laporan ini untuk siapa?</legend>
         <div className="flex flex-wrap gap-x-6">
-          {[
-            { value: true, label: "Untuk saya sendiri" },
-            { value: false, label: "Untuk orang lain" },
-          ].map((o) => (
-            <label key={o.label} className="flex min-h-12 cursor-pointer items-center gap-3">
-              <input
-                type="radio"
-                name="untuk"
-                className="check"
-                checked={draft.forSelf === o.value}
-                onChange={() => update({ forSelf: o.value })}
-              />
-              {o.label}
-            </label>
-          ))}
+          <label className="flex min-h-12 cursor-pointer items-center gap-3">
+            <input type="radio" name="forSelf" value="1" className="check" defaultChecked />
+            Untuk saya sendiri
+          </label>
+          <label className="flex min-h-12 cursor-pointer items-center gap-3">
+            <input type="radio" name="forSelf" value="0" className="check" />
+            Untuk orang lain
+          </label>
         </div>
       </fieldset>
 
@@ -279,12 +288,11 @@ function ReportFormInner({
         </p>
         <input
           id="hp"
+          name="phone"
           type="tel"
           inputMode="tel"
           autoComplete="tel"
           className="field"
-          value={draft.phone}
-          onChange={(e) => update({ phone: e.target.value })}
           aria-describedby={`hp-hint${errors.phone ? " hp-error" : ""}`}
           aria-invalid={errors.phone ? true : undefined}
         />
@@ -299,9 +307,9 @@ function ReportFormInner({
         <label className="flex cursor-pointer items-start gap-3">
           <input
             type="checkbox"
+            name="consent"
+            value="1"
             className="check mt-0.5"
-            checked={draft.consent}
-            onChange={(e) => update({ consent: e.target.checked })}
             aria-invalid={errors.consent ? true : undefined}
           />
           <span>
@@ -326,14 +334,14 @@ function ReportFormInner({
           </p>
           <a
             className="btn btn-primary"
-            href={whatsappLink(poskoWhatsApp, fallbackText)}
+            href={whatsappLink(poskoWhatsApp, phase.text)}
             target="_blank"
             rel="noopener noreferrer"
           >
             Kirim lewat WhatsApp
           </a>
           <CopyButton
-            text={fallbackText}
+            text={phase.text}
             label="Salin pesan"
             doneLabel="Pesan disalin. Tempel di WhatsApp atau SMS."
             className="btn btn-secondary w-full"
