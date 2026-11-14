@@ -1,0 +1,66 @@
+{
+  "note": "Kasus contoh buatan (synthetic) untuk menguji skrip eval. Tim menambah kasus berlabel manual di folder ini dengan format yang sama dan synthetic: false.",
+  "cases": [
+    {
+      "id": "lap-01",
+      "synthetic": true,
+      "input": {
+        "story": "air sdh masuk rmh, 6 rmh terendam di rt 4. warga ngungsi ke masjid",
+        "needs": ["pengungsian"],
+        "vulnerable": [],
+        "village": "Desa Srikaton, Kecamatan Pondok Kelapa"
+      },
+      "expected": { "urgency": "sedang", "claims": [{ "field": "rumah_terendam", "value": 6 }] }
+    },
+    {
+      "id": "lap-02",
+      "synthetic": true,
+      "input": {
+        "story": "kakek sy terjebak di loteng, air terus naik. tolong cepat",
+        "needs": [],
+        "vulnerable": ["lansia"],
+        "village": "Desa Taba Terunjam, Kecamatan Karang Tinggi"
+      },
+      "expected": { "urgency": "tinggi", "claims": [] }
+    },
+    {
+      "id": "lap-03",
+      "synthetic": true,
+      "input": {
+        "story": "longsor di belakang rmh, tiga rumah rusak berat, satu org luka ringan",
+        "needs": ["pengungsian"],
+        "vulnerable": [],
+        "village": "Desa Air Sebakul, Kecamatan Talang Empat"
+      },
+      "expected": {
+        "urgency": "sedang",
+        "claims": [
+          { "field": "rumah_rusak_berat", "value": 3 },
+          { "field": "luka", "value": 1 }
+        ]
+      }
+    },
+    {
+      "id": "lap-04",
+      "synthetic": true,
+      "input": {
+        "story": "puluhan warga ngungsi ke sekolah, butuh makanan",
+        "needs": ["makanan"],
+        "vulnerable": [],
+        "village": "Desa Pekik Nyaring, Kecamatan Pondok Kelapa"
+      },
+      "expected": { "urgency": "sedang", "claims": [] }
+    },
+    {
+      "id": "lap-05",
+      "synthetic": true,
+      "input": {
+        "story": "anak sy sesak napas, obat asma habis, jalan ke puskesmas putus",
+        "needs": ["obat"],
+        "vulnerable": ["orang_sakit"],
+        "village": "Desa Srikaton, Kecamatan Pondok Kelapa"
+      },
+      "expected": { "urgency": "tinggi", "claims": [] }
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "note": "Kasus contoh buatan (synthetic) untuk urgensi. Label: tinggi, sedang, rendah.",
+  "cases": [
+    {
+      "id": "urg-01",
+      "synthetic": true,
+      "input": {
+        "story": "air setinggi dada, ada org hanyut di sungai",
+        "needs": [],
+        "vulnerable": [],
+        "village": null
+      },
+      "expected": { "urgency": "tinggi" }
+    },
+    {
+      "id": "urg-02",
+      "synthetic": true,
+      "input": {
+        "story": "butuh air bersih utk 3 kk",
+        "needs": ["air_bersih"],
+        "vulnerable": [],
+        "village": null
+      },
+      "expected": { "urgency": "sedang" }
+    },
+    {
+      "id": "urg-03",
+      "synthetic": true,
+      "input": {
+        "story": "ibu hamil 9 bln mulai kontraksi, jalan terputus banjir",
+        "needs": [],
+        "vulnerable": ["ibu_hamil"],
+        "village": null
+      },
+      "expected": { "urgency": "tinggi" }
+    },
+    {
+      "id": "urg-04",
+      "synthetic": true,
+      "input": {
+        "story": "hujan sudah reda, air mulai surut, kami aman",
+        "needs": [],
+        "vulnerable": [],
+        "village": null
+      },
+      "expected": { "urgency": "rendah" }
+    },
+    {
+      "id": "urg-05",
+      "synthetic": true,
+      "input": {
+        "story": "bayi sy demam tinggi dr kemarin, di pengungsian tdk ada obat",
+        "needs": ["obat"],
+        "vulnerable": ["bayi_balita"],
+        "village": null
+      },
+      "expected": { "urgency": "tinggi" }
+    }
+  ]
+}

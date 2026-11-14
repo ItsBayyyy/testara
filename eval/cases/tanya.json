@@ -1,0 +1,61 @@
+{
+  "note": "Kasus contoh buatan (synthetic) untuk tanya papan info. expected.found: apakah jawabannya memang ada di papan.",
+  "board": {
+    "shelters": [{ "id": "p1", "name": "Masjid Nurul Iman", "location": "Dusun 1", "note": "" }],
+    "aidPoints": [
+      {
+        "id": "b1",
+        "kind": "air_bersih",
+        "name": "Tandon air bersih",
+        "location": "Halaman Masjid Nurul Iman",
+        "hours": "06.00-18.00",
+        "note": ""
+      },
+      {
+        "id": "b2",
+        "kind": "dapur_umum",
+        "name": "Dapur umum",
+        "location": "Rumah Kadus 1",
+        "hours": "12.00 dan 18.30",
+        "note": ""
+      }
+    ],
+    "announcedNeeds": [{ "id": "k1", "text": "Selimut" }],
+    "contacts": [
+      { "id": "c1", "name": "Posko desa (nomor contoh)", "phone": "0812-0000-0101", "note": "" }
+    ],
+    "notes": []
+  },
+  "cases": [
+    {
+      "id": "tny-01",
+      "synthetic": true,
+      "question": "di mana posko pengungsian?",
+      "expected": { "found": true }
+    },
+    {
+      "id": "tny-02",
+      "synthetic": true,
+      "question": "jam berapa tandon air buka?",
+      "expected": { "found": true }
+    },
+    {
+      "id": "tny-03",
+      "synthetic": true,
+      "question": "ada dokter di posko?",
+      "expected": { "found": false }
+    },
+    {
+      "id": "tny-04",
+      "synthetic": true,
+      "question": "kapan bantuan beras datang?",
+      "expected": { "found": false }
+    },
+    {
+      "id": "tny-05",
+      "synthetic": true,
+      "question": "nomor posko berapa?",
+      "expected": { "found": true }
+    }
+  ]
+}

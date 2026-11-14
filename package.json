@@ -12,8 +12,8 @@
     "test:e2e": "playwright test",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "eval": "tsx eval/run.ts",
-    "demo:generate": "tsx scripts/generate-demo-ai.ts"
+    "eval": "node --env-file-if-exists=.env.local --conditions=react-server --import tsx eval/run.ts",
+    "demo:generate": "node --env-file-if-exists=.env.local --conditions=react-server --import tsx scripts/generate-demo-ai.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",
