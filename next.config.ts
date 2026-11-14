@@ -12,6 +12,8 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // Ada package-lock.json lain di folder induk; batasi pelacakan berkas ke proyek ini.
+  outputFileTracingRoot: process.cwd(),
   turbopack: {
     rules: {
       "*.css": {

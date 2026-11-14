@@ -112,3 +112,28 @@ describe("verifikasi klaim", () => {
     expect(verifiedQuoteOrNull("apa saja", null)).toBeNull();
   });
 });
+
+describe("segmen sorotan kutipan", () => {
+  it("menandai kutipan dan menjaga teks lain", async () => {
+    const { segmentByQuotes } = await import("@/lib/text/highlight");
+    const segs = segmentByQuotes("air naik, 12 KK ngungsi ke balai", [
+      { id: "a", quote: "12 kk ngungsi" },
+      { id: "b", quote: "tidak ada" },
+    ]);
+    expect(segs).toEqual([
+      { text: "air naik, ", markId: null },
+      { text: "12 KK ngungsi", markId: "a" },
+      { text: " ke balai", markId: null },
+    ]);
+  });
+
+  it("kutipan tumpang tindih tidak menggandakan teks", async () => {
+    const { segmentByQuotes } = await import("@/lib/text/highlight");
+    const segs = segmentByQuotes("nenek tdk bisa keluar rmh", [
+      { id: "a", quote: "tdk bisa keluar" },
+      { id: "b", quote: "bisa keluar rmh" },
+    ]);
+    expect(segs.map((s) => s.text).join("")).toBe("nenek tdk bisa keluar rmh");
+    expect(segs.filter((s) => s.markId)).toHaveLength(1);
+  });
+});
