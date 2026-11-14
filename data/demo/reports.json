@@ -1,0 +1,125 @@
+{
+  "note": "Contoh fiktif untuk demonstrasi. Nama desa nyata (Kabupaten Bengkulu Tengah), kejadian dan orang fiktif, nomor HP palsu berpola 0812-0000-xxxx.",
+  "reports": [
+    {
+      "key": "terjebak-srikaton",
+      "villageCode": "17.09.03.2010",
+      "needs": ["evakuasi"],
+      "vulnerable": ["bayi_balita"],
+      "story": "Tolong pak, kami 5 org terjebak di lantai 2 rmh, air sdh sampe jendela. ada bayi 8 bln. dekat jembatan dusun 3",
+      "forSelf": true,
+      "phone": "0812-0000-1001",
+      "minutesAgo": 18
+    },
+    {
+      "key": "lansia-taba",
+      "villageCode": "17.09.01.2001",
+      "needs": ["evakuasi", "obat"],
+      "vulnerable": ["lansia", "disabilitas"],
+      "story": "nenek saya umur 78 tdk bisa keluar rmh, kakinya lumpuh. air sdh selutut di dalam rmh. sy di jakarta, tdk bisa hubungi tetangga",
+      "forSelf": false,
+      "phone": "0812-0000-1002",
+      "minutesAgo": 25
+    },
+    {
+      "key": "sakit-airsebakul",
+      "villageCode": "17.09.02.2001",
+      "needs": ["obat"],
+      "vulnerable": ["orang_sakit"],
+      "story": "bapak sy sakit gula, insulin habis dr kemarin. jalan ke puskesmas putus kena longsor",
+      "forSelf": false,
+      "phone": null,
+      "minutesAgo": 40
+    },
+    {
+      "key": "pekik-12kk",
+      "villageCode": "17.09.03.2011",
+      "needs": ["makanan", "pengungsian"],
+      "vulnerable": ["ibu_hamil"],
+      "story": "di pekik nyaring sdh 12 kk ngungsi ke masjid, ada ibu hamil 7 bln. blm ada makanan dr siang",
+      "forSelf": true,
+      "phone": "0812-0000-1004",
+      "minutesAgo": 55
+    },
+    {
+      "key": "pekik-15kk",
+      "villageCode": "17.09.03.2011",
+      "needs": ["makanan", "air_bersih"],
+      "vulnerable": [],
+      "story": "warga yg ngungsi di masjid kira2 15 kk, butuh air minum sama nasi bungkus. sumur warga keruh semua",
+      "forSelf": false,
+      "phone": "0812-0000-1005",
+      "minutesAgo": 47
+    },
+    {
+      "key": "iseng",
+      "villageCode": "17.09.02.2001",
+      "needs": ["lainnya"],
+      "vulnerable": [],
+      "story": "tes tes hp baru, ini aplikasi apa ya",
+      "forSelf": true,
+      "phone": null,
+      "minutesAgo": 70
+    },
+    {
+      "key": "tombol-saja",
+      "villageCode": "17.09.01.2001",
+      "needs": ["air_bersih", "makanan"],
+      "vulnerable": ["bayi_balita"],
+      "story": "",
+      "forSelf": true,
+      "phone": "0812-0000-1007",
+      "minutesAgo": 33
+    },
+    {
+      "key": "taba-terendam",
+      "villageCode": "17.09.01.2001",
+      "needs": ["pengungsian"],
+      "vulnerable": [],
+      "story": "rt 2 taba terunjam 8 rmh terendam, warga ngungsi ke balai desa. listrik mati dr jam 7 mlm",
+      "forSelf": true,
+      "phone": null,
+      "minutesAgo": 62
+    },
+    {
+      "key": "srikaton-air",
+      "villageCode": "17.09.03.2010",
+      "needs": ["air_bersih"],
+      "vulnerable": ["lansia"],
+      "story": "air bersih habis, kami di rmh panggung msh aman tp ada 2 lansia. tlg kirim air galon",
+      "forSelf": true,
+      "phone": "0812-0000-1009",
+      "minutesAgo": 90
+    },
+    {
+      "key": "airsebakul-longsor",
+      "villageCode": "17.09.02.2001",
+      "needs": ["lainnya"],
+      "vulnerable": [],
+      "story": "longsor tutup jalan desa air sebakul arah taba pasmah, motor blm bisa lewat. tdk ada korban",
+      "forSelf": true,
+      "phone": null,
+      "minutesAgo": 120
+    },
+    {
+      "key": "pekik-selimut",
+      "villageCode": "17.09.03.2011",
+      "needs": ["lainnya"],
+      "vulnerable": ["bayi_balita"],
+      "story": "pengungsi di masjid butuh selimut sm popok bayi, mlm ini dingin",
+      "forSelf": false,
+      "phone": null,
+      "minutesAgo": 35
+    },
+    {
+      "key": "srikaton-hanyut",
+      "villageCode": "17.09.03.2010",
+      "needs": ["pengungsian", "makanan"],
+      "vulnerable": [],
+      "story": "kandang sm perahu warga hanyut, rmh kami kemasukan lumpur. skrg numpang di rmh saudara",
+      "forSelf": true,
+      "phone": "0812-0000-1012",
+      "minutesAgo": 140
+    }
+  ]
+}

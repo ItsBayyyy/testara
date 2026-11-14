@@ -1,0 +1,90 @@
+{
+  "note": "Contoh fiktif untuk demonstrasi. Nomor telepon adalah nomor contoh, bukan nomor posko sungguhan.",
+  "boards": [
+    {
+      "villageCode": "17.09.03.2011",
+      "minutesAgo": 30,
+      "content": {
+        "shelters": [
+          {
+            "id": "p1",
+            "name": "Masjid Nurul Iman",
+            "location": "Dusun 1, Desa Pekik Nyaring",
+            "note": "Untuk keluarga dengan bayi, lansia, dan ibu hamil didahulukan di ruang samping."
+          }
+        ],
+        "aidPoints": [
+          {
+            "id": "b1",
+            "kind": "air_bersih",
+            "name": "Tandon air bersih",
+            "location": "Halaman Masjid Nurul Iman",
+            "hours": "06.00-18.00",
+            "note": "Bawa jeriken sendiri jika ada."
+          },
+          {
+            "id": "b2",
+            "kind": "dapur_umum",
+            "name": "Dapur umum Pekik Nyaring",
+            "location": "Rumah Kadus 1, sebelah masjid",
+            "hours": "makan siang 12.00, makan malam 18.30",
+            "note": ""
+          }
+        ],
+        "announcedNeeds": [
+          { "id": "k1", "text": "Selimut" },
+          { "id": "k2", "text": "Popok bayi" }
+        ],
+        "contacts": [
+          {
+            "id": "c1",
+            "name": "Posko Pekik Nyaring (nomor contoh)",
+            "phone": "0812-0000-0101",
+            "note": "Nomor contoh untuk demo."
+          }
+        ],
+        "notes": []
+      }
+    },
+    {
+      "villageCode": "17.09.01.2001",
+      "minutesAgo": 45,
+      "content": {
+        "shelters": [
+          {
+            "id": "p1",
+            "name": "Balai Desa Taba Terunjam",
+            "location": "Jalan desa, depan lapangan",
+            "note": ""
+          },
+          {
+            "id": "p2",
+            "name": "SD Negeri Taba Terunjam",
+            "location": "Dusun 2",
+            "note": "Dipakai jika balai desa penuh."
+          }
+        ],
+        "aidPoints": [
+          {
+            "id": "b1",
+            "kind": "pos_kesehatan",
+            "name": "Pos kesehatan",
+            "location": "Balai Desa Taba Terunjam",
+            "hours": "24 jam",
+            "note": "Bidan desa berjaga."
+          }
+        ],
+        "announcedNeeds": [{ "id": "k1", "text": "Air bersih untuk pengungsi di balai desa" }],
+        "contacts": [
+          {
+            "id": "c1",
+            "name": "Posko Taba Terunjam (nomor contoh)",
+            "phone": "0812-0000-0102",
+            "note": "Nomor contoh untuk demo."
+          }
+        ],
+        "notes": [{ "id": "n1", "text": "Jalan RT 2 tergenang. Lewat jalan belakang masjid." }]
+      }
+    }
+  ]
+}

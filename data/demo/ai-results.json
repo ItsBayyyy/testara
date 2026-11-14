@@ -1,0 +1,4 @@
+{
+  "note": "Hasil AI sungguhan untuk data contoh. Dibuat dengan `npm run demo:generate` (butuh GROQ_API_KEY atau GEMINI_API_KEY). Kosong berarti belum pernah dijalankan.",
+  "results": {}
+}

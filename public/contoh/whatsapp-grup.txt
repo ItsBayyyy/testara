@@ -1,0 +1,49 @@
+Contoh fiktif untuk demonstrasi Testara. Semua nama jabatan, kejadian, dan nomor HP (0812-0000-xxxx) fiktif.
+14/11/26 18.40 - Pesan dan panggilan terenkripsi secara end-to-end. Tidak seorang pun di luar chat ini, termasuk WhatsApp, dapat membaca atau mendengarkannya.
+14/11/26 18.41 - Admin Kecamatan mengubah nama grup dari "Kades Se-Kec" menjadi "Siaga Banjir Kec. Pondok Kelapa"
+14/11/26 18.42 - Admin Kecamatan: Assalamualaikum bapak2 kades, mohon laporkan kondisi desa masing2 malam ini
+14/11/26 18.45 - Kades Pekik Nyaring: Waalaikumsalam. Siap pak
+14/11/26 18.47 - Admin Kecamatan: [Diteruskan] PERINGATAN DINI CUACA: hujan sedang hingga lebat disertai petir dan angin kencang berpotensi terjadi di wilayah Bengkulu Tengah pada pukul 18.30 - 21.30 WIB.
+14/11/26 18.52 - Kades Srikaton: Lapor pak, air sungai mulai naik di dusun 3 Srikaton. Warga sdh siaga
+14/11/26 19.05 - Kades Pekik Nyaring: Pekik Nyaring air masuk rmh warga dusun 1, sekitar 20 rmh terendam
+14/11/26 19.06 - Kades Pekik Nyaring: <Media tidak disertakan>
+14/11/26 19.10 - Sekdes Pekik Nyaring: Warga mulai ngungsi ke masjid nurul iman
+14/11/26 19.11 - Admin Kecamatan: Baik pak, terus kabari
+14/11/26 19.20 - Kades Srikaton: Air sdh setinggi pinggang di dusun 3, 2 rmh dekat jembatan kena arus kuat
+14/11/26 19.21 - Kades Srikaton: <Media tidak disertakan>
+14/11/26 19.25 - Kadus 2 Srikaton: pak kades, ada keluarga terjebak di lantai 2 rmh dekat jembatan, ada bayi. hub sy 0812-0000-2201
+14/11/26 19.26 - Kades Srikaton: Siap, sdh sy teruskan ke TRC
+14/11/26 19.30 - Admin Kecamatan: TRC BPBD sdh meluncur ke Srikaton
+14/11/26 19.33 - Sekdes Pekik Nyaring: Update: 12 KK sdh di masjid
+14/11/26 19.34 - Bidan Desa Pekik Nyaring: Ada ibu hamil 7 bulan di pengungsian, kondisi stabil
+14/11/26 19.40 - Kades Taba Terunjam: Taba Terunjam RT 2 tergenang, 8 rmh terendam. Warga ngungsi ke balai desa
+14/11/26 19.41 - Kades Taba Terunjam: listrik padam dr jam 7
+14/11/26 19.45 - Admin Kecamatan: Pak Kades Taba, desa bpk masuk Kec. Karang Tinggi, sy teruskan ke grup sana juga ya
+14/11/26 19.46 - Kades Taba Terunjam: Siap pak terima kasih
+14/11/26 19.50 - Kades Pekik Nyaring: Yg ngungsi di masjid skrg kira2 15 KK pak, makin banyak
+14/11/26 19.52 - Sekdes Pekik Nyaring: Butuh air minum dan nasi bungkus utk pengungsi
+14/11/26 19.55 - Admin Kecamatan: Pesan ini telah dihapus
+14/11/26 19.56 - Admin Kecamatan: Dapur umum kecamatan sdh disiapkan, nanti diantar ke masjid pekik nyaring
+14/11/26 20.02 - Kadus 2 Srikaton: Keluarga yg terjebak sdh dievakuasi TRC, 5 org selamat termasuk bayi
+14/11/26 20.03 - Kades Srikaton: Alhamdulillah
+14/11/26 20.04 - Admin Kecamatan: Alhamdulillah
+14/11/26 20.10 - Kades Taba Terunjam: Update Taba: rmh terendam jadi 10, air msh naik pelan
+14/11/26 20.12 - Warga Air Sebakul ditambahkan oleh Admin Kecamatan
+14/11/26 20.15 - Warga Air Sebakul: Pak, jalan Air Sebakul ke Taba Pasmah tertutup longsor, tdk ada korban
+14/11/26 20.16 - Warga Air Sebakul: <Media tidak disertakan>
+14/11/26 20.18 - Admin Kecamatan: Terima kasih infonya. Air Sebakul masuk Kec. Talang Empat, sy teruskan
+14/11/26 20.25 - Kades Srikaton: Srikaton: 3 KK mengungsi ke rmh saudara, 1 kandang dan 2 perahu hanyut
+14/11/26 20.30 - Bidan Desa Pekik Nyaring: Ada 2 balita demam di pengungsian, butuh obat penurun panas
+14/11/26 20.31 - Admin Kecamatan: Siap bu, sy koordinasikan dgn puskesmas
+14/11/26 20.40 - Sekdes Pekik Nyaring: Pengungsi butuh selimut, popok bayi juga
+14/11/26 20.41 - Kades Pekik Nyaring: sticker tidak disertakan
+14/11/26 20.45 - Kades Taba Terunjam: Nenek di RT 2 lumpuh tdk bisa keluar rmh, keluarganya minta tolong dievakuasi
+14/11/26 20.46 - Admin Kecamatan: Sy teruskan ke TRC sekarang pak
+14/11/26 20.55 - Admin Kecamatan: [Diteruskan] Himbauan: warga di bantaran sungai diminta mengungsi ke tempat aman dan menjauhi aliran sungai.
+14/11/26 21.00 - Kades Pekik Nyaring: Hujan sdh reda di pekik nyaring
+14/11/26 21.05 - Kades Srikaton: Srikaton air mulai surut pelan
+14/11/26 21.10 - Warga Air Sebakul keluar
+14/11/26 21.12 - Kades Taba Terunjam: Nenek RT 2 sdh dievakuasi ke balai desa, kondisi sehat
+14/11/26 21.15 - Admin Kecamatan: Terima kasih semua, tetap siaga malam ini
+14/11/26 21.16 - Kades Pekik Nyaring: Siap pak
+14/11/26 21.16 - Kades Srikaton: Siap
