@@ -14,7 +14,7 @@ function Section({
 }) {
   return (
     <section aria-labelledby={id} className="border-t border-line pt-4">
-      <h2 id={id} className="text-xl">
+      <h2 id={id} className="text-lg">
         {title}
       </h2>
       {empty ? <p className="mt-1 text-ink-2">Belum ada informasi resmi.</p> : children}

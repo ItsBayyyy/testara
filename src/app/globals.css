@@ -1,23 +1,30 @@
 @import "tailwindcss";
 
-/* Token desain Testara. Palet bawaan Tailwind dimatikan agar hanya token ini
+/* Token desain Testara, arah "Karcis dan papan tulis posko".
+   Palet dan skala tipe bawaan Tailwind dimatikan supaya hanya token ini
    yang bisa dipakai. Alasan setiap nilai: docs/DESIGN.md. */
 @theme {
   --color-*: initial;
-  /* Latar tipis untuk blok pemberitahuan dan baris terpilih; halaman sendiri putih. */
-  --color-bg: #f3f5f4;
+  /* Papan tulis posko: latar halaman. */
+  --color-bg: #edf0ee;
+  /* Kertas karcis dan lembar: permukaan konten. */
   --color-surface: #ffffff;
-  --color-ink: #1b2a3a;
-  --color-ink-2: #566573;
-  --color-line: #e2e7e4;
+  --color-ink: #17212b;
+  --color-ink-2: #55606b;
+  --color-line: #d5dbd8;
   --color-line-strong: #7a8890;
-  --color-action: #e8620c;
-  --color-action-ink: #a84505;
-  --color-action-wash: #fdebdd;
+  /* Spidol biru: satu makna, aksi utama dan pilihan terpilih. */
+  --color-spidol: #1e4ba0;
+  --color-spidol-dark: #173c82;
+  --color-spidol-wash: #e7edf8;
+  /* Spidol oranye: satu makna, perlu tindakan (mendesak, angka berbeda, belum diperiksa, error).
+     Selalu bersama teks. */
+  --color-action: #b0450f;
+  --color-action-wash: #fbebe1;
+  /* Stabilo: satu makna, kutipan sumber. */
   --color-mark: #ffe14d;
-  --color-done: #2e7d4f;
-  --color-done-wash: #e3f1e8;
-  --color-focus: #1f5fbf;
+  /* Hijau: satu makna, langkah yang sudah terjadi. */
+  --color-done: #23704a;
   --color-white: #ffffff;
   --color-transparent: transparent;
   --color-current: currentColor;
@@ -25,46 +32,52 @@
   --font-sans: var(--font-atkinson), system-ui, sans-serif;
   --font-mono: var(--font-atkinson-mono), ui-monospace, monospace;
 
-  --radius-field: 8px;
-  --radius-choice: 10px;
-  --radius-receipt: 16px;
+  /* Lima ukuran huruf saja. */
+  --text-*: initial;
+  --text-sm: 0.9375rem;
+  --text-sm--line-height: 1.45;
+  --text-base: 1.0625rem;
+  --text-base--line-height: 1.55;
+  --text-lg: 1.25rem;
+  --text-lg--line-height: 1.35;
+  --text-xl: 1.625rem;
+  --text-xl--line-height: 1.2;
+  --text-code: clamp(2rem, 8.5vw, 2.5rem);
+  --text-code--line-height: 1;
 
-  --shadow-float: 0 6px 24px rgb(27 42 58 / 0.18);
+  /* Radius per peran: lembar 4, tombol dan isian 6, karcis tegak bertepi sobek. */
+  --radius-sheet: 4px;
+  --radius-control: 6px;
+
+  --shadow-float: 0 8px 24px rgb(23 33 43 / 0.2);
 }
 
 @layer base {
   html {
-    background: var(--color-surface);
+    background: var(--color-bg);
     color: var(--color-ink);
     -webkit-text-size-adjust: 100%;
   }
 
   body {
     font-family: var(--font-sans);
-    font-size: 1.0625rem;
+    font-size: var(--text-base);
     line-height: 1.55;
     min-height: 100dvh;
   }
 
-  /* Sisi korban memakai teks dasar 18 px; sisi petugas 16 px (lebih padat). */
-  .face-warga {
-    font-size: 1.125rem;
-  }
-
+  /* Sisi korban 17 px; sisi petugas 15 px supaya padat seperti tabel kerja. */
   .face-petugas {
-    font-size: 1rem;
+    font-size: var(--text-sm);
+    line-height: 1.45;
   }
 
   h1,
   h2,
   h3 {
     line-height: 1.25;
-    font-weight: 600;
+    font-weight: 700;
     text-wrap: balance;
-  }
-
-  h1 {
-    letter-spacing: -0.015em;
   }
 
   a {
@@ -72,8 +85,14 @@
     text-underline-offset: 3px;
   }
 
+  p,
+  li,
+  dd {
+    max-width: 68ch;
+  }
+
   :focus-visible {
-    outline: 3px solid var(--color-focus);
+    outline: 3px solid var(--color-ink);
     outline-offset: 2px;
   }
 
@@ -95,89 +114,126 @@
 }
 
 @layer components {
-  /* Tombol */
+  /* ---------- Tombol ---------- */
   .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
+    gap: 8px;
     min-height: 48px;
-    padding: 0.625rem 1.25rem;
-    border-radius: var(--radius-field);
-    font-weight: 600;
+    padding: 8px 20px;
+    border-radius: var(--radius-control);
+    border: 2px solid transparent;
+    font-weight: 700;
     text-align: center;
     text-decoration: none;
-    border: 1px solid transparent;
     cursor: pointer;
     transition:
       background-color 120ms ease,
       border-color 120ms ease;
   }
 
-  .btn:disabled,
-  .btn[aria-disabled="true"] {
-    opacity: 0.55;
-    cursor: not-allowed;
-  }
-
   .btn-primary {
-    background: var(--color-ink);
+    background: var(--color-spidol);
     color: var(--color-white);
   }
 
-  .btn-primary:hover:not(:disabled) {
-    background: #2b3e52;
+  .btn-primary:hover {
+    background: var(--color-spidol-dark);
+  }
+
+  .btn-primary:active {
+    background: var(--color-ink);
   }
 
   .btn-secondary {
     background: var(--color-surface);
     color: var(--color-ink);
-    border-color: var(--color-line-strong);
+    border-color: var(--color-ink);
   }
 
-  .btn-secondary:hover:not(:disabled) {
+  .btn-secondary:hover {
     background: var(--color-bg);
   }
 
-  /* Tombol sekunder ringan: tanpa bingkai, ditandai garis bawah. */
+  .btn-secondary:active {
+    background: var(--color-line);
+  }
+
+  /* Aksi ringan: teks bergaris bawah, area sentuh tetap 48 px. */
   .btn-quiet {
     background: transparent;
     color: var(--color-ink);
     text-decoration: underline;
     text-underline-offset: 4px;
-    text-decoration-color: var(--color-line-strong);
   }
 
-  .btn-quiet:hover:not(:disabled) {
+  .btn-quiet:not(.w-full) {
+    padding-inline: 8px;
+    margin-inline-start: -8px;
+  }
+
+  .btn-quiet:hover {
     background: var(--color-bg);
   }
 
-  /* Padding tetap ada untuk area sentuh, tapi teks sejajar dengan isi lain. */
-  .btn-quiet:not(.w-full) {
-    padding-inline: 0.5rem;
-    margin-inline-start: -0.5rem;
+  .btn-quiet:active {
+    background: var(--color-line);
   }
 
   .btn-compact {
     min-height: 40px;
-    padding: 0.375rem 0.875rem;
-    font-size: 0.9375rem;
+    padding: 4px 12px;
+    font-size: var(--text-sm);
   }
 
-  /* Kolom isian */
+  .btn:disabled,
+  .btn[aria-disabled="true"] {
+    background: var(--color-bg);
+    border-color: var(--color-line);
+    color: var(--color-ink-2);
+    text-decoration: none;
+    cursor: not-allowed;
+  }
+
+  /* Memuat: putaran kecil sebelum teks; diam jika pengguna memilih kurangi gerakan. */
+  .btn[aria-busy="true"] {
+    background: var(--color-spidol-dark);
+    border-color: transparent;
+    color: var(--color-white);
+    cursor: progress;
+  }
+
+  .btn[aria-busy="true"]::before {
+    content: "";
+    width: 16px;
+    height: 16px;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: spin 800ms linear infinite;
+  }
+
+  /* ---------- Isian ---------- */
   .field {
     display: block;
     width: 100%;
     min-height: 48px;
-    padding: 0.625rem 0.75rem;
-    border: 1px solid var(--color-line-strong);
-    border-radius: var(--radius-field);
+    padding: 8px 12px;
+    border: 1.5px solid var(--color-line-strong);
+    border-radius: var(--radius-control);
     background: var(--color-surface);
     color: var(--color-ink);
   }
 
+  .field:hover,
   .field:focus {
     border-color: var(--color-ink);
+  }
+
+  .field:disabled {
+    background: var(--color-bg);
+    color: var(--color-ink-2);
   }
 
   .field::placeholder {
@@ -191,39 +247,70 @@
 
   .label {
     display: block;
-    font-weight: 600;
-    margin-bottom: 0.375rem;
+    font-weight: 700;
+    margin-bottom: 4px;
   }
 
   .hint {
     color: var(--color-ink-2);
-    font-size: 0.9375rem;
+    font-size: var(--text-sm);
   }
 
   .error-text {
-    color: var(--color-action-ink);
-    font-weight: 600;
+    color: var(--color-action);
+    font-weight: 700;
   }
 
-  /* Tombol pilihan kebutuhan korban: besar dan berisi. */
+  /* ---------- Tombol pilihan kebutuhan ---------- */
+  /* Kotak centang asli menutupi kartu tapi tak terlihat: tetap jalan tanpa JavaScript,
+     terbaca pembaca layar, dan seluruh kartu bisa diketuk. Terpilih ditandai
+     centang + garis tepi tebal, bukan warna saja. */
   .choice {
     position: relative;
     display: flex;
     align-items: center;
-    gap: 0.625rem;
-    min-height: 60px;
-    padding: 0.75rem 0.875rem;
-    border: 1px solid var(--color-line-strong);
-    border-radius: var(--radius-choice);
-    overflow-wrap: break-word;
+    gap: 12px;
+    min-height: 56px;
+    padding: 12px;
+    border: 1.5px solid var(--color-line-strong);
+    border-radius: var(--radius-control);
     background: var(--color-surface);
-    font-weight: 600;
+    font-weight: 700;
     text-align: left;
     cursor: pointer;
   }
 
-  /* Kotak centang asli disembunyikan secara visual; kartu ikut status centangnya,
-     jadi tetap berfungsi tanpa JavaScript dan terbaca pembaca layar. */
+  .choice::before {
+    content: "";
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--color-line-strong);
+    border-radius: 4px;
+    background: var(--color-surface) no-repeat center / 16px 16px;
+  }
+
+  .choice:hover {
+    border-color: var(--color-ink);
+  }
+
+  .choice:has(.choice-input:checked) {
+    border-color: var(--color-spidol);
+    box-shadow: inset 0 0 0 1.5px var(--color-spidol);
+    background: var(--color-spidol-wash);
+  }
+
+  .choice:has(.choice-input:checked)::before {
+    border-color: var(--color-spidol);
+    background-color: var(--color-spidol);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3.2 3L13 4.5' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  }
+
+  .choice:has(.choice-input:focus-visible) {
+    outline: 3px solid var(--color-ink);
+    outline-offset: 2px;
+  }
+
   .choice-input {
     position: absolute;
     inset: 0;
@@ -234,46 +321,131 @@
     cursor: pointer;
   }
 
-  .choice:has(.choice-input:checked) {
-    background: var(--color-ink);
-    border-color: var(--color-ink);
-    color: var(--color-white);
-  }
-
-  .choice:has(.choice-input:checked)::before {
-    content: "";
-    width: 0.625rem;
-    height: 1.125rem;
-    margin: 0 0.125rem -0.125rem 0.125rem;
-    border: solid var(--color-white);
-    border-width: 0 3px 3px 0;
-    transform: rotate(45deg) translateY(-3px);
-    flex-shrink: 0;
-  }
-
-  .choice:has(.choice-input:focus-visible) {
-    outline: 3px solid var(--color-focus);
-    outline-offset: 2px;
-  }
-
   .check {
     width: 24px;
     height: 24px;
-    accent-color: var(--color-ink);
+    accent-color: var(--color-spidol);
     flex-shrink: 0;
   }
 
-  /* Penanda urgensi tinggi / angka berbeda: garis oranye, bukan latar merah. */
-  .flag-action {
-    border-left: 3px solid var(--color-action);
+  /* ---------- Lembar dan pemberitahuan ---------- */
+  /* Lembar putih di atas papan. Di layar sempit menempel ke tepi layar. */
+  .sheet {
+    background: var(--color-surface);
+    padding: 24px 16px;
+    margin-inline: -16px;
   }
 
-  /* Stabilo kutipan sumber. Sapuan singkat saat disorot. */
+  @media (min-width: 640px) {
+    .sheet {
+      padding: 32px;
+      margin-inline: 0;
+      border-radius: var(--radius-sheet);
+    }
+  }
+
+  /* Panel bergaris untuk daftar di sisi petugas. */
+  .panel {
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+  }
+
+  .notice {
+    background: var(--color-bg);
+    border-radius: var(--radius-sheet);
+  }
+
+  .flag-action {
+    border-left: 4px solid var(--color-action);
+  }
+
+  /* Pemberitahuan yang meminta tindakan (error, gagal kirim). */
+  .alert-action {
+    background: var(--color-action-wash);
+    border-left: 4px solid var(--color-action);
+    border-radius: 0 var(--radius-sheet) var(--radius-sheet) 0;
+  }
+
+  /* Ajakan menelepon nomor darurat: blok tinta, berbeda dari semua blok lain. */
+  .alert-call {
+    background: var(--color-ink);
+    color: var(--color-white);
+    border-radius: var(--radius-sheet);
+  }
+
+  .alert-call :focus-visible {
+    outline-color: var(--color-mark);
+  }
+
+  /* ---------- Penanda status ---------- */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 8px;
+    min-height: 24px;
+    border-radius: 4px;
+    border: 1px solid var(--color-line-strong);
+    background: var(--color-surface);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  /* Mendesak: teks + kotak oranye, tidak bergantung pada warna saja. */
+  .tag-urgent {
+    border-color: var(--color-action);
+    background: var(--color-action-wash);
+    color: var(--color-action);
+  }
+
+  .tag-urgent::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background: var(--color-action);
+  }
+
+  .tag-quiet {
+    border-color: var(--color-line);
+    background: var(--color-bg);
+    color: var(--color-ink-2);
+  }
+
+  /* ---------- Karcis laporan ---------- */
+  /* Elemen yang diingat: karcis putih berkepala biru dan bertepi bawah sobek,
+     seperti karcis antrean posko. Tepi sobek adalah satu-satunya hiasan bentuk. */
+  .ticket {
+    position: relative;
+    background: var(--color-surface);
+    border-top: 8px solid var(--color-spidol);
+    padding: 20px 20px 24px;
+    margin-bottom: 12px;
+  }
+
+  .ticket::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -12px;
+    height: 12px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 12' preserveAspectRatio='none'%3E%3Cpath d='M0 0h16L8 12z' fill='white'/%3E%3C/svg%3E")
+      repeat-x 0 0 / 16px 12px;
+  }
+
+  .ticket-small {
+    padding: 12px 16px 16px;
+    border-top-width: 4px;
+  }
+
+  /* ---------- Stabilo kutipan ---------- */
   .mark-source {
     background: linear-gradient(var(--color-mark), var(--color-mark)) no-repeat left / 100% 100%;
     color: var(--color-ink);
     border-radius: 2px;
-    padding: 0 1px;
+    padding: 0 2px;
   }
 
   .mark-source[data-sweep="true"] {
@@ -286,18 +458,8 @@
 
   .code-text {
     font-family: var(--font-mono);
+    font-weight: 700;
     letter-spacing: 0.02em;
-  }
-
-  .panel {
-    background: var(--color-surface);
-    border: 1px solid var(--color-line);
-  }
-
-  /* Blok pemberitahuan: latar tipis tanpa bingkai. */
-  .notice {
-    background: var(--color-bg);
-    border-radius: var(--radius-field);
   }
 
   .sr-only-focusable:not(:focus) {
@@ -316,5 +478,11 @@
   }
   to {
     background-size: 100% 100%;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }
