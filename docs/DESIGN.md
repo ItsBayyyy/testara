@@ -1,239 +1,133 @@
-# Rencana desain Testara
+# Desain Testara: karcis dan papan tulis posko
 
-Diputuskan dalam mode otonom (CLAUDE.md Bagian 0A dan 7). Silakan tinjau; semua nilai ada di satu tempat (`src/app/globals.css`) sehingga mudah diubah.
+Arah ini dipilih pada 16 November 2026 dan menggantikan semua arahan desain sebelumnya. Audit,
+dua arah yang dibandingkan, dan screenshot sebelum/sesudah ada di
+[`docs/design-audit/`](design-audit/AUDIT.md). Semua token ada di satu tempat:
+[`src/app/globals.css`](../src/app/globals.css).
+
+## Konsep
+
+Setiap laporan adalah **karcis** yang disobek dari blok posko, dan setiap papan info adalah
+**papan tulis** yang ditulisi petugas. Korban mengenal karcis dari antrean puskesmas, bank, dan
+posko: "saya sudah dapat nomor, tinggal menunggu." Petugas mengenal papan tulis posko sebagai
+tempat angka ditulis, dicoret, dan ditandai stabilo.
 
 ## Prinsip
 
-1. **Dua wajah, satu identitas.** Sisi korban lapang dan tenang; sisi petugas padat seperti meja kerja. Token warna, huruf, dan nada bahasa sama.
-2. **Satu tugas per layar untuk korban.** Halaman lapor adalah satu kolom, urutan pertanyaan mengikuti cara orang bercerita: di mana, butuh apa, siapa yang perlu didahulukan, ceritanya.
-3. **Keberanian visual hanya di tanda terima.** Kode laporan besar, kalimat penenang, linimasa status. Elemen lain tenang.
-4. **Oranye berarti "perlu tindakan".** Tidak dipakai untuk hiasan. Stabilo kuning hanya untuk kutipan sumber.
-5. **Ringan.** Halaman korban tanpa library UI, tanpa gambar, satu keluarga huruf.
+1. **Satu aksi utama per layar**, berwarna spidol biru penuh. Aksi lain bergaris tinta atau
+   bergaris bawah.
+2. **Bagian dipisah dengan ruang.** Halaman berlatar papan; isi utama di atas satu lembar putih.
+   Tidak ada kotak di dalam kotak, kecuali isian dan pemberitahuan yang memang meminta perhatian.
+3. **Setiap warna aksen punya satu makna** dan tidak pernah jadi satu-satunya penanda.
+4. **Karcis adalah satu-satunya elemen berani.** Tepi sobeknya adalah satu-satunya hiasan bentuk.
 
-## Palet
+## Token
 
-| Token         | Hex       | Peran                                                                          | Kontras                                                                    |
-| ------------- | --------- | ------------------------------------------------------------------------------ | -------------------------------------------------------------------------- |
-| `bg`          | `#F3F5F4` | latar halaman                                                                  |                                                                            |
-| `surface`     | `#FFFFFF` | panel, kolom isian                                                             |                                                                            |
-| `ink`         | `#1B2A3A` | teks utama, tombol utama                                                       | 14,6:1 di `surface`, 13,4:1 di `bg`                                        |
-| `ink-2`       | `#566573` | teks sekunder                                                                  | 6,0:1 di `surface`, 5,5:1 di `bg`                                          |
-| `line`        | `#C9D1CD` | pemisah 1 px, bingkai isian                                                    | (non-teks)                                                                 |
-| `line-strong` | `#7A8890` | bingkai isian dan checkbox                                                     | 3,6:1 di `surface` (komponen UI, min. 3:1)                                 |
-| `action`      | `#E8620C` | penanda urgensi tinggi, angka berbeda, belum diperiksa (garis, titik, bingkai) | 3,4:1 (non-teks, min. 3:1)                                                 |
-| `action-ink`  | `#A84505` | teks oranye                                                                    | 6,0:1 di `surface`, 5,2:1 di `action-wash`                                 |
-| `action-wash` | `#FDEBDD` | latar tipis baris mendesak                                                     |                                                                            |
-| `mark`        | `#FFE14D` | stabilo kutipan sumber                                                         | teks `ink` di atasnya 11,2:1                                               |
-| `done`        | `#2E7D4F` | selesai/terkonfirmasi                                                          | 5,1:1 di `surface`; tidak dipakai sebagai teks di atas `done-wash` (4,3:1) |
-| `done-wash`   | `#E3F1E8` | latar tipis langkah selesai                                                    |                                                                            |
-| `focus`       | `#1F5FBF` | cincin fokus 3 px                                                              | 6,1:1 di `surface`                                                         |
+### Warna
 
-Perubahan dari token awal: menambah `line`, `line-strong`, `action-ink`, `action-wash`, `done-wash`, dan `focus`. Alasan: `#E8620C` sebagai teks hanya 3,4:1 sehingga butuh varian gelap; cincin fokus perlu warna yang tidak bentrok dengan oranye (urgensi) maupun hijau (selesai).
+| Token                    | Hex       | Satu makna                                                      | Kontras                                |
+| ------------------------ | --------- | --------------------------------------------------------------- | -------------------------------------- |
+| `bg` (papan)             | `#EDF0EE` | latar halaman                                                   |                                        |
+| `surface` (kertas)       | `#FFFFFF` | lembar dan karcis                                               |                                        |
+| `ink`                    | `#17212B` | teks; blok ajakan menelepon 112                                 | 16,3:1 di putih, 14,2:1 di papan       |
+| `ink-2`                  | `#55606B` | teks sekunder                                                   | 6,4:1 di putih, 5,6:1 di papan         |
+| `line`                   | `#D5DBD8` | pemisah tabel dan daftar                                        | non-teks                               |
+| `line-strong`            | `#7A8890` | bingkai isian, kotak centang                                    | 3,6:1 di putih (komponen UI, min. 3:1) |
+| `spidol`                 | `#1E4BA0` | aksi utama dan pilihan terpilih                                 | putih di atasnya 8,2:1                 |
+| `spidol-wash`            | `#E7EDF8` | latar pilihan terpilih                                          | tinta di atasnya 13,9:1                |
+| `action` (spidol oranye) | `#B0450F` | perlu tindakan: mendesak, angka berbeda, belum diperiksa, error | 5,7:1 di putih, 4,9:1 di `action-wash` |
+| `action-wash`            | `#FBEBE1` | latar pemberitahuan perlu tindakan                              |                                        |
+| `mark` (stabilo)         | `#FFE14D` | kutipan sumber                                                  | tinta di atasnya 12,5:1                |
+| `done`                   | `#23704A` | langkah linimasa yang sudah terjadi                             | 6,0:1 di putih                         |
 
-## Tipografi
+Palet bawaan Tailwind dimatikan (`--color-*: initial`).
 
-- **Atkinson Hyperlegible Next** untuk seluruh UI lewat `next/font/google` (di-host sendiri saat build, tanpa permintaan ke Google saat runtime). Alasan: 1/l/I dan 0/O mudah dibedakan, penting untuk kode laporan dan angka korban.
-- **Atkinson Hyperlegible Mono** hanya untuk kode laporan dan kolom angka di meja periksa, karena kode seperti `TS-7K4Q-9M2X` harus bisa disalin dengan tepat. Angka lain memakai `font-variant-numeric: tabular-nums`.
-- Skala (sisi korban): teks dasar 18 px (minimal 17 px sesuai brief), judul halaman 28 px, judul bagian 20 px, kode laporan 40 px. Sisi petugas: teks dasar 16 px, tabel 15 px.
-- Huruf kalimat biasa di semua label. Tanpa huruf kapital berjarak lebar.
+### Tipografi
 
-## Bentuk dan ruang
+- **Atkinson Hyperlegible Next** untuk semua teks: judul 700, isi 400. Huruf ini dirancang agar
+  1/l/I dan 0/O mudah dibedakan, penting untuk korban lansia dan angka korban yang dibaca petugas
+  yang lelah. Satu keluarga juga menjaga halaman korban tetap ringan.
+- **Atkinson Hyperlegible Mono** hanya untuk kode laporan, karena karcis memang dicetak dengan
+  huruf berjarak sama dan kode harus disalin tepat. Angka lain memakai `tabular-nums`.
+- **Lima ukuran saja** (`--text-*: initial`):
 
-- Radius berhierarki: tombol kebutuhan korban 12 px (besar dan berisi), kolom isian 8 px, panel tanda terima 16 px, panel petugas 0 px dengan pemisah 1 px.
-- Target sentuh minimal 48 px di sisi korban; tombol kebutuhan 64 px.
-- Bayangan hanya untuk elemen melayang (notifikasi "Kode disalin"). Tidak ada bayangan pada kartu.
-- Gerak: hanya sapuan stabilo 200 ms dan perpindahan langkah linimasa; keduanya mati jika `prefers-reduced-motion`.
+  | Token       | Ukuran                           | Peran                                   |
+  | ----------- | -------------------------------- | --------------------------------------- |
+  | `text-sm`   | 15 px                            | meta, petunjuk; teks dasar sisi petugas |
+  | `text-base` | 17 px                            | teks dasar sisi korban                  |
+  | `text-lg`   | 20 px                            | judul bagian                            |
+  | `text-xl`   | 26 px                            | judul halaman                           |
+  | `text-code` | 32-40 px (mengikuti lebar layar) | kode laporan di karcis                  |
 
-## Wireframe
+### Jarak, radius, bayangan
 
-### Korban, mobile: halaman lapor
+- Jarak memakai skala Tailwind kelipatan 4 px; nilai setengah (`py-1.5` dan sejenisnya) dihapus.
+- Kolom isi sisi korban maksimal 560 px; panjang baris paragraf maksimal 68 karakter.
+- Radius per peran: lembar 4 px (`--radius-sheet`), tombol dan isian 6 px (`--radius-control`),
+  karcis tegak dengan tepi sobek.
+- Bayangan hanya untuk elemen yang melayang (`--shadow-float`); saat ini tidak ada yang memakainya.
 
-```
-+----------------------------------+
-| Testara               Papan info |
-+----------------------------------+
-| Ada yang terancam nyawanya?      |   <- pita bergaris kiri oranye
-| Telepon 112 sekarang.            |      tombol "Telepon 112"
-+----------------------------------+
-| Lapor kejadian                   |   <- h1
-|                                  |
-| Desa Anda                        |
-| [ Cari desa...               ]   |   <- daftar saran di bawahnya
-|                                  |
-| Apa yang dibutuhkan?             |
-| [ Evakuasi ]   [ Air bersih ]    |   <- tombol toggle 64 px
-| [ Makanan  ]   [ Obat       ]    |
-| [ Tempat mengungsi ] [ Lainnya ] |
-|                                  |
-| Ada yang perlu didahulukan?      |
-| [ ] Lansia      [ ] Disabilitas  |
-| [ ] Ibu hamil   [ ] Bayi/balita  |
-| [ ] Orang sakit                  |
-|                                  |
-| Ceritakan (boleh singkat)        |
-| [                            ]   |
-| Petunjuk: tekan ikon mikrofon    |
-| di keyboard untuk bicara.        |
-|                                  |
-| (o) Untuk saya  ( ) Orang lain   |
-| Nomor HP (tidak wajib) [       ] |
-| [x] Saya setuju laporan disimpan |
-|                                  |
-| [        Kirim laporan       ]   |
-| Draf tersimpan di HP ini.        |
-+----------------------------------+
-```
+## Komponen dan state
 
-### Korban, mobile: tanda terima (elemen yang diingat)
+| Komponen              | Normal                                                                                       | Hover         | Fokus                  | Aktif                                                                             | Nonaktif                             | Memuat                                     |
+| --------------------- | -------------------------------------------------------------------------------------------- | ------------- | ---------------------- | --------------------------------------------------------------------------------- | ------------------------------------ | ------------------------------------------ |
+| `.btn-primary`        | spidol, teks putih                                                                           | spidol gelap  | cincin tinta 3 px      | tinta                                                                             | latar papan, teks abu, bingkai garis | spidol gelap + putaran 16 px (`aria-busy`) |
+| `.btn-secondary`      | putih, bingkai tinta 2 px                                                                    | latar papan   | cincin tinta           | latar garis                                                                       | sama                                 | sama                                       |
+| `.btn-quiet`          | teks bergaris bawah                                                                          | latar papan   | cincin tinta           | latar garis                                                                       | sama                                 |                                            |
+| `.field`              | bingkai 1,5 px `line-strong`                                                                 | bingkai tinta | bingkai tinta + cincin |                                                                                   | latar papan                          |                                            |
+| `.choice` (kebutuhan) | putih, kotak centang kosong                                                                  | bingkai tinta | cincin tinta           | **centang putih di kotak spidol + garis tepi tebal spidol** + latar `spidol-wash` |                                      |                                            |
+| `.tag-action`         | teks oranye + kotak oranye 8 px + bingkai                                                    |               |                        |                                                                                   |                                      |                                            |
+| `.ticket`             | kepala spidol 8 px, tepi bawah sobek                                                         |               |                        |                                                                                   |                                      |                                            |
+| Linimasa              | sudah: lingkaran hijau bercentang + jam; berikutnya: lingkaran bergaris + "Menunggu petugas" |               |                        |                                                                                   |                                      |                                            |
 
-```
-+----------------------------------+
-| Testara               Papan info |
-+----------------------------------+
-| Laporan Anda sudah kami terima.  |   <- h1, 28 px
-| Simpan kode ini untuk melihat    |
-| perkembangannya.                 |
-|                                  |
-| +------------------------------+ |
-| |  TS-7K4Q-9M2X                | |   <- 40 px mono, panel putih radius 16
-| |  [ Salin kode ]              | |
-| +------------------------------+ |
-|                                  |
-| (*) Diterima        21.10        |   <- linimasa vertikal, titik hijau
-|  |                               |
-| ( ) Dibaca petugas               |
-|  |                               |
-| ( ) Masuk laporan resmi          |
-|     atau perlu konfirmasi        |
-|                                  |
-| Status ini menunjukkan laporan   |
-| Anda sudah diproses petugas,     |
-| bukan jaminan waktu kedatangan   |
-| bantuan.                         |
-|                                  |
-| [ Lihat papan info Desa X ]      |
-+----------------------------------+
-```
+Putaran memuat diam jika `prefers-reduced-motion`. Gerak lain hanya sapuan stabilo 200 ms.
 
-### Korban, mobile: papan info desa
+## Keputusan per halaman
 
-```
-+----------------------------------+
-| Testara               Papan info |
-+----------------------------------+
-| Papan info Desa X                |
-| Diperbarui 21.40, 14 Nov         |
-| [ Bagikan ke WhatsApp ]          |
-|                                  |
-| Tanya papan info                 |
-| [ Di mana ambil air bersih? ] [>]|
-| Jawaban ... (dari: Titik air 1)  |
-|                                  |
-| Pengungsian                      |
-|  Balai Desa X - jl. ...          |
-| Titik bantuan                    |
-|  Air bersih - ...                |
-| Kebutuhan diumumkan              |
-| Kontak posko                     |
-+----------------------------------+
-```
-
-### Petugas, desktop: antrean
-
-```
-+---------------------------------------------------------------------+
-| Testara  Petugas    Antrean   Tambah WA   Kejadian   Papan    Keluar |
-+---------------------------+-----------------------------------------+
-| Antrean (14)  [desa v][st]| Laporan TS-7K4Q-9M2X                    |
-|                           | Desa X, 21.10, dari formulir            |
-| Mendesak (3)              | Dirapikan otomatis. Periksa sebelum     |
-| | Desa X  evakuasi, lansia|  ditindaklanjuti.                       |
-| | Desa Y  terjebak        | Kebutuhan: evakuasi, obat               |
-| Lainnya (11)              | Didahulukan: lansia                     |
-|   Desa Z  air bersih      | Urgensi tinggi karena: "nenek tdk bisa  |
-|   ...                     |  keluar rmh" (aturan + AI)              |
-|                           | Cerita: ... [kutipan tersorot] ...      |
-|                           | [Tandai dibaca] [Masuk laporan resmi]   |
-|                           | [Perlu konfirmasi]  Urgensi [v]         |
-+---------------------------+-----------------------------------------+
-```
-
-Baris mendesak ditandai garis kiri oranye 4 px, bukan latar merah.
-
-### Petugas, mobile
-
-Antrean dan detail jadi dua langkah: daftar (`/petugas`) lalu detail (`/petugas?laporan=<id>`) dengan tautan "Kembali ke antrean" di atas.
-
-### Petugas, desktop: meja periksa kejadian
-
-```
-+---------------------------------------------------------------------+
-| Kejadian: Banjir, Desa X              5 laporan, 2 angka berbeda    |
-+-------------------------------+-------------------------------------+
-| Angka                         | Pesan sumber                        |
-| Mengungsi (KK)                | 21.02 WhatsApp                      |
-|  ! 12 (2 pelapor)  [pilih]    |  "...sdh [12 kk] ngungsi di..."     |
-|  ! 15 (1 pelapor)  [pilih]    | 21.15 Formulir                      |
-| Rumah terendam   30           |  "...kira2 [15 kk] di balai..."     |
-| Meninggal        tidak disebut|                                     |
-|                [Simpan pilihan]                                     |
-+-------------------------------+-------------------------------------+
-```
-
-Klik angka: panel kanan menggulir ke pesan dan kutipan diberi sapuan stabilo.
+- **Beranda**: pita mode demo selebar layar di paling atas, satu lembar dengan judul dan tombol
+  utama, blok tinta "Ada yang terancam nyawanya?", lalu dua tautan.
+- **Lapor**: blok tinta ajakan 112 paling atas, satu lembar formulir, kartu kebutuhan bercentang.
+  Ringkasan error hilang per baris begitu isian diperbaiki.
+- **Tanda terima dan status**: karcis berkepala biru dengan kode besar, "Salin kode", dan tautan
+  halaman status; linimasa dan kalimat "bukan jaminan waktu kedatangan bantuan" (tebal) di lembar
+  di bawahnya.
+- **Papan info**: stempel "Diperbarui petugas" di bawah judul, kotak tanya di lembar sendiri.
+  Jawaban yang didukung bergaris spidol; "Belum ada informasi resmi untuk itu" berjudul besar
+  dengan garis tinta dan kontak posko.
+- **Antrean**: kolom kiri seperti tabel kerja: penanda "Mendesak" berteks, desa, jam, kebutuhan,
+  kode laporan, status. Bagian "Mendesak" berjudul oranye. Header petugas tidak lagi patah tiga
+  baris; menu bisa digeser ke samping di layar sempit.
+- **Detail laporan**: penanda "Mendesak", "Belum diverifikasi", dan status di bawah judul;
+  label "Dirapikan otomatis. Periksa sebelum ditindaklanjuti." atau "Belum dirapikan AI".
+- **Meja periksa**: tabel hanya berisi angka yang disebut; sisanya satu kalimat "Tidak disebut di
+  pesan mana pun: ...". Angka berbeda ditandai garis dan penanda berteks.
+- **Tambah dari WhatsApp**: tombol "Pilih berkas" berbahasa Indonesia menggantikan input bawaan
+  browser; tombol nonaktif berbunyi "Tempel pesan dulu".
 
 ## Cek terhadap daftar larangan
 
-| Larangan                                                                                            | Status                                                                                                          |
-| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| Krem hangat + serif + terakota; latar hampir hitam + neon; gaya koran                               | Tidak dipakai. Latar abu dingin, satu sans, aksen oranye fungsional.                                            |
-| Kartu membulat identik, radius seragam, bayangan tipis seragam, gradien, glass, blob                | Radius berhierarki, panel petugas tanpa radius, bayangan hanya untuk toast.                                     |
-| Label kapital berjarak lebar, meta "A · B · C", "KATA — penggalan", panah di tombol, mono dekoratif | Meta ditulis dengan koma. Mono hanya untuk kode dan angka. Tidak ada panah.                                     |
-| Satu kata di judul diberi gaya berbeda                                                              | Tidak ada.                                                                                                      |
-| Penanda 01/02/03 non-urutan                                                                         | Hanya linimasa status, yang memang berurutan, dan tanpa nomor.                                                  |
-| Sparkle, "Powered by AI", emoji                                                                     | Label AI berupa kalimat biasa: "Dirapikan otomatis. Periksa sebelum ditindaklanjuti."                           |
-| Ilustrasi bencana, merah alarm, hitung mundur                                                       | Tidak ada gambar. Merah tidak dipakai; urgensi oranye sebagai garis.                                            |
-| Hero pemasaran, grid tiga kartu, testimoni/logo/statistik palsu                                     | Beranda berisi tombol utama, tautan papan info, pita demo. Statistik hanya dua fakta bersumber di "Cara kerja". |
-| Animasi scroll, hover membesar                                                                      | Tidak ada. Hover hanya ganti warna latar/garis.                                                                 |
-| Inter/Poppins/dst, palet bawaan Tailwind                                                            | Atkinson Hyperlegible; warna hanya dari token `@theme` sendiri.                                                 |
-| shadcn bawaan                                                                                       | Tidak memakai shadcn. Komponen ditulis sendiri.                                                                 |
-| Kata promosi                                                                                        | Dicek di salinan UI.                                                                                            |
+| Larangan                                                                       | Status                                                                                                  |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------- |
+| Krem + serif + terakota; hampir hitam + neon; gaya koran                       | Papan abu-hijau dingin, tanpa serif, oranye hanya untuk perlu tindakan. Garis hanya di tabel petugas.   |
+| Kartu seragam, satu radius, bayangan seragam, gradien hias, glass, blob        | Tiga radius per peran, tanpa bayangan. `linear-gradient` hanya untuk animasi sapuan stabilo satu warna. |
+| Label kapital kecil, titik tengah, "KATA — penggalan", panah, mono untuk label | Tidak ada. Mono hanya untuk kode laporan.                                                               |
+| Satu kata judul diberi gaya beda                                               | Tidak ada.                                                                                              |
+| 01/02/03                                                                       | Tidak ada. Kode laporan sungguhan dipakai sebagai nomor karcis.                                         |
+| Sparkle, "Powered by AI", emoji, kartun, merah alarm                           | Tidak ada. Status AI berupa teks.                                                                       |
+| Animasi setiap section, hover membesar                                         | Tidak ada.                                                                                              |
+| Font terlarang, shadcn bawaan                                                  | Atkinson saja, tanpa shadcn.                                                                            |
 
-## Yang saya ubah setelah cek
+## Hiasan yang dibuang
 
-- Rencana awal memberi beranda tiga blok berdampingan (lapor, papan info, status). Itu mendekati "grid tiga kartu", jadi diganti satu tombol utama besar dan dua tautan teks di bawahnya.
-- Rencana awal memakai latar oranye penuh untuk pita "terancam nyawa". Terlalu memicu panik; diganti panel putih dengan garis kiri oranye dan tombol telepon berwarna tinta.
+Garis hijau di stempel "Diperbarui petugas" pada papan info. Hijau bermakna "langkah sudah
+terjadi" di linimasa; di stempel ia hanya hiasan.
 
-## Kritik setelah screenshot (Fase 5)
+## Aksesibilitas
 
-Tangkapan layar 375 px dan 1440 px ada di `docs/screenshots/` (buat ulang dengan `npm run screenshots`). Temuan dan perbaikannya:
-
-| Temuan                                                                                                                              | Perbaikan                                                                                                                                                                                          |
-| ----------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Kode laporan di tanda terima patah dua baris di 375 px ("TS-EYXQ-MNG / V"). Ini elemen yang paling diingat, jadi tidak boleh patah. | Ukuran kode memakai `clamp()` dan `white-space: nowrap`.                                                                                                                                           |
-| "Evakuasi/terjebak" menempel ke tepi kartu di 360–375 px.                                                                           | `<wbr>` setelah garis miring, padding kartu dikurangi. Nama yang dibacakan pembaca layar tetap "Evakuasi/terjebak" lewat `aria-label`.                                                             |
-| Tautan butir jawaban tanya berbunyi "Titik bantuan: Air bersih: Tandon air bersih".                                                 | Butir titik bantuan cukup menampilkan judulnya.                                                                                                                                                    |
-| Tanpa AI, judul kejadian tertulis "Lainnya, Desa ...", seolah jenis bencananya "lainnya".                                           | Ditulis "Jenis bencana belum diketahui".                                                                                                                                                           |
-| Pada jaringan lambat, formulir bisa dikirim sebelum JavaScript termuat dan isian hilang.                                            | Formulir dibuat progressive enhancement: kirim biasa ke `/api/reports/form` tanpa JS, tombol kebutuhan memakai checkbox asli, isian tidak dikendalikan React sehingga tidak terhapus saat hidrasi. |
-| Hiasan yang dibuang: garis putus-putus di panel mode demo beranda. Tidak membawa makna.                                             | Diganti garis biasa seperti panel lain.                                                                                                                                                            |
-
-Cek ulang terhadap daftar larangan: tidak ada gradien hiasan (sapuan stabilo memakai `background-size` satu warna sebagai animasi fungsional), tidak ada emoji/ikon AI, tidak ada label kapital berjarak, tidak ada panah di tombol, tidak ada kartu seragam berbayangan. Meja periksa dengan angka berbeda belum bisa difoto dalam keadaan sebenarnya karena angka hanya muncul dari ekstraksi AI, dan kunci AI belum tersedia.
-
-## Revisi: lebih bersih dan minimalis (16 November 2026)
-
-Permintaan: tampilan dibuat lebih bersih dan minimalis. Palet, tipografi, dan prinsip tetap; yang berubah adalah berat visual.
-
-| Sebelum                                                          | Sesudah                                                                                        | Alasan                                                      |
-| ---------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
-| Halaman abu `#F3F5F4` dengan panel putih berbingkai              | Halaman putih; `bg` dipakai hanya sebagai latar tipis blok pemberitahuan dan baris terpilih    | Lebih sedikit "kotak di dalam kotak"                        |
-| Garis `line` `#C9D1CD`                                           | `#E2E7E4` (hairline)                                                                           | Pemisah terasa, tidak menonjol                              |
-| Bingkai tombol, kolom, dan kartu kebutuhan 1,5 sampai 2 px       | 1 px `line-strong` (3,6:1, tetap lolos 3:1 untuk komponen UI)                                  | Lebih ringan                                                |
-| Judul dan label `700`                                            | `600`, judul `h1` dirapatkan sedikit                                                           | Hierarki lewat ukuran dan ruang, bukan ketebalan            |
-| Blok pemberitahuan: panel putih berbingkai + garis oranye        | Kelas `.notice`: latar tipis tanpa bingkai, garis oranye 3 px hanya jika perlu tindakan        | Oranye tetap khusus "perlu tindakan"                        |
-| Kalimat "bukan jaminan waktu kedatangan bantuan" bergaris oranye | Teks sekunder biasa                                                                            | Bukan hal yang perlu tindakan                               |
-| Tanda terima: bingkai tinta 2 px                                 | Blok latar tipis radius 16 px, kode tetap besar                                                | Elemen yang diingat tetap paling menonjol lewat ukuran kode |
-| Header petugas berlatar tinta                                    | Putih dengan garis bawah hairline                                                              | Alat kerja yang tenang; konten jadi fokus                   |
-| Tombol "quiet" berbingkai abu                                    | Tombol teks bergaris bawah, teks sejajar dengan isi lain                                       | Satu tombol utama per layar terlihat jelas                  |
-| Beranda: tombol demo dan tautan tersebar                         | Tombol utama, pemberitahuan darurat, dua tautan dalam daftar bergaris, lalu mode demo di bawah | Urutan baca sesuai prioritas                                |
-
-Target sentuh 48 px, kontras AA, dan fokus keyboard tidak berubah. Tangkapan layar di `docs/screenshots/` sudah dibuat ulang.
+- `tests/e2e/a11y.spec.ts` menjalankan axe (WCAG 2 A/AA dan 2.1 AA) di beranda, lapor (kosong dan
+  error), cek status, daftar papan, cara kerja, privasi, tanda terima, dan papan info dengan
+  jawaban "belum ada". Hasil terakhir: 0 pelanggaran, termasuk kontras.
+- Target sentuh minimal 48 px di sisi korban (40 px untuk tombol ringkas di pita demo dan sisi
+  petugas), fokus keyboard berupa cincin tinta 3 px (stabilo di atas blok tinta), dan tata letak
+  diuji di 375 px; pada 360 px kartu kebutuhan tetap dua kolom dan kode karcis mengecil lewat
+  `clamp()`.

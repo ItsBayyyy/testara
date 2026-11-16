@@ -237,3 +237,22 @@ Saya berhenti di sini dan menunggu pilihan Anda sebelum mengubah kode tampilan.
 - Input berkas berbahasa Inggris di "Tambah dari WhatsApp".
 - Header petugas yang patah menjadi tiga baris di layar sempit.
 - Urgensi yang hanya ditandai warna di antrean dan daftar kejadian.
+
+## Langkah 3 dan 4: hasil (Arah A dipilih)
+
+Screenshot sesudah: `docs/design-audit/after/` (buat ulang dengan `npm run screenshots:audit`).
+Token dan alasan keputusan: [`docs/DESIGN.md`](../DESIGN.md).
+
+| Masalah dari audit                         | Sesudah                                                                                                                                    |
+| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| Tidak punya identitas                      | Karcis berkepala biru bertepi sobek di tanda terima, status, dan cara kerja; papan abu-hijau sebagai latar.                                |
+| Semua blok sama beratnya                   | Ajakan 112 berupa blok tinta, error berupa blok oranye muda bergaris oranye, tanya dan isi papan di lembar putih, pita demo selebar layar. |
+| Terlalu pucat, terlalu banyak ukuran huruf | Tombol utama spidol biru penuh; lima ukuran huruf.                                                                                         |
+| Urgensi hanya warna                        | Penanda "Mendesak", "Belum diperiksa", dan "angka berbeda" berupa teks + kotak oranye.                                                     |
+| Ringkasan error tidak hilang               | Hilang per baris begitu isian diperbaiki.                                                                                                  |
+| Input berkas berbahasa Inggris             | Tombol "Pilih berkas" + nama berkas.                                                                                                       |
+| Header petugas tiga baris di HP            | Satu baris logo + Keluar, menu bisa digeser.                                                                                               |
+| Tombol nonaktif tampak rusak               | Gaya nonaktif sendiri dan teks yang menjelaskan ("Tempel pesan dulu").                                                                     |
+
+Kritik setelah screenshot sesudah: pita demo di beranda sempat tampil sebagai kotak di dalam
+kolom (kini selebar layar), dan garis hijau stempel "Diperbarui petugas" dibuang sebagai hiasan.
