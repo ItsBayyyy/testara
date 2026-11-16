@@ -23,7 +23,7 @@ export function PetugasNav() {
               <Link
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`inline-block py-2 ${active ? "font-bold underline decoration-2" : "no-underline hover:underline"}`}
+                className={`inline-block py-2 ${active ? "font-semibold underline decoration-2" : "no-underline hover:underline"}`}
               >
                 {item.label}
               </Link>

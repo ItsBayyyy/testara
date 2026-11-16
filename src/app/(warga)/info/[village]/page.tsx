@@ -34,7 +34,7 @@ export default async function BoardPage({ params }: PageProps<"/info/[village]">
         {latest && (
           <p className="mt-1">
             Diperbarui petugas{" "}
-            <span className="num font-bold">{formatDateTime(latest.publishedAt)}</span>
+            <span className="num font-semibold">{formatDateTime(latest.publishedAt)}</span>
           </p>
         )}
       </div>
@@ -50,8 +50,8 @@ export default async function BoardPage({ params }: PageProps<"/info/[village]">
           <BoardView content={latest.content} />
         </>
       ) : (
-        <div className="panel flex flex-col gap-3 px-4 py-4">
-          <p className="font-bold">Belum ada papan info resmi untuk desa ini.</p>
+        <div className="notice flex flex-col gap-3 px-4 py-4">
+          <p className="font-semibold">Belum ada papan info resmi untuk desa ini.</p>
           <p>
             Petugas belum menerbitkan informasi. Jika butuh bantuan sekarang, kirim laporan, atau
             telepon {config.emergencyNumber} jika ada nyawa yang terancam.

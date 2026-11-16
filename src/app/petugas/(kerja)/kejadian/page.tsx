@@ -25,7 +25,7 @@ export default async function IncidentsPage() {
         diteruskan ke pimpinan.
       </p>
       {groups.length === 0 ? (
-        <p className="panel mt-6 px-4 py-4">
+        <p className="notice mt-6 px-4 py-4">
           Belum ada kejadian. Kejadian terbentuk dari laporan yang desanya sudah diketahui.
         </p>
       ) : (
@@ -44,7 +44,7 @@ export default async function IncidentsPage() {
                   href={`/petugas/kejadian/${g.key}`}
                   className="block px-4 py-3 no-underline hover:bg-bg"
                 >
-                  <span className="font-bold underline">
+                  <span className="font-semibold underline">
                     {incidentTitle(g.hazard)}, {village ? villageLabel(village) : g.villageCode}
                   </span>
                   <span className="block text-[0.9375rem] text-ink-2">
@@ -53,7 +53,7 @@ export default async function IncidentsPage() {
                   </span>
                   <span className="block text-[0.9375rem]">
                     {left > 0 && (
-                      <span className="font-bold text-action-ink">
+                      <span className="font-semibold text-action-ink">
                         <span className="num">{left}</span> angka berbeda.{" "}
                       </span>
                     )}
@@ -63,7 +63,7 @@ export default async function IncidentsPage() {
                         <span className="num">{formatDateTime(review.reviewedAt)}</span>
                       </span>
                     ) : (
-                      <span className="font-bold text-action-ink">Belum diperiksa</span>
+                      <span className="font-semibold text-action-ink">Belum diperiksa</span>
                     )}
                   </span>
                 </Link>

@@ -50,7 +50,7 @@ export function ReportDetail({ report, villages }: { report: Report; villages: V
         </p>
       </header>
 
-      <p className={`px-3 py-2 ${ex ? "panel" : "flag-action panel"}`}>
+      <p className={`px-3 py-2 ${ex ? "notice" : "flag-action notice"}`}>
         {ex
           ? "Dirapikan otomatis. Periksa sebelum ditindaklanjuti."
           : "Belum dirapikan AI. Laporan tampil apa adanya; urgensi dari aturan."}{" "}
@@ -58,7 +58,7 @@ export function ReportDetail({ report, villages }: { report: Report; villages: V
       </p>
 
       {ex?.possiblyIrrelevant && (
-        <p className="flag-action panel px-3 py-2">
+        <p className="flag-action notice px-3 py-2">
           Mungkin tidak terkait bencana. Tetap periksa; laporan tidak disembunyikan.
         </p>
       )}
@@ -66,7 +66,11 @@ export function ReportDetail({ report, villages }: { report: Report; villages: V
       <dl>
         <Row label="Status">{STATUS_LABELS[report.status]}</Row>
         <Row label="Urgensi">
-          <span className={report.urgency === "tinggi" ? "font-bold text-action-ink" : "font-bold"}>
+          <span
+            className={
+              report.urgency === "tinggi" ? "font-semibold text-action-ink" : "font-semibold"
+            }
+          >
             {URGENCY_LABELS[report.urgency]}
           </span>{" "}
           karena: {report.urgencyReason}
@@ -122,10 +126,10 @@ export function ReportDetail({ report, villages }: { report: Report; villages: V
       </dl>
 
       <section aria-labelledby="judul-cerita">
-        <h3 id="judul-cerita" className="mb-1 font-bold">
+        <h3 id="judul-cerita" className="mb-1 font-semibold">
           Cerita
         </h3>
-        <div className="panel px-3 py-2">
+        <div className="notice px-3 py-2">
           {report.storyText ? (
             <HighlightedText text={report.storyText} quotes={quotes} />
           ) : (
@@ -136,14 +140,14 @@ export function ReportDetail({ report, villages }: { report: Report; villages: V
 
       {ex && ex.claims.length > 0 && (
         <section aria-labelledby="judul-angka">
-          <h3 id="judul-angka" className="mb-1 font-bold">
+          <h3 id="judul-angka" className="mb-1 font-semibold">
             Angka di cerita
           </h3>
           <ul className="panel divide-y divide-line">
             {ex.claims.map((c, i) => (
               <li key={i} className="flex flex-wrap justify-between gap-2 px-3 py-2">
                 <span>{FIELD_LABELS[c.field]}</span>
-                <a href={`#kutipan-${i}`} className="num font-bold">
+                <a href={`#kutipan-${i}`} className="num font-semibold">
                   {c.approximate && typeof c.value === "number" ? "sekitar " : ""}
                   {c.value}
                 </a>
@@ -159,7 +163,7 @@ export function ReportDetail({ report, villages }: { report: Report; villages: V
       )}
 
       <section aria-labelledby="judul-tindakan" className="flex flex-col gap-3">
-        <h3 id="judul-tindakan" className="font-bold">
+        <h3 id="judul-tindakan" className="font-semibold">
           Tindakan
         </h3>
         <div className="flex flex-wrap gap-2">

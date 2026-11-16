@@ -20,7 +20,7 @@ export default async function EditBoardPage({ params }: PageProps<"/petugas/papa
   return (
     <div className="mx-auto grid max-w-6xl gap-8 px-4 py-6 lg:grid-cols-[1fr_18rem]">
       <div>
-        <Link href="/petugas/papan" className="font-bold">
+        <Link href="/petugas/papan" className="font-semibold">
           Semua papan info
         </Link>
         <h1 className="mt-2 text-2xl">Papan info {villageLabel(village)}</h1>
@@ -43,7 +43,7 @@ export default async function EditBoardPage({ params }: PageProps<"/petugas/papa
           <ol className="panel mt-2 divide-y divide-line">
             {versions.map((v, i) => (
               <li key={v.id} className="px-3 py-2 text-[0.9375rem]">
-                <span className="num font-bold">{formatDateTime(v.publishedAt)}</span>
+                <span className="num font-semibold">{formatDateTime(v.publishedAt)}</span>
                 {i === 0 && " (tampil sekarang)"}
                 <span className="block text-ink-2">oleh {v.publishedBy}</span>
               </li>

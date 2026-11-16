@@ -195,8 +195,8 @@ export function ReportForm({
       className="flex flex-col gap-8"
     >
       {errorList.length > 0 && (
-        <div ref={summaryRef} tabIndex={-1} role="alert" className="flag-action panel px-4 py-3">
-          <p className="font-bold">Laporan belum bisa dikirim:</p>
+        <div ref={summaryRef} tabIndex={-1} role="alert" className="flag-action notice px-4 py-3">
+          <p className="font-semibold">Laporan belum bisa dikirim:</p>
           <ul className="mt-1 list-disc pl-5">
             {errorList.map((m) => (
               <li key={m}>{m}</li>
@@ -340,9 +340,9 @@ export function ReportForm({
           ref={fallbackRef}
           tabIndex={-1}
           role="alert"
-          className="flag-action panel flex flex-col gap-3 px-4 py-4"
+          className="flag-action notice flex flex-col gap-3 px-4 py-4"
         >
-          <p className="font-bold">{phase.message}</p>
+          <p className="font-semibold">{phase.message}</p>
           <p className="text-base text-ink-2">
             Pesan WhatsApp sudah tersusun dari isian Anda.
             {poskoIsExample && " Nomor posko di demo ini adalah nomor contoh."}

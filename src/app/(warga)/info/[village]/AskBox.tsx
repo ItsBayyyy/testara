@@ -64,7 +64,7 @@ export function AskBox({
   return (
     <section
       aria-labelledby="judul-tanya"
-      className="panel rounded-[var(--radius-field)] px-4 py-4"
+      className="notice rounded-[var(--radius-field)] px-4 py-4"
     >
       <h2 id="judul-tanya" className="text-xl">
         Tanya papan info
@@ -96,7 +96,7 @@ export function AskBox({
         )}
         {answer?.kind === "belum_ada" && (
           <div>
-            <p className="font-bold">
+            <p className="font-semibold">
               Belum ada informasi resmi untuk itu. Hubungi posko di nomor berikut.
             </p>
             {answer.contacts.length > 0 ? (
@@ -104,7 +104,7 @@ export function AskBox({
                 {answer.contacts.map((c) => (
                   <li key={c.id}>
                     {c.name}:{" "}
-                    <a className="num font-bold" href={`tel:${c.phone.replace(/[^\d+]/g, "")}`}>
+                    <a className="num font-semibold" href={`tel:${c.phone.replace(/[^\d+]/g, "")}`}>
                       {c.phone}
                     </a>
                   </li>
@@ -113,7 +113,7 @@ export function AskBox({
             ) : (
               <p className="mt-1">
                 Posko:{" "}
-                <a className="num font-bold" href={`tel:${poskoPhone}`}>
+                <a className="num font-semibold" href={`tel:${poskoPhone}`}>
                   {poskoPhone}
                 </a>
                 {poskoIsExample && " (nomor contoh untuk demo)"}

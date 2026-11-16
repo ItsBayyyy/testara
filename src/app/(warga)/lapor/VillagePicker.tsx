@@ -50,9 +50,9 @@ export function VillagePicker({
         <p className="label" id={`${id}-label`}>
           Desa Anda
         </p>
-        <div className="panel flex flex-wrap items-center justify-between gap-3 rounded-[var(--radius-field)] px-4 py-3">
+        <div className="notice flex flex-wrap items-center justify-between gap-3 rounded-[var(--radius-field)] px-4 py-3">
           <p>
-            <span className="font-bold">{selected.label}</span>
+            <span className="font-semibold">{selected.label}</span>
             <span className="block text-base text-ink-2">Kecamatan {selected.district}</span>
           </p>
           <button
@@ -110,7 +110,7 @@ export function VillagePicker({
                     onClick={() => onChange(v.code)}
                   >
                     <span>
-                      <span className="font-bold">{v.label}</span>
+                      <span className="font-semibold">{v.label}</span>
                       <span className="block text-base text-ink-2">Kecamatan {v.district}</span>
                     </span>
                   </button>

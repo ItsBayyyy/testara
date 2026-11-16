@@ -8,7 +8,7 @@ export function LoginForm() {
   return (
     <form action={action} className="flex flex-col gap-4">
       {state.error && (
-        <p role="alert" className="flag-action panel px-4 py-3 font-bold">
+        <p role="alert" className="flag-action notice px-4 py-3 font-semibold">
           {state.error}
         </p>
       )}

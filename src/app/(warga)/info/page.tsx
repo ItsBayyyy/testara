@@ -26,9 +26,9 @@ export default async function InfoIndexPage() {
         </p>
       </div>
       {rows.length === 0 ? (
-        <p className="panel px-4 py-4">
+        <p className="notice px-4 py-4">
           Belum ada papan info yang diterbitkan. Jika butuh bantuan sekarang,{" "}
-          <Link href="/lapor" className="font-bold underline">
+          <Link href="/lapor" className="font-semibold underline">
             kirim laporan
           </Link>
           .
@@ -39,9 +39,9 @@ export default async function InfoIndexPage() {
             <li key={board.villageCode}>
               <Link
                 href={`/info/${villageSlug(board.villageCode)}`}
-                className="panel flex flex-col rounded-[var(--radius-field)] px-4 py-3 no-underline hover:border-ink"
+                className="panel flex flex-col rounded-[var(--radius-field)] px-4 py-3 no-underline hover:bg-bg"
               >
-                <span className="font-bold underline">{village && villageLabel(village)}</span>
+                <span className="font-semibold underline">{village && villageLabel(village)}</span>
                 <span className="text-base text-ink-2">
                   Kecamatan {village?.districtName}. Diperbarui{" "}
                   <span className="num">{formatDateTime(board.publishedAt)}</span>

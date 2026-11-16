@@ -91,7 +91,7 @@ export default async function BoardsPage() {
                     href={`/petugas/papan/${villageSlug(b.villageCode)}`}
                     className="block px-4 py-2"
                   >
-                    <span className="font-bold">{v ? villageLabel(v) : b.villageCode}</span>
+                    <span className="font-semibold">{v ? villageLabel(v) : b.villageCode}</span>
                     <span className="block text-[0.9375rem] text-ink-2">
                       Terbit <span className="num">{formatDateTime(b.publishedAt)}</span> oleh{" "}
                       {b.publishedBy}

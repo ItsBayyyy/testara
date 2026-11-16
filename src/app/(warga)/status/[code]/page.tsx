@@ -53,10 +53,10 @@ export default async function StatusPage({ params, searchParams }: PageProps<"/s
 
       <section
         aria-label="Kode laporan"
-        className="panel flex flex-col items-start gap-4 rounded-[var(--radius-receipt)] border-2 border-ink px-5 py-6"
+        className="notice flex flex-col items-start gap-4 rounded-[var(--radius-receipt)] px-5 py-6"
       >
         <p className="text-base text-ink-2">Kode laporan</p>
-        <p className="code-text whitespace-nowrap text-[clamp(1.6rem,8.2vw,2.5rem)] font-bold leading-none">
+        <p className="code-text whitespace-nowrap text-[clamp(1.6rem,8.2vw,2.5rem)] font-semibold leading-none">
           {report.publicCode}
         </p>
         <CopyButton text={report.publicCode} label="Salin kode" doneLabel="Kode disalin." />
@@ -67,7 +67,7 @@ export default async function StatusPage({ params, searchParams }: PageProps<"/s
           Perkembangan
         </h2>
         <Timeline steps={steps} />
-        <p className="flag-action panel px-4 py-3 text-base">
+        <p className="text-base text-ink-2">
           Status ini menunjukkan laporan Anda sudah diproses petugas, bukan jaminan waktu kedatangan
           bantuan.
         </p>

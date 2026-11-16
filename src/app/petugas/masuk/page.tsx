@@ -13,7 +13,7 @@ export default async function MasukPage() {
   return (
     <main className="face-petugas mx-auto flex min-h-dvh max-w-md flex-col justify-center gap-6 px-4 py-10">
       <div>
-        <Link href="/" className="text-lg font-bold no-underline">
+        <Link href="/" className="text-lg font-semibold no-underline">
           Testara
         </Link>
         <h1 className="mt-4 text-2xl">Masuk petugas</h1>
@@ -24,7 +24,7 @@ export default async function MasukPage() {
       {configured ? (
         <LoginForm />
       ) : (
-        <p className="panel px-4 py-3">
+        <p className="notice px-4 py-3">
           Masuk petugas belum dikonfigurasi di server ini. Juri dan pengunjung bisa mencoba lewat
           mode demo di bawah.
         </p>

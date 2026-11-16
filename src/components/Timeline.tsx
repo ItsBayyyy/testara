@@ -19,14 +19,14 @@ export function Timeline({ steps }: { steps: TimelineStep[] }) {
             )}
             <span
               aria-hidden
-              className={`mt-0.5 grid size-7 shrink-0 place-items-center rounded-full border-2 ${
+              className={`mt-0.5 grid size-7 shrink-0 place-items-center rounded-full border-[1.5px] ${
                 step.done ? "border-done bg-done" : "border-line-strong bg-surface"
               }`}
             >
               {step.done && <span className="size-2.5 rounded-full bg-white" />}
             </span>
             <div>
-              <p className={`font-bold ${step.done ? "" : "text-ink-2"}`}>
+              <p className={`font-semibold ${step.done ? "" : "text-ink-2"}`}>
                 {step.label}
                 <span className="sr-only">{step.done ? ", sudah" : ", belum"}</span>
               </p>

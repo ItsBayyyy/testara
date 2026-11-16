@@ -4,11 +4,12 @@
    yang bisa dipakai. Alasan setiap nilai: docs/DESIGN.md. */
 @theme {
   --color-*: initial;
+  /* Latar tipis untuk blok pemberitahuan dan baris terpilih; halaman sendiri putih. */
   --color-bg: #f3f5f4;
   --color-surface: #ffffff;
   --color-ink: #1b2a3a;
   --color-ink-2: #566573;
-  --color-line: #c9d1cd;
+  --color-line: #e2e7e4;
   --color-line-strong: #7a8890;
   --color-action: #e8620c;
   --color-action-ink: #a84505;
@@ -25,7 +26,7 @@
   --font-mono: var(--font-atkinson-mono), ui-monospace, monospace;
 
   --radius-field: 8px;
-  --radius-choice: 12px;
+  --radius-choice: 10px;
   --radius-receipt: 16px;
 
   --shadow-float: 0 6px 24px rgb(27 42 58 / 0.18);
@@ -33,7 +34,7 @@
 
 @layer base {
   html {
-    background: var(--color-bg);
+    background: var(--color-surface);
     color: var(--color-ink);
     -webkit-text-size-adjust: 100%;
   }
@@ -58,8 +59,12 @@
   h2,
   h3 {
     line-height: 1.25;
-    font-weight: 700;
+    font-weight: 600;
     text-wrap: balance;
+  }
+
+  h1 {
+    letter-spacing: -0.015em;
   }
 
   a {
@@ -99,10 +104,10 @@
     min-height: 48px;
     padding: 0.625rem 1.25rem;
     border-radius: var(--radius-field);
-    font-weight: 700;
+    font-weight: 600;
     text-align: center;
     text-decoration: none;
-    border: 2px solid transparent;
+    border: 1px solid transparent;
     cursor: pointer;
     transition:
       background-color 120ms ease,
@@ -127,21 +132,30 @@
   .btn-secondary {
     background: var(--color-surface);
     color: var(--color-ink);
-    border-color: var(--color-ink);
+    border-color: var(--color-line-strong);
   }
 
   .btn-secondary:hover:not(:disabled) {
     background: var(--color-bg);
   }
 
+  /* Tombol sekunder ringan: tanpa bingkai, ditandai garis bawah. */
   .btn-quiet {
     background: transparent;
     color: var(--color-ink);
-    border-color: var(--color-line-strong);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-color: var(--color-line-strong);
   }
 
   .btn-quiet:hover:not(:disabled) {
-    background: var(--color-surface);
+    background: var(--color-bg);
+  }
+
+  /* Padding tetap ada untuk area sentuh, tapi teks sejajar dengan isi lain. */
+  .btn-quiet:not(.w-full) {
+    padding-inline: 0.5rem;
+    margin-inline-start: -0.5rem;
   }
 
   .btn-compact {
@@ -156,10 +170,14 @@
     width: 100%;
     min-height: 48px;
     padding: 0.625rem 0.75rem;
-    border: 1.5px solid var(--color-line-strong);
+    border: 1px solid var(--color-line-strong);
     border-radius: var(--radius-field);
     background: var(--color-surface);
     color: var(--color-ink);
+  }
+
+  .field:focus {
+    border-color: var(--color-ink);
   }
 
   .field::placeholder {
@@ -168,12 +186,12 @@
 
   .field[aria-invalid="true"] {
     border-color: var(--color-action);
-    border-width: 2px;
+    box-shadow: inset 0 0 0 1px var(--color-action);
   }
 
   .label {
     display: block;
-    font-weight: 700;
+    font-weight: 600;
     margin-bottom: 0.375rem;
   }
 
@@ -184,7 +202,7 @@
 
   .error-text {
     color: var(--color-action-ink);
-    font-weight: 700;
+    font-weight: 600;
   }
 
   /* Tombol pilihan kebutuhan korban: besar dan berisi. */
@@ -193,13 +211,13 @@
     display: flex;
     align-items: center;
     gap: 0.625rem;
-    min-height: 64px;
-    padding: 0.75rem 0.75rem;
-    border: 2px solid var(--color-line-strong);
+    min-height: 60px;
+    padding: 0.75rem 0.875rem;
+    border: 1px solid var(--color-line-strong);
     border-radius: var(--radius-choice);
     overflow-wrap: break-word;
     background: var(--color-surface);
-    font-weight: 700;
+    font-weight: 600;
     text-align: left;
     cursor: pointer;
   }
@@ -247,7 +265,7 @@
 
   /* Penanda urgensi tinggi / angka berbeda: garis oranye, bukan latar merah. */
   .flag-action {
-    border-left: 4px solid var(--color-action);
+    border-left: 3px solid var(--color-action);
   }
 
   /* Stabilo kutipan sumber. Sapuan singkat saat disorot. */
@@ -276,6 +294,12 @@
     border: 1px solid var(--color-line);
   }
 
+  /* Blok pemberitahuan: latar tipis tanpa bingkai. */
+  .notice {
+    background: var(--color-bg);
+    border-radius: var(--radius-field);
+  }
+
   .sr-only-focusable:not(:focus) {
     position: absolute;
     width: 1px;
@@ -293,9 +317,4 @@
   to {
     background-size: 100% 100%;
   }
-}
-
-/* Cincin fokus biru tidak terlihat di atas latar tinta; pakai warna stabilo. */
-.bg-ink :focus-visible {
-  outline-color: var(--color-mark);
 }

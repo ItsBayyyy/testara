@@ -6,7 +6,7 @@ export const metadata: Metadata = { title: "Cara kerja" };
 function Step({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <li className="border-l-2 border-line pl-4">
-      <h3 className="font-bold">{title}</h3>
+      <h3 className="font-semibold">{title}</h3>
       <div className="text-ink-2">{children}</div>
     </li>
   );

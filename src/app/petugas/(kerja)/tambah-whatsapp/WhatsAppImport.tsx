@@ -86,7 +86,7 @@ export function WhatsAppImport({ sampleUrl }: { sampleUrl: string | null }) {
   return (
     <div className="mt-6 flex flex-col gap-5">
       {sampleUrl && (
-        <div className="panel flex flex-wrap items-center justify-between gap-3 px-4 py-3">
+        <div className="notice flex flex-wrap items-center justify-between gap-3 px-4 py-3">
           <p>Mode demo: pakai contoh ekspor grup WhatsApp kepala desa (fiktif).</p>
           <button type="button" className="btn btn-secondary" onClick={loadSample} disabled={busy}>
             Pakai contoh chat
@@ -115,8 +115,8 @@ export function WhatsAppImport({ sampleUrl }: { sampleUrl: string | null }) {
       </div>
 
       {raw.trim() && (
-        <p className="panel px-4 py-3" aria-live="polite">
-          <span className="num font-bold">{total}</span> pesan terbaca
+        <p className="notice px-4 py-3" aria-live="polite">
+          <span className="num font-semibold">{total}</span> pesan terbaca
           {parsed.skipped > 0 && (
             <>
               , <span className="num">{parsed.skipped}</span> pesan sistem/media dilewati
@@ -142,8 +142,8 @@ export function WhatsAppImport({ sampleUrl }: { sampleUrl: string | null }) {
 
       <div aria-live="polite">
         {progress.kind === "selesai" && (
-          <div className="panel flex flex-col gap-2 px-4 py-3">
-            <p className="font-bold">
+          <div className="notice flex flex-col gap-2 px-4 py-3">
+            <p className="font-semibold">
               {progress.created} laporan masuk antrean. {progress.skipped} pesan bukan laporan
               (salam, &ldquo;siap pak&rdquo;, terusan peringatan cuaca).
             </p>
@@ -159,7 +159,7 @@ export function WhatsAppImport({ sampleUrl }: { sampleUrl: string | null }) {
           </div>
         )}
         {progress.kind === "gagal" && (
-          <p role="alert" className="flag-action panel px-4 py-3">
+          <p role="alert" className="flag-action notice px-4 py-3">
             {progress.message}{" "}
             {progress.created > 0 && `${progress.created} laporan sudah masuk antrean.`}
           </p>

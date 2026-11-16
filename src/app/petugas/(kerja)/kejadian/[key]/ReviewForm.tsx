@@ -28,7 +28,7 @@ export function ReviewForm({ incidentKey, rows }: { incidentKey: string; rows: R
       <table className="w-full border-collapse text-left">
         <caption className="sr-only">Angka dampak beserta jumlah pelapor</caption>
         <thead>
-          <tr className="border-b-2 border-ink">
+          <tr className="border-b border-line-strong">
             <th scope="col" className="py-2 pr-3">
               Data
             </th>
@@ -49,7 +49,7 @@ export function ReviewForm({ incidentKey, rows }: { incidentKey: string; rows: R
               >
                 {row.label}
                 {row.differs && (
-                  <span className="block text-[0.875rem] font-bold text-action-ink">
+                  <span className="block text-[0.875rem] font-semibold text-action-ink">
                     Angka berbeda
                   </span>
                 )}
@@ -77,7 +77,7 @@ export function ReviewForm({ incidentKey, rows }: { incidentKey: string; rows: R
                           {v.evidenceCount} pelapor
                         </span>
                         {row.differs && row.chosenIndex === i && (
-                          <span className="text-[0.875rem] font-bold">(dipilih)</span>
+                          <span className="text-[0.875rem] font-semibold">(dipilih)</span>
                         )}
                       </li>
                     ))}
@@ -92,7 +92,7 @@ export function ReviewForm({ incidentKey, rows }: { incidentKey: string; rows: R
         <button type="submit" className="btn btn-primary" disabled={pending}>
           {pending ? "Menyimpan..." : "Simpan sebagai sudah diperiksa"}
         </button>
-        <p aria-live="polite" className={state.ok ? "font-bold text-done" : "error-text"}>
+        <p aria-live="polite" className={state.ok ? "font-semibold text-done" : "error-text"}>
           {state.message}
         </p>
       </div>

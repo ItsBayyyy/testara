@@ -30,7 +30,7 @@ export function BoardView({ content }: { content: BoardContent }) {
         <ul className="mt-2 flex flex-col gap-3">
           {content.shelters.map((s) => (
             <li key={s.id} id={`butir-${s.id}`}>
-              <p className="font-bold">{s.name}</p>
+              <p className="font-semibold">{s.name}</p>
               {s.location && <p>{s.location}</p>}
               {s.note && <p className="text-ink-2">{s.note}</p>}
             </li>
@@ -41,7 +41,7 @@ export function BoardView({ content }: { content: BoardContent }) {
         <ul className="mt-2 flex flex-col gap-3">
           {content.aidPoints.map((a) => (
             <li key={a.id} id={`butir-${a.id}`}>
-              <p className="font-bold">
+              <p className="font-semibold">
                 {AID_KIND_LABELS[a.kind]}: {a.name}
               </p>
               {a.location && <p>{a.location}</p>}
@@ -68,9 +68,9 @@ export function BoardView({ content }: { content: BoardContent }) {
         <ul className="mt-2 flex flex-col gap-3">
           {content.contacts.map((c) => (
             <li key={c.id} id={`butir-${c.id}`}>
-              <p className="font-bold">{c.name}</p>
+              <p className="font-semibold">{c.name}</p>
               {c.phone && (
-                <a href={`tel:${c.phone.replace(/[^\d+]/g, "")}`} className="num font-bold">
+                <a href={`tel:${c.phone.replace(/[^\d+]/g, "")}`} className="num font-semibold">
                   {c.phone}
                 </a>
               )}

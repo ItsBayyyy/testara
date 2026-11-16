@@ -38,15 +38,15 @@ export default async function LaporPage({ searchParams }: PageProps<"/lapor">) {
         <p className="mt-1 text-ink-2">Isi yang Anda tahu saja. Petugas membaca setiap laporan.</p>
       </div>
       {noJsErrors.length > 0 && (
-        <div role="alert" className="flag-action panel px-4 py-3">
-          <p className="font-bold">Laporan belum terkirim:</p>
+        <div role="alert" className="flag-action notice px-4 py-3">
+          <p className="font-semibold">Laporan belum terkirim:</p>
           <ul className="mt-1 list-disc pl-5">
             {noJsErrors.map((m) => (
               <li key={m}>{m}</li>
             ))}
           </ul>
           <a
-            className="mt-2 inline-block font-bold"
+            className="mt-2 inline-block font-semibold"
             href={whatsappLink(config.poskoWhatsApp, "Laporan warga (lewat WhatsApp):")}
           >
             Kirim lewat WhatsApp

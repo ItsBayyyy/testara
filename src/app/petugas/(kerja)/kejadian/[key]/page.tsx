@@ -59,11 +59,8 @@ export default async function IncidentPage({ params }: PageProps<"/petugas/kejad
 
   return (
     <div className="lg:grid lg:grid-cols-2">
-      <section
-        aria-labelledby="judul-kejadian"
-        className="border-r border-line bg-surface px-4 py-5 lg:px-6"
-      >
-        <Link href="/petugas/kejadian" className="font-bold">
+      <section aria-labelledby="judul-kejadian" className="border-r border-line px-4 py-5 lg:px-6">
+        <Link href="/petugas/kejadian" className="font-semibold">
           Semua kejadian
         </Link>
         <h1 id="judul-kejadian" className="mt-2 text-2xl">
@@ -77,7 +74,7 @@ export default async function IncidentPage({ params }: PageProps<"/petugas/kejad
               <span className="num">{formatDateTime(review.reviewedAt)}</span>.
             </>
           ) : (
-            <span className="font-bold text-action-ink">Belum diperiksa.</span>
+            <span className="font-semibold text-action-ink">Belum diperiksa.</span>
           )}
         </p>
         <p className="mt-3 text-[0.9375rem] text-ink-2">
@@ -93,7 +90,7 @@ export default async function IncidentPage({ params }: PageProps<"/petugas/kejad
             Ringkasan untuk WhatsApp
           </h2>
           <p className="hint">Hanya berisi angka yang sudah diperiksa.</p>
-          <pre className="panel mt-2 whitespace-pre-wrap px-3 py-2 font-sans text-[0.9375rem]">
+          <pre className="notice mt-2 whitespace-pre-wrap px-3 py-2 font-sans text-[0.9375rem]">
             {summaryText}
           </pre>
           <div className="mt-2">

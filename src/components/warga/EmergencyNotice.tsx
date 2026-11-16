@@ -4,15 +4,17 @@ export function EmergencyNotice({ number }: { number: string }) {
   return (
     <section
       aria-labelledby="darurat-judul"
-      className="flag-action panel flex flex-wrap items-center justify-between gap-3 px-4 py-3"
+      className="flag-action notice flex flex-wrap items-center justify-between gap-x-4 gap-y-3 px-4 py-3"
     >
       <div>
-        <h2 id="darurat-judul" className="text-lg">
+        <h2 id="darurat-judul" className="text-base">
           Ada yang terancam nyawanya?
         </h2>
-        <p>Telepon {number} sekarang. Testara tidak menggantikan layanan darurat.</p>
+        <p className="text-base text-ink-2">
+          Telepon {number} sekarang. Testara tidak menggantikan layanan darurat.
+        </p>
       </div>
-      <a href={`tel:${tel}`} className="btn btn-primary">
+      <a href={`tel:${tel}`} className="btn btn-secondary">
         Telepon {number}
       </a>
     </section>

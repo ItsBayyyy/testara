@@ -38,7 +38,7 @@ function TextField({
 }) {
   return (
     <label className={`flex flex-col gap-1 ${wide ? "sm:col-span-2" : ""}`}>
-      <span className="text-[0.875rem] font-bold">{label}</span>
+      <span className="text-[0.875rem] font-semibold">{label}</span>
       <input
         className="field !min-h-10 !py-1.5"
         value={value}
@@ -105,7 +105,7 @@ export function BoardEditor({
   return (
     <div className="flex flex-col gap-8">
       <fieldset className="flex flex-col gap-3">
-        <legend className="text-lg font-bold">Pengungsian</legend>
+        <legend className="text-lg font-semibold">Pengungsian</legend>
         {content.shelters.map((s) => (
           <div key={s.id} className="panel grid gap-2 px-3 py-3 sm:grid-cols-2">
             <TextField
@@ -137,11 +137,11 @@ export function BoardEditor({
       </fieldset>
 
       <fieldset className="flex flex-col gap-3">
-        <legend className="text-lg font-bold">Titik bantuan</legend>
+        <legend className="text-lg font-semibold">Titik bantuan</legend>
         {content.aidPoints.map((a) => (
           <div key={a.id} className="panel grid gap-2 px-3 py-3 sm:grid-cols-2">
             <label className="flex flex-col gap-1">
-              <span className="text-[0.875rem] font-bold">Jenis</span>
+              <span className="text-[0.875rem] font-semibold">Jenis</span>
               <select
                 className="field !min-h-10 !py-1.5"
                 value={a.kind}
@@ -188,7 +188,7 @@ export function BoardEditor({
       </fieldset>
 
       <fieldset className="flex flex-col gap-3">
-        <legend className="text-lg font-bold">Kebutuhan yang diumumkan</legend>
+        <legend className="text-lg font-semibold">Kebutuhan yang diumumkan</legend>
         {content.announcedNeeds.map((n) => (
           <div key={n.id} className="flex items-end gap-2">
             <div className="flex-1">
@@ -211,7 +211,7 @@ export function BoardEditor({
       </fieldset>
 
       <fieldset className="flex flex-col gap-3">
-        <legend className="text-lg font-bold">Kontak posko</legend>
+        <legend className="text-lg font-semibold">Kontak posko</legend>
         {content.contacts.map((c) => (
           <div key={c.id} className="panel grid gap-2 px-3 py-3 sm:grid-cols-2">
             <TextField
@@ -243,7 +243,7 @@ export function BoardEditor({
       </fieldset>
 
       <fieldset className="flex flex-col gap-3">
-        <legend className="text-lg font-bold">Catatan</legend>
+        <legend className="text-lg font-semibold">Catatan</legend>
         {content.notes.map((n) => (
           <div key={n.id} className="flex items-end gap-2">
             <div className="flex-1">
@@ -279,7 +279,7 @@ export function BoardEditor({
               {suggested.suggestions.map((s, i) => (
                 <li key={i} className="flex flex-wrap items-center justify-between gap-2 px-3 py-2">
                   <span>
-                    <span className="font-bold">{s.text}</span>{" "}
+                    <span className="font-semibold">{s.text}</span>{" "}
                     <span className="text-[0.875rem] text-ink-2">
                       ({s.section === "notes" ? "catatan" : "kebutuhan"}, {s.source})
                     </span>
@@ -300,14 +300,14 @@ export function BoardEditor({
 
       <form
         action={publishAction}
-        className="sticky bottom-0 flex flex-wrap items-center gap-3 border-t border-line bg-bg py-3"
+        className="sticky bottom-0 flex flex-wrap items-center gap-3 border-t border-line bg-surface py-3"
       >
         <input type="hidden" name="villageCode" value={villageCode} />
         <input type="hidden" name="content" value={JSON.stringify(content)} />
         <button type="submit" className="btn btn-primary" disabled={publishing}>
           {publishing ? "Menerbitkan..." : "Terbitkan papan info"}
         </button>
-        <p aria-live="polite" className={published.ok ? "font-bold text-done" : "error-text"}>
+        <p aria-live="polite" className={published.ok ? "font-semibold text-done" : "error-text"}>
           {published.message}
           {published.ok && ` Warga ${villageName} sudah bisa melihatnya.`}
         </p>

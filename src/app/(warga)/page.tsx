@@ -7,57 +7,54 @@ export default function HomePage() {
   const config = publicConfig();
   const regency = getRegency();
   return (
-    <div className="flex flex-col gap-8">
-      <div>
-        <h1 className="text-[1.75rem]">Lapor kejadian bencana, lihat informasi posko</h1>
-        <p className="mt-2 text-ink-2">
-          Untuk warga {regency.name}. Tanpa aplikasi, tanpa daftar akun.
-        </p>
+    <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-6">
+        <div>
+          <h1 className="text-[1.875rem]">Lapor kejadian bencana, lihat informasi posko</h1>
+          <p className="mt-3 text-ink-2">
+            Untuk warga {regency.name}. Tanpa aplikasi, tanpa daftar akun.
+          </p>
+        </div>
+        <Link href="/lapor" className="btn btn-primary min-h-16 w-full text-lg">
+          Saya perlu bantuan / mau melapor
+        </Link>
+        <EmergencyNotice number={config.emergencyNumber} />
       </div>
 
-      <Link href="/lapor" className="btn btn-primary min-h-20 w-full text-xl">
-        Saya perlu bantuan / mau melapor
-      </Link>
+      <ul className="flex flex-col divide-y divide-line border-y border-line">
+        <li className="py-4">
+          <Link href="/info" className="font-semibold underline decoration-line-strong">
+            Lihat papan info desa
+          </Link>
+          <p className="mt-1 text-base text-ink-2">
+            Lokasi pengungsian, air bersih, dapur umum, dan kontak posko yang diterbitkan petugas.
+          </p>
+        </li>
+        <li className="py-4">
+          <Link href="/status" className="font-semibold underline decoration-line-strong">
+            Cek status laporan
+          </Link>
+          <p className="mt-1 text-base text-ink-2">Pakai kode yang Anda terima setelah melapor.</p>
+        </li>
+      </ul>
 
-      <EmergencyNotice number={config.emergencyNumber} />
-
-      <section
-        aria-labelledby="judul-demo"
-        className="panel rounded-[var(--radius-field)] px-4 py-4"
-      >
-        <h2 id="judul-demo" className="text-lg">
+      <section aria-labelledby="judul-demo">
+        <h2 id="judul-demo" className="text-base">
           Mode demo untuk juri
         </h2>
-        <p className="text-base text-ink-2">
+        <p className="mt-1 text-base text-ink-2">
           Coba kedua sisi tanpa mendaftar. Data contoh fiktif, hanya terlihat di perangkat Anda, dan
           dihapus setelah 24 jam.
         </p>
         <div className="mt-3 flex flex-wrap gap-2">
-          <a href="/demo/korban" className="btn btn-secondary">
+          <a href="/demo/korban" className="btn btn-secondary btn-compact">
             Coba sebagai korban
           </a>
-          <a href="/demo/petugas" className="btn btn-secondary">
+          <a href="/demo/petugas" className="btn btn-secondary btn-compact">
             Coba sebagai petugas
           </a>
         </div>
       </section>
-
-      <ul className="flex flex-col gap-3">
-        <li>
-          <Link href="/info" className="font-bold underline">
-            Lihat papan info desa
-          </Link>
-          <p className="text-base text-ink-2">
-            Lokasi pengungsian, air bersih, dapur umum, dan kontak posko yang diterbitkan petugas.
-          </p>
-        </li>
-        <li>
-          <Link href="/status" className="font-bold underline">
-            Cek status laporan
-          </Link>
-          <p className="text-base text-ink-2">Pakai kode yang Anda terima setelah melapor.</p>
-        </li>
-      </ul>
     </div>
   );
 }
