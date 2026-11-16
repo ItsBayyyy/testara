@@ -99,7 +99,7 @@ export function WhatsAppImport({ sampleUrl }: { sampleUrl: string | null }) {
         </label>
         <textarea
           id="tempel"
-          className="field min-h-56 font-mono text-[0.875rem]"
+          className="field min-h-56 font-mono text-sm"
           value={raw}
           onChange={(e) => setRaw(e.target.value)}
           placeholder={"14/11/26 21.02 - Kades Taba Terunjam: Air sdh masuk rmh warga RT 3..."}
@@ -159,7 +159,7 @@ export function WhatsAppImport({ sampleUrl }: { sampleUrl: string | null }) {
           </div>
         )}
         {progress.kind === "gagal" && (
-          <p role="alert" className="flag-action notice px-4 py-3">
+          <p role="alert" className="alert-action px-4 py-3">
             {progress.message}{" "}
             {progress.created > 0 && `${progress.created} laporan sudah masuk antrean.`}
           </p>

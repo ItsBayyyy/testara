@@ -38,9 +38,9 @@ function TextField({
 }) {
   return (
     <label className={`flex flex-col gap-1 ${wide ? "sm:col-span-2" : ""}`}>
-      <span className="text-[0.875rem] font-semibold">{label}</span>
+      <span className="text-sm font-semibold">{label}</span>
       <input
-        className="field !min-h-10 !py-1.5"
+        className="field !min-h-10 !py-2"
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />
@@ -141,9 +141,9 @@ export function BoardEditor({
         {content.aidPoints.map((a) => (
           <div key={a.id} className="panel grid gap-2 px-3 py-3 sm:grid-cols-2">
             <label className="flex flex-col gap-1">
-              <span className="text-[0.875rem] font-semibold">Jenis</span>
+              <span className="text-sm font-semibold">Jenis</span>
               <select
-                className="field !min-h-10 !py-1.5"
+                className="field !min-h-10 !py-2"
                 value={a.kind}
                 onChange={(e) => updateRow("aidPoints", a.id, { kind: e.target.value as AidKind })}
               >
@@ -280,7 +280,7 @@ export function BoardEditor({
                 <li key={i} className="flex flex-wrap items-center justify-between gap-2 px-3 py-2">
                   <span>
                     <span className="font-semibold">{s.text}</span>{" "}
-                    <span className="text-[0.875rem] text-ink-2">
+                    <span className="text-sm text-ink-2">
                       ({s.section === "notes" ? "catatan" : "kebutuhan"}, {s.source})
                     </span>
                   </span>

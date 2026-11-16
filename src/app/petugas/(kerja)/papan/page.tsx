@@ -28,7 +28,7 @@ export default async function BoardsPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-6">
-      <h1 className="text-2xl">Papan info</h1>
+      <h1 className="text-xl">Papan info</h1>
       <p className="mt-1 text-ink-2">
         Isi papan info per desa, lalu terbitkan. Warga dan fitur tanya papan info hanya memakai isi
         yang sudah diterbitkan.
@@ -92,7 +92,7 @@ export default async function BoardsPage() {
                     className="block px-4 py-2"
                   >
                     <span className="font-semibold">{v ? villageLabel(v) : b.villageCode}</span>
-                    <span className="block text-[0.9375rem] text-ink-2">
+                    <span className="block text-sm text-ink-2">
                       Terbit <span className="num">{formatDateTime(b.publishedAt)}</span> oleh{" "}
                       {b.publishedBy}
                     </span>

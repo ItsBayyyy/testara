@@ -29,7 +29,7 @@ export default async function BoardPage({ params }: PageProps<"/info/[village]">
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-[1.75rem]">{title}</h1>
+        <h1 className="text-xl">{title}</h1>
         <p className="text-ink-2">Kecamatan {village.districtName}</p>
         {latest && (
           <p className="mt-1">

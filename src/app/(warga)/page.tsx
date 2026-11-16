@@ -1,60 +1,54 @@
 import Link from "next/link";
+import { DemoRibbon } from "@/components/warga/DemoRibbon";
 import { EmergencyNotice } from "@/components/warga/EmergencyNotice";
 import { publicConfig } from "@/lib/config";
+import { getRequestScope } from "@/lib/server/scope";
 import { getRegency } from "@/lib/wilayah";
 
-export default function HomePage() {
+export default async function HomePage() {
   const config = publicConfig();
   const regency = getRegency();
+  const { demoSessionId } = await getRequestScope();
   return (
-    <div className="flex flex-col gap-10">
-      <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-8">
+      {/* Di beranda, pita demo selalu tampil supaya juri menemukannya tanpa mencari. */}
+      {!demoSessionId && (
         <div>
-          <h1 className="text-[1.875rem]">Lapor kejadian bencana, lihat informasi posko</h1>
-          <p className="mt-3 text-ink-2">
-            Untuk warga {regency.name}. Tanpa aplikasi, tanpa daftar akun.
+          <DemoRibbon inSession={false} side="korban" />
+        </div>
+      )}
+
+      <div className="sheet flex flex-col gap-6">
+        <div>
+          <h1 className="text-xl">Lapor kejadian bencana di desa Anda</h1>
+          <p className="mt-2">
+            Untuk warga {regency.name}. Tanpa aplikasi dan tanpa akun. Petugas posko membaca setiap
+            laporan.
           </p>
         </div>
-        <Link href="/lapor" className="btn btn-primary min-h-16 w-full text-lg">
+        <Link href="/lapor" className="btn btn-primary min-h-14 w-full text-lg">
           Saya perlu bantuan / mau melapor
         </Link>
-        <EmergencyNotice number={config.emergencyNumber} />
       </div>
 
-      <ul className="flex flex-col divide-y divide-line border-y border-line">
-        <li className="py-4">
-          <Link href="/info" className="font-semibold underline decoration-line-strong">
-            Lihat papan info desa
+      <EmergencyNotice number={config.emergencyNumber} />
+
+      <nav aria-label="Lainnya" className="flex flex-col gap-4">
+        <div>
+          <Link href="/info" className="text-lg font-bold underline">
+            Papan info desa
           </Link>
-          <p className="mt-1 text-base text-ink-2">
-            Lokasi pengungsian, air bersih, dapur umum, dan kontak posko yang diterbitkan petugas.
+          <p className="mt-1 text-ink-2">
+            Pengungsian, air bersih, dapur umum, dan kontak posko yang diterbitkan petugas.
           </p>
-        </li>
-        <li className="py-4">
-          <Link href="/status" className="font-semibold underline decoration-line-strong">
+        </div>
+        <div>
+          <Link href="/status" className="text-lg font-bold underline">
             Cek status laporan
           </Link>
-          <p className="mt-1 text-base text-ink-2">Pakai kode yang Anda terima setelah melapor.</p>
-        </li>
-      </ul>
-
-      <section aria-labelledby="judul-demo">
-        <h2 id="judul-demo" className="text-base">
-          Mode demo untuk juri
-        </h2>
-        <p className="mt-1 text-base text-ink-2">
-          Coba kedua sisi tanpa mendaftar. Data contoh fiktif, hanya terlihat di perangkat Anda, dan
-          dihapus setelah 24 jam.
-        </p>
-        <div className="mt-3 flex flex-wrap gap-2">
-          <a href="/demo/korban" className="btn btn-secondary btn-compact">
-            Coba sebagai korban
-          </a>
-          <a href="/demo/petugas" className="btn btn-secondary btn-compact">
-            Coba sebagai petugas
-          </a>
+          <p className="mt-1 text-ink-2">Pakai kode dari karcis laporan Anda.</p>
         </div>
-      </section>
+      </nav>
     </div>
   );
 }

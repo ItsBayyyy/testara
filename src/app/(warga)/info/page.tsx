@@ -19,7 +19,7 @@ export default async function InfoIndexPage() {
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-[1.75rem]">Papan info desa</h1>
+        <h1 className="text-xl">Papan info desa</h1>
         <p className="mt-1 text-ink-2">
           Informasi resmi dari petugas posko di {regency.name}. Hanya berisi yang sudah diterbitkan
           petugas.
@@ -39,7 +39,7 @@ export default async function InfoIndexPage() {
             <li key={board.villageCode}>
               <Link
                 href={`/info/${villageSlug(board.villageCode)}`}
-                className="panel flex flex-col rounded-[var(--radius-field)] px-4 py-3 no-underline hover:bg-bg"
+                className="panel flex flex-col rounded-[var(--radius-control)] px-4 py-3 no-underline hover:bg-bg"
               >
                 <span className="font-semibold underline">{village && villageLabel(village)}</span>
                 <span className="text-base text-ink-2">

@@ -41,10 +41,10 @@ function QueueItem({ r, selected, query }: { r: Report; selected: boolean; query
       >
         <span className="flex justify-between gap-2">
           <span className="font-semibold">{village?.name ?? "Desa belum diketahui"}</span>
-          <span className="num text-[0.875rem] text-ink-2">{formatDateTime(r.createdAt)}</span>
+          <span className="num text-sm text-ink-2">{formatDateTime(r.createdAt)}</span>
         </span>
-        <span className="block text-[0.9375rem]">{shortLine(r)}</span>
-        <span className="block text-[0.875rem] text-ink-2">
+        <span className="block text-sm">{shortLine(r)}</span>
+        <span className="block text-sm text-ink-2">
           {STATUS_LABELS[r.status]}
           {r.source === "whatsapp" && ", dari WhatsApp"}
           {r.aiState !== "selesai" && ", belum dirapikan AI"}
@@ -96,12 +96,12 @@ export default async function QueuePage({ searchParams }: PageProps<"/petugas">)
           className={`border-r border-line ${selected ? "max-lg:hidden" : ""}`}
         >
           <div className="border-b border-line px-4 py-3">
-            <h1 id="judul-antrean" className="text-xl">
+            <h1 id="judul-antrean" className="text-lg">
               Antrean <span className="num">({reports.length})</span>
             </h1>
             <form className="mt-2 flex flex-wrap items-end gap-2" action="/petugas">
               <div>
-                <label htmlFor="filter-desa" className="text-[0.875rem] font-semibold">
+                <label htmlFor="filter-desa" className="text-sm font-semibold">
                   Desa
                 </label>
                 <select
@@ -119,7 +119,7 @@ export default async function QueuePage({ searchParams }: PageProps<"/petugas">)
                 </select>
               </div>
               <div>
-                <label htmlFor="filter-status" className="text-[0.875rem] font-semibold">
+                <label htmlFor="filter-status" className="text-sm font-semibold">
                   Status
                 </label>
                 <select
@@ -150,7 +150,7 @@ export default async function QueuePage({ searchParams }: PageProps<"/petugas">)
             </p>
           ) : (
             <>
-              <h2 className="px-4 pb-1 pt-4 text-[0.875rem] font-semibold text-ink-2">
+              <h2 className="px-4 pb-1 pt-4 text-sm font-semibold text-ink-2">
                 Mendesak <span className="num">({urgent.length})</span>
               </h2>
               <ul aria-label="Laporan mendesak">
@@ -158,7 +158,7 @@ export default async function QueuePage({ searchParams }: PageProps<"/petugas">)
                   <QueueItem key={r.id} r={r} selected={r.id === selected?.id} query={query} />
                 ))}
               </ul>
-              <h2 className="px-4 pb-1 pt-5 text-[0.875rem] font-semibold text-ink-2">
+              <h2 className="px-4 pb-1 pt-5 text-sm font-semibold text-ink-2">
                 Lainnya <span className="num">({others.length})</span>
               </h2>
               <ul aria-label="Laporan lainnya">

@@ -50,10 +50,10 @@ export function VillagePicker({
         <p className="label" id={`${id}-label`}>
           Desa Anda
         </p>
-        <div className="notice flex flex-wrap items-center justify-between gap-3 rounded-[var(--radius-field)] px-4 py-3">
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-[var(--radius-control)] border-2 border-spidol bg-spidol-wash px-4 py-2">
           <p>
-            <span className="font-semibold">{selected.label}</span>
-            <span className="block text-base text-ink-2">Kecamatan {selected.district}</span>
+            <span className="font-bold">{selected.label}</span>
+            <span className="block text-sm text-ink-2">Kecamatan {selected.district}</span>
           </p>
           <button
             type="button"
@@ -101,18 +101,19 @@ export function VillagePicker({
               Desa tidak ditemukan. Lanjutkan saja dan tulis lokasinya di cerita.
             </p>
           ) : (
-            <ul className="mt-2 flex flex-col gap-2" aria-label="Hasil pencarian desa">
+            <ul
+              className="mt-2 divide-y divide-line rounded-[var(--radius-control)] border-[1.5px] border-line-strong bg-surface"
+              aria-label="Hasil pencarian desa"
+            >
               {results.map((v) => (
                 <li key={v.code}>
                   <button
                     type="button"
-                    className="choice w-full !min-h-12 !py-2 font-normal"
+                    className="block min-h-12 w-full px-4 py-2 text-left hover:bg-bg active:bg-line"
                     onClick={() => onChange(v.code)}
                   >
-                    <span>
-                      <span className="font-semibold">{v.label}</span>
-                      <span className="block text-base text-ink-2">Kecamatan {v.district}</span>
-                    </span>
+                    <span className="font-bold">{v.label}</span>
+                    <span className="block text-sm text-ink-2">Kecamatan {v.district}</span>
                   </button>
                 </li>
               ))}

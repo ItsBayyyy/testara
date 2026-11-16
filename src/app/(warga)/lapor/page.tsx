@@ -34,19 +34,19 @@ export default async function LaporPage({ searchParams }: PageProps<"/lapor">) {
     <div className="flex flex-col gap-6">
       <EmergencyNotice number={config.emergencyNumber} />
       <div>
-        <h1 className="text-[1.75rem]">Lapor kejadian</h1>
-        <p className="mt-1 text-ink-2">Isi yang Anda tahu saja. Petugas membaca setiap laporan.</p>
+        <h1 className="text-xl">Lapor kejadian</h1>
+        <p className="mt-2">Isi yang Anda tahu saja. Petugas membaca setiap laporan.</p>
       </div>
       {noJsErrors.length > 0 && (
-        <div role="alert" className="flag-action notice px-4 py-3">
-          <p className="font-semibold">Laporan belum terkirim:</p>
+        <div role="alert" className="alert-action px-4 py-3">
+          <p className="font-bold">Laporan belum terkirim:</p>
           <ul className="mt-1 list-disc pl-5">
             {noJsErrors.map((m) => (
               <li key={m}>{m}</li>
             ))}
           </ul>
           <a
-            className="mt-2 inline-block font-semibold"
+            className="btn btn-secondary btn-compact mt-2"
             href={whatsappLink(config.poskoWhatsApp, "Laporan warga (lewat WhatsApp):")}
           >
             Kirim lewat WhatsApp

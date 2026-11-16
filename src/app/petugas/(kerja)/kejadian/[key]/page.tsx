@@ -63,7 +63,7 @@ export default async function IncidentPage({ params }: PageProps<"/petugas/kejad
         <Link href="/petugas/kejadian" className="font-semibold">
           Semua kejadian
         </Link>
-        <h1 id="judul-kejadian" className="mt-2 text-2xl">
+        <h1 id="judul-kejadian" className="mt-2 text-xl">
           {incidentTitle(group.hazard)}, {label}
         </h1>
         <p className="text-ink-2">
@@ -74,10 +74,10 @@ export default async function IncidentPage({ params }: PageProps<"/petugas/kejad
               <span className="num">{formatDateTime(review.reviewedAt)}</span>.
             </>
           ) : (
-            <span className="font-semibold text-action-ink">Belum diperiksa.</span>
+            <span className="font-semibold text-action">Belum diperiksa.</span>
           )}
         </p>
-        <p className="mt-3 text-[0.9375rem] text-ink-2">
+        <p className="mt-3 text-sm text-ink-2">
           Klik angka untuk melihat kalimat sumbernya. Angka yang berbeda antar pelapor tidak dipilih
           otomatis.
         </p>
@@ -90,7 +90,7 @@ export default async function IncidentPage({ params }: PageProps<"/petugas/kejad
             Ringkasan untuk WhatsApp
           </h2>
           <p className="hint">Hanya berisi angka yang sudah diperiksa.</p>
-          <pre className="notice mt-2 whitespace-pre-wrap px-3 py-2 font-sans text-[0.9375rem]">
+          <pre className="notice mt-2 whitespace-pre-wrap px-3 py-2 font-sans text-sm">
             {summaryText}
           </pre>
           <div className="mt-2">
@@ -115,7 +115,7 @@ export default async function IncidentPage({ params }: PageProps<"/petugas/kejad
             )
             .map((r) => (
               <li key={r.id} className="panel px-3 py-3">
-                <p className="num text-[0.875rem] text-ink-2">
+                <p className="num text-sm text-ink-2">
                   {formatDateTime(r.sourceMeta?.sentAt ?? r.createdAt)},{" "}
                   {r.source === "form"
                     ? "formulir"
@@ -131,10 +131,7 @@ export default async function IncidentPage({ params }: PageProps<"/petugas/kejad
                     }))}
                   />
                 </div>
-                <Link
-                  href={`/petugas?laporan=${r.id}`}
-                  className="mt-2 inline-block text-[0.9375rem]"
-                >
+                <Link href={`/petugas?laporan=${r.id}`} className="mt-2 inline-block text-sm">
                   Ubah status atau urgensi laporan <span className="code-text">{r.publicCode}</span>
                 </Link>
               </li>

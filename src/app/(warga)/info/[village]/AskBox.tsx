@@ -64,9 +64,9 @@ export function AskBox({
   return (
     <section
       aria-labelledby="judul-tanya"
-      className="notice rounded-[var(--radius-field)] px-4 py-4"
+      className="notice rounded-[var(--radius-control)] px-4 py-4"
     >
-      <h2 id="judul-tanya" className="text-xl">
+      <h2 id="judul-tanya" className="text-lg">
         Tanya papan info
       </h2>
       <p className="hint">Jawaban hanya dari informasi resmi di papan ini.</p>

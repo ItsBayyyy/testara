@@ -39,7 +39,7 @@ test("korban: alur lapor sampai papan info", async ({ page, context }) => {
   await page.goto("/demo/korban");
   await shot(page, "k10-lapor");
   await page.getByRole("button", { name: "Kirim laporan" }).click();
-  await expect(page.getByText("Laporan belum bisa dikirim:")).toBeVisible();
+  await expect(page.getByText(/Laporan belum bisa dikirim/)).toBeVisible();
   await shot(page, "k11-lapor-galat");
 
   await page.getByLabel("Desa Anda").fill("pekik");

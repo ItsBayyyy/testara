@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CopyButton } from "@/components/CopyButton";
+import { Ticket } from "@/components/Ticket";
 import { Timeline } from "@/components/Timeline";
 import { getStore } from "@/lib/db";
 import { normalizePublicCode } from "@/lib/domain/code";
@@ -21,8 +22,8 @@ export default async function StatusPage({ params, searchParams }: PageProps<"/s
 
   if (!report) {
     return (
-      <div className="flex flex-col gap-4">
-        <h1 className="text-[1.75rem]">Kode laporan tidak ditemukan</h1>
+      <div className="sheet flex flex-col gap-4">
+        <h1 className="text-xl">Kode laporan tidak ditemukan</h1>
         <p>
           Periksa lagi kodenya. Laporan juga dihapus otomatis setelah 30 hari, jadi kode lama tidak
           bisa dibuka.
@@ -42,44 +43,45 @@ export default async function StatusPage({ params, searchParams }: PageProps<"/s
   const lastUpdate = events.at(-1)?.createdAt ?? report.createdAt;
 
   return (
-    <div className="flex flex-col gap-7">
+    <div className="flex flex-col gap-8">
       <AutoRefresh />
       <div>
-        <h1 className="text-[1.75rem]">
-          {isNew ? "Laporan Anda sudah kami terima." : "Status laporan"}
-        </h1>
-        {isNew && <p className="mt-2">Simpan kode ini untuk melihat perkembangannya.</p>}
+        <h1 className="text-xl">{isNew ? "Laporan Anda sudah kami terima." : "Status laporan"}</h1>
+        <p className="mt-2">
+          {isNew
+            ? "Simpan kode di karcis ini untuk melihat perkembangannya."
+            : "Halaman ini diperbarui sendiri setiap 30 detik."}
+        </p>
       </div>
 
-      <section
-        aria-label="Kode laporan"
-        className="notice flex flex-col items-start gap-4 rounded-[var(--radius-receipt)] px-5 py-6"
+      <Ticket
+        code={report.publicCode}
+        caption={
+          <>
+            Karcis laporan
+            {village ? `, ${villageLabel(village)}` : ""}. Diterima{" "}
+            <span className="num">{formatDateTime(report.createdAt)}</span>
+          </>
+        }
       >
-        <p className="text-base text-ink-2">Kode laporan</p>
-        <p className="code-text whitespace-nowrap text-[clamp(1.6rem,8.2vw,2.5rem)] font-semibold leading-none">
-          {report.publicCode}
-        </p>
-        <CopyButton text={report.publicCode} label="Salin kode" doneLabel="Kode disalin." />
-      </section>
+        <div className="mt-4 flex flex-wrap items-start gap-x-4 gap-y-2">
+          <CopyButton text={report.publicCode} label="Salin kode" doneLabel="Kode disalin." />
+          <Link href={`/status/${report.publicCode}`} className="btn btn-quiet">
+            Tautan halaman status
+          </Link>
+        </div>
+      </Ticket>
 
-      <section aria-labelledby="perkembangan" className="flex flex-col gap-4">
-        <h2 id="perkembangan" className="text-xl">
+      <section aria-labelledby="perkembangan" className="sheet flex flex-col gap-4">
+        <h2 id="perkembangan" className="text-lg">
           Perkembangan
         </h2>
         <Timeline steps={steps} />
-        <p className="text-base text-ink-2">
+        <p className="border-t border-line pt-4 font-bold">
           Status ini menunjukkan laporan Anda sudah diproses petugas, bukan jaminan waktu kedatangan
           bantuan.
         </p>
-      </section>
-
-      <section aria-labelledby="rincian" className="flex flex-col gap-2">
-        <h2 id="rincian" className="text-xl">
-          Rincian
-        </h2>
-        <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1">
-          <dt className="text-ink-2">Desa</dt>
-          <dd>{village ? villageLabel(village) : "tidak disebut"}</dd>
+        <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-sm">
           <dt className="text-ink-2">Kebutuhan</dt>
           <dd>
             {report.needs.length
@@ -91,16 +93,11 @@ export default async function StatusPage({ params, searchParams }: PageProps<"/s
         </dl>
       </section>
 
-      <div className="flex flex-col gap-3">
-        {village && (
-          <Link href={`/info/${villageSlug(village.code)}`} className="btn btn-primary">
-            Lihat papan info {villageLabel(village)}
-          </Link>
-        )}
-        <Link href={`/status/${report.publicCode}`} className="btn btn-quiet">
-          Perbarui status
+      {village && (
+        <Link href={`/info/${villageSlug(village.code)}`} className="btn btn-primary w-full">
+          Lihat papan info {villageLabel(village)}
         </Link>
-      </div>
+      )}
     </div>
   );
 }

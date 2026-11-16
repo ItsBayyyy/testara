@@ -5,10 +5,10 @@ export const metadata: Metadata = { title: "Privasi" };
 export default function PrivasiPage() {
   return (
     <article className="flex flex-col gap-6">
-      <h1 className="text-[1.75rem]">Privasi</h1>
+      <h1 className="text-xl">Privasi</h1>
 
       <section aria-labelledby="disimpan" className="flex flex-col gap-2">
-        <h2 id="disimpan" className="text-xl">
+        <h2 id="disimpan" className="text-lg">
           Yang disimpan
         </h2>
         <p>
@@ -18,7 +18,7 @@ export default function PrivasiPage() {
       </section>
 
       <section aria-labelledby="melihat" className="flex flex-col gap-2">
-        <h2 id="melihat" className="text-xl">
+        <h2 id="melihat" className="text-lg">
           Siapa yang bisa melihat
         </h2>
         <ul className="list-disc pl-5">
@@ -40,7 +40,7 @@ export default function PrivasiPage() {
       </section>
 
       <section aria-labelledby="dihapus" className="flex flex-col gap-2">
-        <h2 id="dihapus" className="text-xl">
+        <h2 id="dihapus" className="text-lg">
           Kapan dihapus
         </h2>
         <ul className="list-disc pl-5">
@@ -54,7 +54,7 @@ export default function PrivasiPage() {
       </section>
 
       <section aria-labelledby="perangkat" className="flex flex-col gap-2">
-        <h2 id="perangkat" className="text-xl">
+        <h2 id="perangkat" className="text-lg">
           Di perangkat Anda
         </h2>
         <p>

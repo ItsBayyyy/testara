@@ -16,7 +16,7 @@ export default async function MasukPage() {
         <Link href="/" className="text-lg font-semibold no-underline">
           Testara
         </Link>
-        <h1 className="mt-4 text-2xl">Masuk petugas</h1>
+        <h1 className="mt-4 text-xl">Masuk petugas</h1>
         <p className="mt-1 text-ink-2">
           Untuk petugas BPBD dan koordinator posko. Akun dibuat oleh admin.
         </p>

@@ -32,7 +32,7 @@ export function ProcessPending({ ids }: { ids: string[] }) {
 
   if (ids.length === 0 || done >= ids.length) return null;
   return (
-    <p className="bg-bg px-4 py-2 text-[0.9375rem] text-ink-2" aria-live="polite">
+    <p className="bg-bg px-4 py-2 text-sm text-ink-2" aria-live="polite">
       Merapikan {ids.length - done} laporan otomatis...
     </p>
   );

@@ -16,7 +16,7 @@ export default function CaraKerjaPage() {
   return (
     <article className="flex flex-col gap-8">
       <header>
-        <h1 className="text-[1.75rem]">Cara kerja Testara</h1>
+        <h1 className="text-xl">Cara kerja Testara</h1>
         <p className="mt-2">
           Testara berasal dari kata Latin <i>testis</i>, saksi. Setiap laporan dan setiap angka
           punya saksi berupa kalimat sumbernya.
@@ -24,7 +24,7 @@ export default function CaraKerjaPage() {
       </header>
 
       <section aria-labelledby="masalah" className="flex flex-col gap-3">
-        <h2 id="masalah" className="text-xl">
+        <h2 id="masalah" className="text-lg">
           Masalah yang dijawab
         </h2>
         <p>
@@ -46,7 +46,7 @@ export default function CaraKerjaPage() {
       </section>
 
       <section aria-labelledby="korban" className="flex flex-col gap-3">
-        <h2 id="korban" className="text-xl">
+        <h2 id="korban" className="text-lg">
           Untuk korban dan pelapor
         </h2>
         <ol className="flex flex-col gap-4">
@@ -75,7 +75,7 @@ export default function CaraKerjaPage() {
       </section>
 
       <section aria-labelledby="petugas" className="flex flex-col gap-3">
-        <h2 id="petugas" className="text-xl">
+        <h2 id="petugas" className="text-lg">
           Untuk petugas
         </h2>
         <ol className="flex flex-col gap-4">
@@ -95,7 +95,7 @@ export default function CaraKerjaPage() {
       </section>
 
       <section aria-labelledby="ai" className="flex flex-col gap-3">
-        <h2 id="ai" className="text-xl">
+        <h2 id="ai" className="text-lg">
           Peran AI dan batasannya
         </h2>
         <ul className="list-disc pl-5">

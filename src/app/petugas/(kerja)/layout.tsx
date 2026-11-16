@@ -16,7 +16,7 @@ export default async function PetugasLayout({ children }: LayoutProps<"/petugas"
             Testara <span className="font-normal text-ink-2">Petugas</span>
           </Link>
           <PetugasNav />
-          <div className="ml-auto flex items-center gap-4 text-[0.9375rem] text-ink-2">
+          <div className="ml-auto flex items-center gap-4 text-sm text-ink-2">
             <span>
               {staff.name}
               {staff.demo && " (data contoh)"}
@@ -30,7 +30,7 @@ export default async function PetugasLayout({ children }: LayoutProps<"/petugas"
         </div>
       </header>
       {staff.demo && (
-        <p className="bg-bg px-4 py-2 text-[0.9375rem] text-ink-2 lg:px-6">
+        <p className="bg-bg px-4 py-2 text-sm text-ink-2 lg:px-6">
           Mode demo untuk juri. Semua data fiktif dan hanya terlihat di sesi ini.{" "}
           <Link href="/" className="text-ink underline">
             Buka sisi korban

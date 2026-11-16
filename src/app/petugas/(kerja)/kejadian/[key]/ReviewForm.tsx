@@ -49,9 +49,7 @@ export function ReviewForm({ incidentKey, rows }: { incidentKey: string; rows: R
               >
                 {row.label}
                 {row.differs && (
-                  <span className="block text-[0.875rem] font-semibold text-action-ink">
-                    Angka berbeda
-                  </span>
+                  <span className="block text-sm font-semibold text-action">Angka berbeda</span>
                 )}
               </th>
               <td className="py-2">
@@ -73,11 +71,9 @@ export function ReviewForm({ incidentKey, rows }: { incidentKey: string; rows: R
                           />
                         )}
                         <EvidenceJump targetId={v.firstEvidenceId}>{v.display}</EvidenceJump>
-                        <span className="text-[0.875rem] text-ink-2">
-                          {v.evidenceCount} pelapor
-                        </span>
+                        <span className="text-sm text-ink-2">{v.evidenceCount} pelapor</span>
                         {row.differs && row.chosenIndex === i && (
-                          <span className="text-[0.875rem] font-semibold">(dipilih)</span>
+                          <span className="text-sm font-semibold">(dipilih)</span>
                         )}
                       </li>
                     ))}

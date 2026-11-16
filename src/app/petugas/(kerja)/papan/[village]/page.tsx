@@ -23,7 +23,7 @@ export default async function EditBoardPage({ params }: PageProps<"/petugas/papa
         <Link href="/petugas/papan" className="font-semibold">
           Semua papan info
         </Link>
-        <h1 className="mt-2 text-2xl">Papan info {villageLabel(village)}</h1>
+        <h1 className="mt-2 text-xl">Papan info {villageLabel(village)}</h1>
         <p className="mb-6 text-ink-2">
           Kecamatan {village.districtName}. Warga hanya melihat isi yang sudah diterbitkan.
         </p>
@@ -42,7 +42,7 @@ export default async function EditBoardPage({ params }: PageProps<"/petugas/papa
         ) : (
           <ol className="panel mt-2 divide-y divide-line">
             {versions.map((v, i) => (
-              <li key={v.id} className="px-3 py-2 text-[0.9375rem]">
+              <li key={v.id} className="px-3 py-2 text-sm">
                 <span className="num font-semibold">{formatDateTime(v.publishedAt)}</span>
                 {i === 0 && " (tampil sekarang)"}
                 <span className="block text-ink-2">oleh {v.publishedBy}</span>

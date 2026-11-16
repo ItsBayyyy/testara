@@ -18,7 +18,7 @@ test("sisi korban", async ({ page, context }) => {
   await shot(page, "02-lapor");
 
   await page.getByRole("button", { name: "Kirim laporan" }).click();
-  await expect(page.getByText("Laporan belum bisa dikirim:")).toBeVisible();
+  await expect(page.getByText(/Laporan belum bisa dikirim/)).toBeVisible();
   await shot(page, "03-lapor-galat");
 
   await page.getByLabel("Desa Anda").fill("pekik");

@@ -19,7 +19,7 @@ export default async function IncidentsPage() {
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-6">
-      <h1 className="text-2xl">Kejadian</h1>
+      <h1 className="text-xl">Kejadian</h1>
       <p className="mt-1 text-ink-2">
         Laporan dikelompokkan per desa dan jenis bencana. Periksa angka yang berbeda sebelum
         diteruskan ke pimpinan.
@@ -47,13 +47,13 @@ export default async function IncidentsPage() {
                   <span className="font-semibold underline">
                     {incidentTitle(g.hazard)}, {village ? villageLabel(village) : g.villageCode}
                   </span>
-                  <span className="block text-[0.9375rem] text-ink-2">
+                  <span className="block text-sm text-ink-2">
                     <span className="num">{g.reportIds.length}</span> laporan, terakhir{" "}
                     <span className="num">{formatDateTime(g.lastAt)}</span>
                   </span>
-                  <span className="block text-[0.9375rem]">
+                  <span className="block text-sm">
                     {left > 0 && (
-                      <span className="font-semibold text-action-ink">
+                      <span className="font-semibold text-action">
                         <span className="num">{left}</span> angka berbeda.{" "}
                       </span>
                     )}
@@ -63,7 +63,7 @@ export default async function IncidentsPage() {
                         <span className="num">{formatDateTime(review.reviewedAt)}</span>
                       </span>
                     ) : (
-                      <span className="font-semibold text-action-ink">Belum diperiksa</span>
+                      <span className="font-semibold text-action">Belum diperiksa</span>
                     )}
                   </span>
                 </Link>

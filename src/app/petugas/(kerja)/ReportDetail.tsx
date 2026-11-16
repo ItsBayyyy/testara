@@ -39,7 +39,7 @@ export function ReportDetail({ report, villages }: { report: Report; villages: V
   return (
     <article aria-labelledby="judul-laporan" className="flex flex-col gap-5">
       <header>
-        <h2 id="judul-laporan" className="text-xl">
+        <h2 id="judul-laporan" className="text-lg">
           Laporan <span className="code-text">{report.publicCode}</span>
         </h2>
         <p className="num text-ink-2">
@@ -50,7 +50,7 @@ export function ReportDetail({ report, villages }: { report: Report; villages: V
         </p>
       </header>
 
-      <p className={`px-3 py-2 ${ex ? "notice" : "flag-action notice"}`}>
+      <p className={`px-3 py-2 ${ex ? "notice" : "alert-action"}`}>
         {ex
           ? "Dirapikan otomatis. Periksa sebelum ditindaklanjuti."
           : "Belum dirapikan AI. Laporan tampil apa adanya; urgensi dari aturan."}{" "}
@@ -58,7 +58,7 @@ export function ReportDetail({ report, villages }: { report: Report; villages: V
       </p>
 
       {ex?.possiblyIrrelevant && (
-        <p className="flag-action notice px-3 py-2">
+        <p className="alert-action px-3 py-2">
           Mungkin tidak terkait bencana. Tetap periksa; laporan tidak disembunyikan.
         </p>
       )}
@@ -67,9 +67,7 @@ export function ReportDetail({ report, villages }: { report: Report; villages: V
         <Row label="Status">{STATUS_LABELS[report.status]}</Row>
         <Row label="Urgensi">
           <span
-            className={
-              report.urgency === "tinggi" ? "font-semibold text-action-ink" : "font-semibold"
-            }
+            className={report.urgency === "tinggi" ? "font-semibold text-action" : "font-semibold"}
           >
             {URGENCY_LABELS[report.urgency]}
           </span>{" "}

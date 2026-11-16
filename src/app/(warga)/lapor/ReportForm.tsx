@@ -139,8 +139,19 @@ export function ReportForm({
     if (phase.kind === "gagal") fallbackRef.current?.focus();
   }, [phase]);
 
-  function saveDraft() {
-    if (formRef.current) writeDraft(readForm(formRef.current));
+  /** Simpan draf, dan hapus pesan error yang sudah tidak berlaku setelah isian diperbaiki. */
+  function onFormChange(villageOverride?: string | null) {
+    if (!formRef.current) return;
+    const draft = readForm(formRef.current);
+    if (villageOverride !== undefined) draft.villageCode = villageOverride;
+    writeDraft(draft);
+    if (Object.keys(errors).length > 0) {
+      const still = quickValidate(draft);
+      const local = new Set(["needs", "story", "phone", "consent"]);
+      setErrors((prev) =>
+        Object.fromEntries(Object.entries(prev).filter(([k]) => !local.has(k) || k in still)),
+      );
+    }
   }
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
@@ -190,13 +201,13 @@ export function ReportForm({
       method="post"
       action="/api/reports/form"
       onSubmit={onSubmit}
-      onChange={saveDraft}
+      onChange={() => onFormChange()}
       noValidate
-      className="flex flex-col gap-8"
+      className="sheet flex flex-col gap-8"
     >
       {errorList.length > 0 && (
-        <div ref={summaryRef} tabIndex={-1} role="alert" className="flag-action notice px-4 py-3">
-          <p className="font-semibold">Laporan belum bisa dikirim:</p>
+        <div ref={summaryRef} tabIndex={-1} role="alert" className="alert-action px-4 py-3">
+          <p className="font-bold">Laporan belum bisa dikirim. Lengkapi dulu:</p>
           <ul className="mt-1 list-disc pl-5">
             {errorList.map((m) => (
               <li key={m}>{m}</li>
@@ -211,7 +222,7 @@ export function ReportForm({
         value={villageCode}
         onChange={(code) => {
           setChosenVillage(code);
-          if (formRef.current) writeDraft({ ...readForm(formRef.current), villageCode: code });
+          onFormChange(code);
         }}
         error={errors.villageCode}
       />
@@ -219,7 +230,7 @@ export function ReportForm({
       <fieldset>
         <legend className="label">Apa yang dibutuhkan?</legend>
         <p className="hint mb-2">Boleh pilih lebih dari satu.</p>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 gap-3 min-[360px]:grid-cols-2">
           {NEEDS.map((n) => (
             <label key={n} className="choice">
               <input
@@ -295,11 +306,10 @@ export function ReportForm({
 
       <div>
         <label htmlFor="hp" className="label">
-          Nomor HP untuk dihubungi petugas{" "}
-          <span className="font-normal text-ink-2">(tidak wajib)</span>
+          Nomor HP <span className="font-normal text-ink-2">(tidak wajib)</span>
         </label>
         <p id="hp-hint" className="hint mb-2">
-          Hanya petugas yang bisa melihat nomor ini.
+          Supaya petugas bisa menghubungi Anda. Hanya petugas yang bisa melihatnya.
         </p>
         <input
           id="hp"
@@ -324,7 +334,7 @@ export function ReportForm({
             type="checkbox"
             name="consent"
             value="1"
-            className="check mt-0.5"
+            className="check mt-1"
             aria-invalid={errors.consent ? true : undefined}
           />
           <span>
@@ -340,7 +350,7 @@ export function ReportForm({
           ref={fallbackRef}
           tabIndex={-1}
           role="alert"
-          className="flag-action notice flex flex-col gap-3 px-4 py-4"
+          className="alert-action flex flex-col gap-3 px-4 py-4"
         >
           <p className="font-semibold">{phase.message}</p>
           <p className="text-base text-ink-2">
@@ -367,7 +377,12 @@ export function ReportForm({
         </div>
       ) : (
         <div className="flex flex-col gap-2">
-          <button type="submit" className="btn btn-primary w-full text-lg" disabled={sending}>
+          <button
+            type="submit"
+            className="btn btn-primary min-h-14 w-full text-lg"
+            aria-busy={sending}
+            disabled={sending}
+          >
             {sending ? "Mengirim laporan..." : "Kirim laporan"}
           </button>
           <p className="hint text-center" aria-live="polite">
