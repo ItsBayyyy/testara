@@ -10,25 +10,25 @@ export function DemoRibbon({
   side: "korban" | "petugas";
 }) {
   return (
-    <aside aria-label="Mode demo untuk juri" className="border-b border-line bg-surface">
-      <div className="mx-auto flex max-w-[1200px] flex-wrap items-center gap-x-4 gap-y-2 px-4 py-2">
-        <p className="text-sm">
-          <strong>Mode demo untuk juri.</strong> Contoh fiktif untuk demonstrasi
-          {inSession ? ", hanya terlihat di perangkat ini." : "."}
+    <aside aria-label="Mode demo untuk juri" className="bg-bg">
+      <div className="mx-auto flex max-w-[35rem] flex-wrap items-center gap-x-4 gap-y-1 px-4 py-2 text-sm">
+        <p>
+          <strong>Mode demo untuk juri.</strong>{" "}
+          <span className="text-ink-2">Contoh fiktif untuk demonstrasi.</span>
         </p>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-x-4">
           {(!inSession || side === "petugas") && (
-            <a href="/demo/korban" className="btn btn-secondary btn-compact">
+            <a href="/demo/korban" className="underline">
               Coba sebagai korban
             </a>
           )}
           {(!inSession || side === "korban") && (
-            <a href="/demo/petugas" className="btn btn-secondary btn-compact">
+            <a href="/demo/petugas" className="underline">
               Coba sebagai petugas
             </a>
           )}
           {inSession && (
-            <a href="/demo/keluar" className="btn btn-quiet btn-compact">
+            <a href="/demo/keluar" className="text-ink-2 underline">
               Keluar dari demo
             </a>
           )}

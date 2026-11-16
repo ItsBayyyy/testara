@@ -4,7 +4,7 @@ export const metadata: Metadata = { title: "Privasi" };
 
 export default function PrivasiPage() {
   return (
-    <article className="sheet flex flex-col gap-8">
+    <article className="flex flex-col gap-8">
       <h1 className="text-xl">Privasi</h1>
 
       <section aria-labelledby="disimpan" className="flex flex-col gap-2">

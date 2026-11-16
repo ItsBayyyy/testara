@@ -19,13 +19,10 @@ export default async function StatusLookupPage({ searchParams }: PageProps<"/sta
   const typed = typeof params.kode === "string" ? params.kode : "";
   return (
     <div className="flex flex-col gap-6">
-      <div>
-        <h1 className="text-xl">Cek status laporan</h1>
-        <p className="mt-2">Masukkan kode yang tertulis di karcis laporan Anda.</p>
-      </div>
-      <form action={openStatus} className="sheet flex flex-col gap-3">
+      <h1 className="text-xl">Cek status laporan</h1>
+      <form action={openStatus} className="flex flex-col gap-3">
         <label htmlFor="kode" className="label">
-          Kode laporan
+          Kode laporan <span className="font-normal text-ink-2">(dari karcis)</span>
         </label>
         <input
           id="kode"

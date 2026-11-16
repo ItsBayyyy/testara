@@ -20,12 +20,9 @@ export default async function IncidentsPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-6">
       <h1 className="text-xl">Kejadian</h1>
-      <p className="mt-1 text-ink-2">
-        Laporan dikelompokkan per desa dan jenis bencana. Periksa angka yang berbeda sebelum
-        diteruskan ke pimpinan.
-      </p>
+      <p className="mt-1 text-ink-2">Per desa dan jenis bencana.</p>
       {groups.length === 0 ? (
-        <p className="sheet mt-6">
+        <p className="mt-6">
           Belum ada kejadian. Kejadian terbentuk dari laporan yang desanya sudah diketahui.
         </p>
       ) : (

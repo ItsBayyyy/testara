@@ -37,7 +37,7 @@ export function ReportDetail({ report, villages }: { report: Report; villages: V
   ];
 
   return (
-    <article aria-labelledby="judul-laporan" className="sheet flex max-w-3xl flex-col gap-6">
+    <article aria-labelledby="judul-laporan" className="flex max-w-3xl flex-col gap-6">
       <header>
         <h2 id="judul-laporan" className="text-xl">
           Laporan <span className="code-text">{report.publicCode}</span>

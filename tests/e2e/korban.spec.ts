@@ -8,7 +8,7 @@ test.describe("sisi korban", () => {
     await page.goto("/");
     await page.getByRole("link", { name: "Saya perlu bantuan / mau melapor" }).click();
     await expect(page.getByRole("heading", { name: "Lapor kejadian" })).toBeVisible();
-    await expect(page.getByText("Ada yang terancam nyawanya?")).toBeVisible();
+    await expect(page.getByText("Nyawa terancam?")).toBeVisible();
 
     await page.getByLabel("Desa Anda").fill("taba teru");
     await page.getByRole("button", { name: /Desa Taba Terunjam/ }).click();

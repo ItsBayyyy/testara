@@ -11,7 +11,7 @@ export default async function PetugasLayout({ children }: LayoutProps<"/petugas"
         Lewati ke isi
       </a>
       {staff.demo && (
-        <aside aria-label="Mode demo untuk juri" className="border-b border-line bg-surface">
+        <aside aria-label="Mode demo untuk juri" className="bg-bg">
           <p className="flex flex-wrap items-center gap-x-4 gap-y-1 px-4 py-1 lg:px-6">
             <span>
               <strong>Mode demo untuk juri.</strong> Contoh fiktif untuk demonstrasi.
@@ -25,7 +25,7 @@ export default async function PetugasLayout({ children }: LayoutProps<"/petugas"
       <header className="border-b border-line bg-surface">
         <div className="flex flex-wrap items-center gap-x-6 px-4 lg:px-6">
           <Link href="/petugas" className="flex min-h-12 items-center gap-2 font-bold no-underline">
-            <span aria-hidden className="block h-4 w-1.5 bg-spidol" />
+            <span aria-hidden className="block size-3 bg-spidol" />
             Testara <span className="font-normal text-ink-2">Petugas</span>
           </Link>
           <div className="order-2 flex items-center gap-3 text-ink-2 sm:order-3 sm:ml-auto max-sm:ml-auto">

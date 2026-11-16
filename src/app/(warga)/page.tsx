@@ -10,8 +10,7 @@ export default async function HomePage() {
   const regency = getRegency();
   const { demoSessionId } = await getRequestScope();
   return (
-    <div className="flex flex-col gap-8">
-      {/* Di beranda, pita demo selalu tampil supaya juri menemukannya tanpa mencari. */}
+    <div className="flex flex-col gap-10">
       {!demoSessionId && (
         // Pita selebar layar walau berada di dalam kolom isi.
         <div className="-mt-6 ml-[calc(50%-50vw)] w-screen">
@@ -19,36 +18,24 @@ export default async function HomePage() {
         </div>
       )}
 
-      <div className="sheet flex flex-col gap-6">
+      <div className="flex flex-col gap-6">
         <div>
-          <h1 className="text-xl">Lapor kejadian bencana di desa Anda</h1>
-          <p className="mt-2">
-            Untuk warga {regency.name}. Tanpa aplikasi dan tanpa akun. Petugas posko membaca setiap
-            laporan.
-          </p>
+          <h1 className="text-xl">Lapor kejadian bencana</h1>
+          <p className="mt-2 text-ink-2">{regency.name}. Tanpa aplikasi, tanpa akun.</p>
         </div>
         <Link href="/lapor" className="btn btn-primary min-h-14 w-full text-lg">
           Saya perlu bantuan / mau melapor
         </Link>
+        <EmergencyNotice number={config.emergencyNumber} />
       </div>
 
-      <EmergencyNotice number={config.emergencyNumber} />
-
-      <nav aria-label="Lainnya" className="flex flex-col gap-4">
-        <div>
-          <Link href="/info" className="text-lg font-bold underline">
-            Papan info desa
-          </Link>
-          <p className="mt-1 text-ink-2">
-            Pengungsian, air bersih, dapur umum, dan kontak posko yang diterbitkan petugas.
-          </p>
-        </div>
-        <div>
-          <Link href="/status" className="text-lg font-bold underline">
-            Cek status laporan
-          </Link>
-          <p className="mt-1 text-ink-2">Pakai kode dari karcis laporan Anda.</p>
-        </div>
+      <nav aria-label="Lainnya" className="grid grid-cols-2 gap-3">
+        <Link href="/info" className="btn btn-secondary">
+          Papan info
+        </Link>
+        <Link href="/status" className="btn btn-secondary">
+          Cek status
+        </Link>
       </nav>
     </div>
   );

@@ -59,10 +59,7 @@ export default async function IncidentPage({ params }: PageProps<"/petugas/kejad
 
   return (
     <div className="lg:grid lg:grid-cols-2">
-      <section
-        aria-labelledby="judul-kejadian"
-        className="border-r border-line bg-surface px-4 py-6 lg:px-6"
-      >
+      <section aria-labelledby="judul-kejadian" className="border-r border-line px-4 py-6 lg:px-6">
         <Link href="/petugas/kejadian" className="font-bold">
           Semua kejadian
         </Link>
@@ -80,10 +77,7 @@ export default async function IncidentPage({ params }: PageProps<"/petugas/kejad
             <span className="tag tag-action">Belum diperiksa</span>
           )}
         </p>
-        <p className="mt-3 text-sm text-ink-2">
-          Klik angka untuk melihat kalimat sumbernya. Angka yang berbeda antar pelapor tidak dipilih
-          otomatis.
-        </p>
+        <p className="mt-3 text-sm text-ink-2">Klik angka untuk melihat kalimat sumbernya.</p>
         <div className="mt-4">
           <ReviewForm incidentKey={group.key} rows={rows} />
         </div>
@@ -117,7 +111,7 @@ export default async function IncidentPage({ params }: PageProps<"/petugas/kejad
               ),
             )
             .map((r) => (
-              <li key={r.id} className="rounded-[var(--radius-sheet)] bg-surface px-4 py-3">
+              <li key={r.id} className="border-b border-line pb-4">
                 <p className="num text-sm text-ink-2">
                   {formatDateTime(r.sourceMeta?.sentAt ?? r.createdAt)},{" "}
                   {r.source === "form"

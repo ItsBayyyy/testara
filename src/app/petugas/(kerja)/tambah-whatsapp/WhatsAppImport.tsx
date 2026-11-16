@@ -86,10 +86,10 @@ export function WhatsAppImport({ sampleUrl }: { sampleUrl: string | null }) {
   const total = parsed.messages.length;
 
   return (
-    <div className="sheet mt-6 flex flex-col gap-6">
+    <div className="mt-6 flex flex-col gap-6">
       {sampleUrl && (
         <div className="notice flex flex-wrap items-center justify-between gap-3 px-4 py-3">
-          <p>Contoh fiktif untuk demonstrasi: ekspor grup WhatsApp kepala desa.</p>
+          <p>Contoh fiktif untuk demonstrasi.</p>
           <button type="button" className="btn btn-secondary" onClick={loadSample} disabled={busy}>
             Pakai contoh chat
           </button>

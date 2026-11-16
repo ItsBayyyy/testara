@@ -79,16 +79,13 @@ export function VillagePicker({
         id={`${id}-input`}
         type="search"
         className="field"
-        placeholder="Cari desa..."
+        placeholder="Ketik nama desa"
         autoComplete="off"
         name="desaCari"
         onChange={(e) => setQuery(e.target.value)}
-        aria-describedby={`${id}-hint ${error ? `${id}-error` : ""}`}
+        aria-describedby={error ? `${id}-error` : undefined}
         aria-invalid={error ? true : undefined}
       />
-      <p id={`${id}-hint`} className="hint mt-1">
-        Ketik minimal 2 huruf nama desa atau kecamatan.
-      </p>
       {error && (
         <p id={`${id}-error`} className="error-text mt-1">
           {error}
@@ -97,9 +94,7 @@ export function VillagePicker({
       {query.trim().length >= 2 && (
         <div aria-live="polite">
           {results.length === 0 ? (
-            <p className="mt-2 text-ink-2">
-              Desa tidak ditemukan. Lanjutkan saja dan tulis lokasinya di cerita.
-            </p>
+            <p className="mt-2 text-ink-2">Desa tidak ditemukan. Tulis lokasinya di cerita.</p>
           ) : (
             <ul
               className="mt-2 divide-y divide-line rounded-[var(--radius-control)] border-[1.5px] border-line-strong bg-surface"

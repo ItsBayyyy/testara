@@ -10,19 +10,19 @@ export default async function WargaLayout({ children }: LayoutProps<"/">) {
         Lewati ke isi
       </a>
       {demoSessionId && <DemoRibbon inSession side="korban" />}
-      <header className="bg-surface">
+      <header className="border-b border-line">
         <nav
           aria-label="Utama"
           className="mx-auto flex max-w-[35rem] items-center justify-between gap-4 px-4 py-3"
         >
           <Link
             href="/"
-            className="flex min-h-12 items-center gap-2 text-lg font-bold no-underline"
+            className="flex min-h-12 items-center gap-2 text-lg font-semibold no-underline"
           >
-            <span aria-hidden className="block h-5 w-2 bg-spidol" />
+            <span aria-hidden className="block size-3 bg-spidol" />
             Testara
           </Link>
-          <Link href="/info" className="flex min-h-12 items-center underline">
+          <Link href="/info" className="flex min-h-12 items-center text-ink-2 underline">
             Papan info
           </Link>
         </nav>
@@ -31,10 +31,7 @@ export default async function WargaLayout({ children }: LayoutProps<"/">) {
         {children}
       </main>
       <footer>
-        <div className="mx-auto flex max-w-[35rem] flex-wrap gap-x-6 gap-y-2 px-4 pb-8 text-sm text-ink-2">
-          <Link href="/status" className="min-h-8">
-            Cek status laporan
-          </Link>
+        <div className="mx-auto flex max-w-[35rem] flex-wrap gap-x-6 gap-y-2 px-4 py-8 text-sm text-ink-2">
           <Link href="/cara-kerja">Cara kerja</Link>
           <Link href="/privasi">Privasi</Link>
           <Link href="/petugas/masuk">Masuk petugas</Link>

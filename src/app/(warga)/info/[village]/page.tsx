@@ -27,16 +27,20 @@ export default async function BoardPage({ params }: PageProps<"/info/[village]">
   const poskoPhone = config.poskoWhatsApp.replace(/\D/g, "").replace(/^62/, "0");
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-10">
       <div>
         <h1 className="text-xl">{title}</h1>
-        <p className="mt-1 text-ink-2">Kecamatan {village.districtName}</p>
-        {latest && (
-          <p className="mt-4 inline-flex flex-wrap items-baseline gap-x-2 bg-surface px-3 py-2">
-            <span>Diperbarui petugas</span>
-            <span className="num font-bold">{formatDateTime(latest.publishedAt)}</span>
-          </p>
-        )}
+        <p className="mt-1 text-ink-2">
+          Kecamatan {village.districtName}
+          {latest && (
+            <>
+              . Diperbarui petugas{" "}
+              <span className="num font-semibold text-ink">
+                {formatDateTime(latest.publishedAt)}
+              </span>
+            </>
+          )}
+        </p>
       </div>
 
       {latest ? (
@@ -50,12 +54,8 @@ export default async function BoardPage({ params }: PageProps<"/info/[village]">
           <ShareButton title={title} />
         </>
       ) : (
-        <div className="sheet flex flex-col gap-4">
-          <h2 className="text-lg">Belum ada papan info resmi untuk desa ini.</h2>
-          <p>
-            Petugas belum menerbitkan informasi. Jika butuh bantuan sekarang, kirim laporan, atau
-            telepon {config.emergencyNumber} jika ada nyawa yang terancam.
-          </p>
+        <div className="flex flex-col gap-4">
+          <p>Belum ada papan info resmi untuk desa ini.</p>
           <Link href="/lapor" className="btn btn-primary self-start">
             Kirim laporan
           </Link>

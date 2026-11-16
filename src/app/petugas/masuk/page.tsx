@@ -13,10 +13,10 @@ export default async function MasukPage() {
   return (
     <main className="face-petugas mx-auto flex min-h-dvh max-w-md flex-col justify-center gap-6 px-4 py-12">
       <Link href="/" className="flex items-center gap-2 text-lg font-bold no-underline">
-        <span aria-hidden className="block h-5 w-2 bg-spidol" />
+        <span aria-hidden className="block size-3 bg-spidol" />
         Testara
       </Link>
-      <div className="sheet flex flex-col gap-6">
+      <div className="flex flex-col gap-6">
         <div>
           <h1 className="text-xl">Masuk petugas</h1>
           <p className="mt-1 text-ink-2">

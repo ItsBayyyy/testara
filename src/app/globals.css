@@ -54,7 +54,7 @@
 
 @layer base {
   html {
-    background: var(--color-bg);
+    background: var(--color-surface);
     color: var(--color-ink);
     -webkit-text-size-adjust: 100%;
   }
@@ -78,7 +78,8 @@
   h2,
   h3 {
     line-height: 1.25;
-    font-weight: 700;
+    font-weight: 600;
+    letter-spacing: -0.01em;
     text-wrap: balance;
   }
 
@@ -249,7 +250,7 @@
 
   .label {
     display: block;
-    font-weight: 700;
+    font-weight: 600;
     margin-bottom: 4px;
   }
 
@@ -337,21 +338,6 @@
   }
 
   /* ---------- Lembar dan pemberitahuan ---------- */
-  /* Lembar putih di atas papan. Di layar sempit menempel ke tepi layar. */
-  .sheet {
-    background: var(--color-surface);
-    padding: 24px 16px;
-    margin-inline: -16px;
-  }
-
-  @media (min-width: 640px) {
-    .sheet {
-      padding: 32px;
-      margin-inline: 0;
-      border-radius: var(--radius-sheet);
-    }
-  }
-
   /* Panel bergaris untuk daftar di sisi petugas. */
   .panel {
     background: var(--color-surface);
@@ -422,12 +408,12 @@
   }
 
   /* ---------- Karcis laporan ---------- */
-  /* Elemen yang diingat: karcis putih berkepala biru dan bertepi bawah sobek,
+  /* Elemen yang diingat: karcis berkepala biru dan bertepi bawah sobek,
      seperti karcis antrean posko. Tepi sobek adalah satu-satunya hiasan bentuk. */
   .ticket {
     position: relative;
-    background: var(--color-surface);
-    border-top: 8px solid var(--color-spidol);
+    background: var(--color-bg);
+    border-top: 6px solid var(--color-spidol);
     padding: 20px 20px 24px;
     margin-bottom: 12px;
   }
@@ -439,7 +425,7 @@
     right: 0;
     bottom: -12px;
     height: 12px;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 12' preserveAspectRatio='none'%3E%3Cpath d='M0 0h16L8 12z' fill='white'/%3E%3C/svg%3E")
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 12' preserveAspectRatio='none'%3E%3Cpath d='M0 0h16L8 12z' fill='%23edf0ee'/%3E%3C/svg%3E")
       repeat-x 0 0 / 16px 12px;
   }
 

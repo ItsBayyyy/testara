@@ -62,11 +62,10 @@ export function AskBox({
   }
 
   return (
-    <section aria-labelledby="judul-tanya" className="sheet">
+    <section aria-labelledby="judul-tanya">
       <h2 id="judul-tanya" className="text-lg">
         Tanya papan info
       </h2>
-      <p className="hint mt-1">Jawaban hanya dari informasi resmi di papan ini.</p>
       <form onSubmit={ask} className="mt-3 flex flex-col gap-2 sm:flex-row">
         <label htmlFor="pertanyaan" className="sr-only">
           Pertanyaan
@@ -74,7 +73,7 @@ export function AskBox({
         <input
           id="pertanyaan"
           className="field"
-          placeholder="Contoh: Di mana ambil air bersih?"
+          placeholder="Di mana ambil air bersih?"
           value={question}
           maxLength={300}
           onChange={(e) => setQuestion(e.target.value)}

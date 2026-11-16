@@ -103,7 +103,7 @@ export function BoardEditor({
     }));
 
   return (
-    <div className="sheet flex flex-col gap-10">
+    <div className="flex flex-col gap-10">
       <fieldset className="flex flex-col gap-3">
         <legend className="text-lg font-bold">Pengungsian</legend>
         {content.shelters.map((s) => (

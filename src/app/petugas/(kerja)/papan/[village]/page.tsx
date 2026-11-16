@@ -24,9 +24,7 @@ export default async function EditBoardPage({ params }: PageProps<"/petugas/papa
           Semua papan info
         </Link>
         <h1 className="mt-2 text-xl">Papan info {villageLabel(village)}</h1>
-        <p className="mb-6 text-ink-2">
-          Kecamatan {village.districtName}. Warga hanya melihat isi yang sudah diterbitkan.
-        </p>
+        <p className="mb-6 text-ink-2">Kecamatan {village.districtName}</p>
         <BoardEditor
           villageCode={village.code}
           villageName={villageLabel(village)}

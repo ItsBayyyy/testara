@@ -29,10 +29,7 @@ export default async function BoardsPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-6">
       <h1 className="text-xl">Papan info</h1>
-      <p className="mt-1 text-ink-2">
-        Isi papan info per desa, lalu terbitkan. Warga dan fitur tanya papan info hanya memakai isi
-        yang sudah diterbitkan.
-      </p>
+      <p className="mt-1 text-ink-2">Warga hanya melihat isi yang sudah diterbitkan.</p>
 
       <form action={openEditor} className="mt-5 flex flex-wrap items-end gap-2">
         <div className="min-w-64 flex-1">

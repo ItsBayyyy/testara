@@ -12,12 +12,15 @@ function Section({
   empty: boolean;
   children: React.ReactNode;
 }) {
+  // Bagian kosong disembunyikan supaya papan tidak penuh tulisan "belum ada",
+  // kecuali kontak posko yang selalu tampil.
+  if (empty && id !== "kontak") return null;
   return (
     <section aria-labelledby={id}>
       <h2 id={id} className="text-lg">
         {title}
       </h2>
-      {empty ? <p className="mt-2 text-ink-2">Belum ada informasi resmi.</p> : children}
+      {empty ? <p className="mt-2 text-ink-2">Belum ada.</p> : children}
     </section>
   );
 }
@@ -25,7 +28,7 @@ function Section({
 /** Isi papan info desa. Setiap butir punya id agar bisa ditunjuk oleh jawaban tanya. */
 export function BoardView({ content }: { content: BoardContent }) {
   return (
-    <div className="sheet flex flex-col gap-8">
+    <div className="flex flex-col gap-10">
       <Section id="pengungsian" title="Pengungsian" empty={content.shelters.length === 0}>
         <ul className="mt-2 flex flex-col gap-3">
           {content.shelters.map((s) => (

@@ -1,25 +1,17 @@
-/**
- * Ajakan menelepon nomor darurat. Selalu tampil paling atas di halaman lapor,
- * dengan warna tinta yang tidak dipakai blok lain sehingga mudah dikenali.
- */
+/** Ajakan menelepon nomor darurat. Selalu tampil paling atas di halaman lapor. */
 export function EmergencyNotice({ number }: { number: string }) {
   const tel = number.replace(/[^\d+]/g, "");
   return (
     <section
       aria-labelledby="darurat-judul"
-      className="alert-call flex flex-wrap items-center justify-between gap-x-4 gap-y-3 px-4 py-4"
+      className="alert-call flex items-center justify-between gap-4 py-2 pl-4 pr-2"
     >
-      <div>
-        <h2 id="darurat-judul" className="text-base">
-          Ada yang terancam nyawanya?
-        </h2>
-        <p className="text-sm">
-          Telepon {number} sekarang. Testara tidak menggantikan layanan darurat.
-        </p>
-      </div>
+      <h2 id="darurat-judul" className="text-base font-normal">
+        Nyawa terancam?
+      </h2>
       <a
         href={`tel:${tel}`}
-        className="btn min-w-40 border-white bg-white text-ink hover:bg-bg active:bg-line"
+        className="btn shrink-0 border-white bg-white text-ink hover:bg-bg active:bg-line"
       >
         Telepon {number}
       </a>

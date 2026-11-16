@@ -20,21 +20,17 @@ export default async function InfoIndexPage() {
     <div className="flex flex-col gap-6">
       <div>
         <h1 className="text-xl">Papan info desa</h1>
-        <p className="mt-1 text-ink-2">
-          Informasi resmi dari petugas posko di {regency.name}. Hanya berisi yang sudah diterbitkan
-          petugas.
-        </p>
+        <p className="mt-1 text-ink-2">Diterbitkan petugas posko {regency.name}.</p>
       </div>
       {rows.length === 0 ? (
-        <p className="sheet">
-          Belum ada papan info yang diterbitkan. Jika butuh bantuan sekarang,{" "}
-          <Link href="/lapor" className="font-bold underline">
-            kirim laporan
+        <div className="flex flex-col items-start gap-4">
+          <p>Belum ada papan info yang diterbitkan.</p>
+          <Link href="/lapor" className="btn btn-secondary">
+            Kirim laporan
           </Link>
-          .
-        </p>
+        </div>
       ) : (
-        <ul className="sheet divide-y divide-line !py-0">
+        <ul className="divide-y divide-line border-y border-line">
           {rows.map(({ board, village }) => (
             <li key={board.villageCode}>
               <Link

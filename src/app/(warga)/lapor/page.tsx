@@ -33,10 +33,7 @@ export default async function LaporPage({ searchParams }: PageProps<"/lapor">) {
   return (
     <div className="flex flex-col gap-6">
       <EmergencyNotice number={config.emergencyNumber} />
-      <div>
-        <h1 className="text-xl">Lapor kejadian</h1>
-        <p className="mt-2">Isi yang Anda tahu saja. Petugas membaca setiap laporan.</p>
-      </div>
+      <h1 className="text-xl">Lapor kejadian</h1>
       {noJsErrors.length > 0 && (
         <div role="alert" className="alert-action px-4 py-3">
           <p className="font-bold">Laporan belum terkirim:</p>

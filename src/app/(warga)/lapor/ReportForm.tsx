@@ -203,7 +203,7 @@ export function ReportForm({
       onSubmit={onSubmit}
       onChange={() => onFormChange()}
       noValidate
-      className="sheet flex flex-col gap-8"
+      className="flex flex-col gap-8"
     >
       {errorList.length > 0 && (
         <div ref={summaryRef} tabIndex={-1} role="alert" className="alert-action px-4 py-3">
@@ -228,8 +228,7 @@ export function ReportForm({
       />
 
       <fieldset>
-        <legend className="label">Apa yang dibutuhkan?</legend>
-        <p className="hint mb-2">Boleh pilih lebih dari satu.</p>
+        <legend className="label mb-2">Apa yang dibutuhkan?</legend>
         <div className="grid grid-cols-1 gap-3 min-[360px]:grid-cols-2">
           {NEEDS.map((n) => (
             <label key={n} className="choice">
@@ -257,7 +256,7 @@ export function ReportForm({
       </fieldset>
 
       <fieldset>
-        <legend className="label">Ada yang perlu didahulukan?</legend>
+        <legend className="label mb-1">Ada yang perlu didahulukan?</legend>
         <div className="grid grid-cols-1 gap-x-4 gap-y-1 min-[400px]:grid-cols-2">
           {VULNERABLE.map((v) => (
             <label key={v} className="flex min-h-12 cursor-pointer items-center gap-3">
@@ -273,7 +272,7 @@ export function ReportForm({
           Ceritakan apa yang terjadi
         </label>
         <p id="cerita-hint" className="hint mb-2">
-          Boleh singkat, boleh bahasa daerah. Untuk bicara, tekan ikon mikrofon di keyboard HP.
+          Boleh singkat, boleh bahasa daerah, atau pakai mikrofon di keyboard.
         </p>
         <textarea
           id="cerita"
@@ -309,7 +308,7 @@ export function ReportForm({
           Nomor HP <span className="font-normal text-ink-2">(tidak wajib)</span>
         </label>
         <p id="hp-hint" className="hint mb-2">
-          Supaya petugas bisa menghubungi Anda. Hanya petugas yang bisa melihatnya.
+          Hanya terlihat oleh petugas.
         </p>
         <input
           id="hp"
@@ -337,10 +336,7 @@ export function ReportForm({
             className="check mt-1"
             aria-invalid={errors.consent ? true : undefined}
           />
-          <span>
-            Saya setuju laporan ini disimpan dan dibaca petugas. Laporan dihapus otomatis setelah 30
-            hari.
-          </span>
+          <span>Saya setuju laporan ini disimpan 30 hari untuk dibaca petugas.</span>
         </label>
         {errors.consent && <p className="error-text mt-1">{errors.consent}</p>}
       </div>
@@ -354,8 +350,8 @@ export function ReportForm({
         >
           <p className="font-bold">{phase.message}</p>
           <p className="text-base text-ink-2">
-            Pesan WhatsApp sudah tersusun dari isian Anda.
-            {poskoIsExample && " Nomor posko di demo ini adalah nomor contoh."}
+            Pesannya sudah disusun dari isian Anda.
+            {poskoIsExample && " Nomor posko di demo ini nomor contoh."}
           </p>
           <a
             className="btn btn-primary"
@@ -386,9 +382,7 @@ export function ReportForm({
             {sending ? "Mengirim laporan..." : "Kirim laporan"}
           </button>
           <p className="hint text-center" aria-live="polite">
-            {sending
-              ? "Mohon tunggu, jangan tutup halaman ini."
-              : "Isian tersimpan di HP ini sampai laporan terkirim."}
+            {sending ? "Jangan tutup halaman ini." : ""}
           </p>
         </div>
       )}
