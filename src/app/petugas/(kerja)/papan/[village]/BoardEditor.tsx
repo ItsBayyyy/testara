@@ -38,7 +38,7 @@ function TextField({
 }) {
   return (
     <label className={`flex flex-col gap-1 ${wide ? "sm:col-span-2" : ""}`}>
-      <span className="text-sm font-semibold">{label}</span>
+      <span className="text-sm font-bold">{label}</span>
       <input
         className="field !min-h-10 !py-2"
         value={value}
@@ -103,11 +103,11 @@ export function BoardEditor({
     }));
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="sheet flex flex-col gap-10">
       <fieldset className="flex flex-col gap-3">
-        <legend className="text-lg font-semibold">Pengungsian</legend>
+        <legend className="text-lg font-bold">Pengungsian</legend>
         {content.shelters.map((s) => (
-          <div key={s.id} className="panel grid gap-2 px-3 py-3 sm:grid-cols-2">
+          <div key={s.id} className="grid gap-3 border-l-4 border-line py-1 pl-4 sm:grid-cols-2">
             <TextField
               label="Nama tempat"
               value={s.name}
@@ -129,7 +129,7 @@ export function BoardEditor({
         ))}
         <button
           type="button"
-          className="btn btn-quiet self-start"
+          className="btn btn-secondary btn-compact self-start"
           onClick={() => addRow("shelters")}
         >
           Tambah pengungsian
@@ -137,11 +137,11 @@ export function BoardEditor({
       </fieldset>
 
       <fieldset className="flex flex-col gap-3">
-        <legend className="text-lg font-semibold">Titik bantuan</legend>
+        <legend className="text-lg font-bold">Titik bantuan</legend>
         {content.aidPoints.map((a) => (
-          <div key={a.id} className="panel grid gap-2 px-3 py-3 sm:grid-cols-2">
+          <div key={a.id} className="grid gap-3 border-l-4 border-line py-1 pl-4 sm:grid-cols-2">
             <label className="flex flex-col gap-1">
-              <span className="text-sm font-semibold">Jenis</span>
+              <span className="text-sm font-bold">Jenis</span>
               <select
                 className="field !min-h-10 !py-2"
                 value={a.kind}
@@ -180,7 +180,7 @@ export function BoardEditor({
         ))}
         <button
           type="button"
-          className="btn btn-quiet self-start"
+          className="btn btn-secondary btn-compact self-start"
           onClick={() => addRow("aidPoints")}
         >
           Tambah titik bantuan
@@ -188,7 +188,7 @@ export function BoardEditor({
       </fieldset>
 
       <fieldset className="flex flex-col gap-3">
-        <legend className="text-lg font-semibold">Kebutuhan yang diumumkan</legend>
+        <legend className="text-lg font-bold">Kebutuhan yang diumumkan</legend>
         {content.announcedNeeds.map((n) => (
           <div key={n.id} className="flex items-end gap-2">
             <div className="flex-1">
@@ -203,7 +203,7 @@ export function BoardEditor({
         ))}
         <button
           type="button"
-          className="btn btn-quiet self-start"
+          className="btn btn-secondary btn-compact self-start"
           onClick={() => addRow("announcedNeeds")}
         >
           Tambah kebutuhan
@@ -211,9 +211,9 @@ export function BoardEditor({
       </fieldset>
 
       <fieldset className="flex flex-col gap-3">
-        <legend className="text-lg font-semibold">Kontak posko</legend>
+        <legend className="text-lg font-bold">Kontak posko</legend>
         {content.contacts.map((c) => (
-          <div key={c.id} className="panel grid gap-2 px-3 py-3 sm:grid-cols-2">
+          <div key={c.id} className="grid gap-3 border-l-4 border-line py-1 pl-4 sm:grid-cols-2">
             <TextField
               label="Nama posko/petugas"
               value={c.name}
@@ -235,7 +235,7 @@ export function BoardEditor({
         ))}
         <button
           type="button"
-          className="btn btn-quiet self-start"
+          className="btn btn-secondary btn-compact self-start"
           onClick={() => addRow("contacts")}
         >
           Tambah kontak
@@ -243,7 +243,7 @@ export function BoardEditor({
       </fieldset>
 
       <fieldset className="flex flex-col gap-3">
-        <legend className="text-lg font-semibold">Catatan</legend>
+        <legend className="text-lg font-bold">Catatan</legend>
         {content.notes.map((n) => (
           <div key={n.id} className="flex items-end gap-2">
             <div className="flex-1">
@@ -256,19 +256,28 @@ export function BoardEditor({
             <RemoveButton what="catatan" onClick={() => removeRow("notes", n.id)} />
           </div>
         ))}
-        <button type="button" className="btn btn-quiet self-start" onClick={() => addRow("notes")}>
+        <button
+          type="button"
+          className="btn btn-secondary btn-compact self-start"
+          onClick={() => addRow("notes")}
+        >
           Tambah catatan
         </button>
       </fieldset>
 
-      <section aria-labelledby="judul-usulan" className="border-t border-line pt-5">
+      <section aria-labelledby="judul-usulan">
         <h2 id="judul-usulan" className="text-lg">
           Usulan dari laporan resmi
         </h2>
         <p className="hint">Usulan otomatis hanya bahan. Periksa sebelum ditambahkan.</p>
         <form action={suggestAction} className="mt-2">
           <input type="hidden" name="villageCode" value={villageCode} />
-          <button type="submit" className="btn btn-quiet" disabled={suggesting}>
+          <button
+            type="submit"
+            className="btn btn-secondary btn-compact"
+            aria-busy={suggesting}
+            disabled={suggesting}
+          >
             {suggesting ? "Menyusun usulan..." : "Usulkan isi dari laporan"}
           </button>
         </form>
@@ -279,7 +288,7 @@ export function BoardEditor({
               {suggested.suggestions.map((s, i) => (
                 <li key={i} className="flex flex-wrap items-center justify-between gap-2 px-3 py-2">
                   <span>
-                    <span className="font-semibold">{s.text}</span>{" "}
+                    <span className="font-bold">{s.text}</span>{" "}
                     <span className="text-sm text-ink-2">
                       ({s.section === "notes" ? "catatan" : "kebutuhan"}, {s.source})
                     </span>
@@ -304,10 +313,15 @@ export function BoardEditor({
       >
         <input type="hidden" name="villageCode" value={villageCode} />
         <input type="hidden" name="content" value={JSON.stringify(content)} />
-        <button type="submit" className="btn btn-primary" disabled={publishing}>
+        <button
+          type="submit"
+          className="btn btn-primary"
+          aria-busy={publishing}
+          disabled={publishing}
+        >
           {publishing ? "Menerbitkan..." : "Terbitkan papan info"}
         </button>
-        <p aria-live="polite" className={published.ok ? "font-semibold text-done" : "error-text"}>
+        <p aria-live="polite" className={published.ok ? "font-bold text-done" : "error-text"}>
           {published.message}
           {published.ok && ` Warga ${villageName} sudah bisa melihatnya.`}
         </p>

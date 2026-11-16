@@ -14,7 +14,7 @@ export function PetugasNav() {
   const path = usePathname();
   return (
     <nav aria-label="Menu petugas">
-      <ul className="flex flex-wrap gap-x-5">
+      <ul className="-mx-4 flex gap-x-1 overflow-x-auto px-4 sm:mx-0 sm:px-0">
         {ITEMS.map((item) => {
           const active =
             item.href === "/petugas" ? path === "/petugas" : path.startsWith(item.href);
@@ -23,7 +23,7 @@ export function PetugasNav() {
               <Link
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`inline-block py-2 ${active ? "font-semibold underline decoration-2" : "no-underline hover:underline"}`}
+                className={`inline-flex min-h-10 items-center whitespace-nowrap border-b-4 px-2 no-underline ${active ? "border-spidol font-bold" : "border-transparent hover:border-line"}`}
               >
                 {item.label}
               </Link>

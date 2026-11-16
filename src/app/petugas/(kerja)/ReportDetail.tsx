@@ -37,9 +37,9 @@ export function ReportDetail({ report, villages }: { report: Report; villages: V
   ];
 
   return (
-    <article aria-labelledby="judul-laporan" className="flex flex-col gap-5">
+    <article aria-labelledby="judul-laporan" className="sheet flex max-w-3xl flex-col gap-6">
       <header>
-        <h2 id="judul-laporan" className="text-lg">
+        <h2 id="judul-laporan" className="text-xl">
           Laporan <span className="code-text">{report.publicCode}</span>
         </h2>
         <p className="num text-ink-2">
@@ -48,13 +48,17 @@ export function ReportDetail({ report, villages }: { report: Report; villages: V
           {report.source === "form" ? "formulir" : "WhatsApp"}
           {report.sourceMeta?.sender && ` (${report.sourceMeta.sender})`}
         </p>
+        <p className="mt-2 flex flex-wrap gap-2">
+          {report.urgency === "tinggi" && <span className="tag tag-action">Mendesak</span>}
+          <span className="tag tag-quiet">Belum diverifikasi</span>
+          <span className="tag tag-quiet">{STATUS_LABELS[report.status]}</span>
+        </p>
       </header>
 
       <p className={`px-3 py-2 ${ex ? "notice" : "alert-action"}`}>
         {ex
           ? "Dirapikan otomatis. Periksa sebelum ditindaklanjuti."
-          : "Belum dirapikan AI. Laporan tampil apa adanya; urgensi dari aturan."}{" "}
-        Belum diverifikasi.
+          : "Belum dirapikan AI. Laporan tampil apa adanya; urgensi dari aturan."}
       </p>
 
       {ex?.possiblyIrrelevant && (
@@ -64,11 +68,8 @@ export function ReportDetail({ report, villages }: { report: Report; villages: V
       )}
 
       <dl>
-        <Row label="Status">{STATUS_LABELS[report.status]}</Row>
         <Row label="Urgensi">
-          <span
-            className={report.urgency === "tinggi" ? "font-semibold text-action" : "font-semibold"}
-          >
+          <span className={report.urgency === "tinggi" ? "font-bold text-action" : "font-bold"}>
             {URGENCY_LABELS[report.urgency]}
           </span>{" "}
           karena: {report.urgencyReason}
@@ -124,7 +125,7 @@ export function ReportDetail({ report, villages }: { report: Report; villages: V
       </dl>
 
       <section aria-labelledby="judul-cerita">
-        <h3 id="judul-cerita" className="mb-1 font-semibold">
+        <h3 id="judul-cerita" className="mb-1 font-bold">
           Cerita
         </h3>
         <div className="notice px-3 py-2">
@@ -138,14 +139,14 @@ export function ReportDetail({ report, villages }: { report: Report; villages: V
 
       {ex && ex.claims.length > 0 && (
         <section aria-labelledby="judul-angka">
-          <h3 id="judul-angka" className="mb-1 font-semibold">
+          <h3 id="judul-angka" className="mb-1 font-bold">
             Angka di cerita
           </h3>
-          <ul className="panel divide-y divide-line">
+          <ul className="divide-y divide-line border-y border-line">
             {ex.claims.map((c, i) => (
               <li key={i} className="flex flex-wrap justify-between gap-2 px-3 py-2">
                 <span>{FIELD_LABELS[c.field]}</span>
-                <a href={`#kutipan-${i}`} className="num font-semibold">
+                <a href={`#kutipan-${i}`} className="num font-bold">
                   {c.approximate && typeof c.value === "number" ? "sekitar " : ""}
                   {c.value}
                 </a>
@@ -161,7 +162,7 @@ export function ReportDetail({ report, villages }: { report: Report; villages: V
       )}
 
       <section aria-labelledby="judul-tindakan" className="flex flex-col gap-3">
-        <h3 id="judul-tindakan" className="font-semibold">
+        <h3 id="judul-tindakan" className="font-bold">
           Tindakan
         </h3>
         <div className="flex flex-wrap gap-2">

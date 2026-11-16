@@ -25,45 +25,42 @@ export default async function IncidentsPage() {
         diteruskan ke pimpinan.
       </p>
       {groups.length === 0 ? (
-        <p className="notice mt-6 px-4 py-4">
+        <p className="sheet mt-6">
           Belum ada kejadian. Kejadian terbentuk dari laporan yang desanya sudah diketahui.
         </p>
       ) : (
-        <ul className="panel mt-6 divide-y divide-line">
+        <ul className="mt-6 divide-y divide-line border-y border-line bg-surface">
           {groups.map((g) => {
             const village = findVillage(g.villageCode);
             const review =
               reviews.find((r) => r.villageCode === g.villageCode && r.hazard === g.hazard) ?? null;
             const left = differingLeft(g, review);
             return (
-              <li
-                key={g.key}
-                className={left > 0 || !review ? "flag-action" : "border-l-4 border-l-transparent"}
-              >
+              <li key={g.key}>
                 <Link
                   href={`/petugas/kejadian/${g.key}`}
                   className="block px-4 py-3 no-underline hover:bg-bg"
                 >
-                  <span className="font-semibold underline">
+                  <span className="font-bold underline">
                     {incidentTitle(g.hazard)}, {village ? villageLabel(village) : g.villageCode}
                   </span>
                   <span className="block text-sm text-ink-2">
                     <span className="num">{g.reportIds.length}</span> laporan, terakhir{" "}
                     <span className="num">{formatDateTime(g.lastAt)}</span>
                   </span>
-                  <span className="block text-sm">
+                  <span className="mt-1 flex flex-wrap items-center gap-2">
                     {left > 0 && (
-                      <span className="font-semibold text-action">
-                        <span className="num">{left}</span> angka berbeda.{" "}
+                      <span className="tag tag-action">
+                        <span className="num">{left}</span> angka berbeda
                       </span>
                     )}
                     {review ? (
-                      <span>
+                      <span className="text-ink-2">
                         Sudah diperiksa{" "}
                         <span className="num">{formatDateTime(review.reviewedAt)}</span>
                       </span>
                     ) : (
-                      <span className="font-semibold text-action">Belum diperiksa</span>
+                      <span className="tag tag-action">Belum diperiksa</span>
                     )}
                   </span>
                 </Link>

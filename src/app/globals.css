@@ -321,6 +321,12 @@
     cursor: pointer;
   }
 
+  /* Tombol pilih berkas: input asli tersembunyi, fokus keyboard tampil di tombolnya. */
+  .file-pick:has(input:focus-visible) {
+    outline: 3px solid var(--color-ink);
+    outline-offset: 2px;
+  }
+
   .check {
     width: 24px;
     height: 24px;
@@ -394,13 +400,13 @@
   }
 
   /* Mendesak: teks + kotak oranye, tidak bergantung pada warna saja. */
-  .tag-urgent {
+  .tag-action {
     border-color: var(--color-action);
     background: var(--color-action-wash);
     color: var(--color-action);
   }
 
-  .tag-urgent::before {
+  .tag-action::before {
     content: "";
     width: 8px;
     height: 8px;

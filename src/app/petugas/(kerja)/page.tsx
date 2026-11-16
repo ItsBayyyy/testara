@@ -30,22 +30,24 @@ function shortLine(r: Report): string {
 
 function QueueItem({ r, selected, query }: { r: Report; selected: boolean; query: string }) {
   const village = findVillage(r.villageCode);
+  const urgent = r.urgency === "tinggi";
   return (
     <li>
       <Link
         href={`/petugas?${query}${query ? "&" : ""}laporan=${r.id}`}
         aria-current={selected ? "true" : undefined}
-        className={`block border-b border-line px-4 py-3 no-underline hover:bg-bg ${
-          r.urgency === "tinggi" ? "flag-action" : "border-l-4 border-l-transparent"
-        } ${selected ? "bg-bg" : ""}`}
+        className={`grid grid-cols-[1fr_auto] gap-x-3 gap-y-1 border-b border-l-4 border-b-line px-4 py-2 no-underline hover:bg-bg ${
+          selected ? "border-l-spidol bg-spidol-wash" : "border-l-transparent"
+        }`}
       >
-        <span className="flex justify-between gap-2">
-          <span className="font-semibold">{village?.name ?? "Desa belum diketahui"}</span>
-          <span className="num text-sm text-ink-2">{formatDateTime(r.createdAt)}</span>
+        <span className="flex flex-wrap items-center gap-2">
+          {urgent && <span className="tag tag-action">Mendesak</span>}
+          <span className="font-bold">{village?.name ?? "Desa belum diketahui"}</span>
         </span>
-        <span className="block text-sm">{shortLine(r)}</span>
-        <span className="block text-sm text-ink-2">
-          {STATUS_LABELS[r.status]}
+        <span className="num text-ink-2">{formatDateTime(r.createdAt)}</span>
+        <span className="col-span-2">{shortLine(r)}</span>
+        <span className="col-span-2 text-ink-2">
+          <span className="code-text font-normal">{r.publicCode}</span>, {STATUS_LABELS[r.status]}
           {r.source === "whatsapp" && ", dari WhatsApp"}
           {r.aiState !== "selesai" && ", belum dirapikan AI"}
         </span>
@@ -93,22 +95,22 @@ export default async function QueuePage({ searchParams }: PageProps<"/petugas">)
       <div className="lg:grid lg:min-h-[calc(100dvh-3.5rem)] lg:grid-cols-[minmax(20rem,26rem)_1fr]">
         <section
           aria-labelledby="judul-antrean"
-          className={`border-r border-line ${selected ? "max-lg:hidden" : ""}`}
+          className={`border-r border-line bg-surface ${selected ? "max-lg:hidden" : ""}`}
         >
           <div className="border-b border-line px-4 py-3">
-            <h1 id="judul-antrean" className="text-lg">
+            <h1 id="judul-antrean" className="text-xl">
               Antrean <span className="num">({reports.length})</span>
             </h1>
             <form className="mt-2 flex flex-wrap items-end gap-2" action="/petugas">
               <div>
-                <label htmlFor="filter-desa" className="text-sm font-semibold">
+                <label htmlFor="filter-desa" className="font-bold">
                   Desa
                 </label>
                 <select
                   id="filter-desa"
                   name="desa"
                   defaultValue={desa}
-                  className="field !min-h-10 !py-1"
+                  className="field !min-h-10 !py-1 text-sm"
                 >
                   <option value="">Semua desa</option>
                   {reportedVillages.map((v) => (
@@ -119,7 +121,7 @@ export default async function QueuePage({ searchParams }: PageProps<"/petugas">)
                 </select>
               </div>
               <div>
-                <label htmlFor="filter-status" className="text-sm font-semibold">
+                <label htmlFor="filter-status" className="font-bold">
                   Status
                 </label>
                 <select
@@ -150,7 +152,7 @@ export default async function QueuePage({ searchParams }: PageProps<"/petugas">)
             </p>
           ) : (
             <>
-              <h2 className="px-4 pb-1 pt-4 text-sm font-semibold text-ink-2">
+              <h2 className="border-b border-line bg-action-wash px-4 py-1 font-bold text-action">
                 Mendesak <span className="num">({urgent.length})</span>
               </h2>
               <ul aria-label="Laporan mendesak">
@@ -158,7 +160,7 @@ export default async function QueuePage({ searchParams }: PageProps<"/petugas">)
                   <QueueItem key={r.id} r={r} selected={r.id === selected?.id} query={query} />
                 ))}
               </ul>
-              <h2 className="px-4 pb-1 pt-5 text-sm font-semibold text-ink-2">
+              <h2 className="border-b border-line bg-bg px-4 py-1 font-bold text-ink-2">
                 Lainnya <span className="num">({others.length})</span>
               </h2>
               <ul aria-label="Laporan lainnya">
@@ -172,13 +174,13 @@ export default async function QueuePage({ searchParams }: PageProps<"/petugas">)
 
         <section
           aria-label="Detail laporan"
-          className={`px-4 py-4 lg:px-8 ${selected ? "" : "max-lg:hidden"}`}
+          className={`px-4 py-6 lg:px-8 ${selected ? "" : "max-lg:hidden"}`}
         >
           {selected ? (
             <>
               <Link
                 href={`/petugas${query ? `?${query}` : ""}`}
-                className="mb-3 inline-block font-semibold lg:hidden"
+                className="mb-4 inline-block font-bold lg:hidden"
               >
                 Kembali ke antrean
               </Link>

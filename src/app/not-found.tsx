@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <main className="face-warga mx-auto flex min-h-dvh max-w-2xl flex-col justify-center gap-4 px-4">
+    <main className="mx-auto flex min-h-dvh max-w-[35rem] flex-col justify-center gap-4 px-4">
       <h1 className="text-xl">Halaman tidak ditemukan</h1>
       <p>Alamatnya mungkin salah ketik, atau halamannya sudah dipindah.</p>
       <div className="flex flex-wrap gap-2">

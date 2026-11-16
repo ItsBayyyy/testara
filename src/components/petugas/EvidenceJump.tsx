@@ -27,7 +27,7 @@ export function EvidenceJump({
     <button
       type="button"
       onClick={jump}
-      className="num font-semibold underline decoration-dotted underline-offset-4"
+      className="num font-bold underline decoration-dotted underline-offset-4"
     >
       {children}
     </button>

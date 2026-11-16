@@ -10,7 +10,7 @@ test("alur demo juri: korban, petugas, papan info, kembali ke korban", async ({ 
   // 1. Korban: laporan bahasa santai dengan lansia.
   await page.goto("/");
   await page.getByRole("link", { name: "Coba sebagai korban" }).click();
-  await expect(page.getByText("Mode demo, data contoh fiktif")).toBeVisible();
+  await expect(page.getByText(/Contoh fiktif untuk demonstrasi/)).toBeVisible();
   await page.getByLabel("Desa Anda").fill("pekik");
   await page.getByRole("button", { name: /Desa Pekik Nyaring/ }).click();
   await page.getByRole("checkbox", { name: "Evakuasi/terjebak" }).check();
@@ -26,7 +26,7 @@ test("alur demo juri: korban, petugas, papan info, kembali ke korban", async ({ 
   const code = (await page.locator(".code-text").first().textContent())!;
 
   // 2. Petugas: laporan itu paling atas beserta alasan urgensinya.
-  await page.getByRole("link", { name: "Buka sisi petugas" }).click();
+  await page.getByRole("link", { name: "Coba sebagai petugas" }).click();
   await expect(page.getByRole("heading", { name: /Antrean/ })).toContainText("13");
   await page.getByRole("list", { name: "Laporan mendesak" }).getByRole("link").first().click();
   await expect(page.getByRole("heading", { name: `Laporan ${code}` })).toBeVisible();

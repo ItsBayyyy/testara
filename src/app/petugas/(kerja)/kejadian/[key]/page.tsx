@@ -59,22 +59,25 @@ export default async function IncidentPage({ params }: PageProps<"/petugas/kejad
 
   return (
     <div className="lg:grid lg:grid-cols-2">
-      <section aria-labelledby="judul-kejadian" className="border-r border-line px-4 py-5 lg:px-6">
-        <Link href="/petugas/kejadian" className="font-semibold">
+      <section
+        aria-labelledby="judul-kejadian"
+        className="border-r border-line bg-surface px-4 py-6 lg:px-6"
+      >
+        <Link href="/petugas/kejadian" className="font-bold">
           Semua kejadian
         </Link>
         <h1 id="judul-kejadian" className="mt-2 text-xl">
           {incidentTitle(group.hazard)}, {label}
         </h1>
-        <p className="text-ink-2">
-          <span className="num">{group.reportIds.length}</span> laporan.{" "}
+        <p className="mt-2 flex flex-wrap items-center gap-2 text-ink-2">
+          <span className="num">{group.reportIds.length}</span> laporan.
           {review ? (
             <>
               Diperiksa {review.reviewedBy},{" "}
               <span className="num">{formatDateTime(review.reviewedAt)}</span>.
             </>
           ) : (
-            <span className="font-semibold text-action">Belum diperiksa.</span>
+            <span className="tag tag-action">Belum diperiksa</span>
           )}
         </p>
         <p className="mt-3 text-sm text-ink-2">
@@ -85,7 +88,7 @@ export default async function IncidentPage({ params }: PageProps<"/petugas/kejad
           <ReviewForm incidentKey={group.key} rows={rows} />
         </div>
 
-        <section aria-labelledby="judul-ringkasan" className="mt-8 border-t border-line pt-5">
+        <section aria-labelledby="judul-ringkasan" className="mt-12">
           <h2 id="judul-ringkasan" className="text-lg">
             Ringkasan untuk WhatsApp
           </h2>
@@ -101,12 +104,12 @@ export default async function IncidentPage({ params }: PageProps<"/petugas/kejad
 
       <section
         aria-labelledby="judul-sumber"
-        className="px-4 py-5 lg:max-h-[calc(100dvh-3.5rem)] lg:overflow-y-auto lg:px-6"
+        className="px-4 py-6 lg:max-h-[calc(100dvh-6rem)] lg:overflow-y-auto lg:px-6"
       >
         <h2 id="judul-sumber" className="text-lg">
           Pesan sumber
         </h2>
-        <ol className="mt-3 flex flex-col gap-4">
+        <ol className="mt-4 flex flex-col gap-3">
           {reports
             .sort((a, b) =>
               (a.sourceMeta?.sentAt ?? a.createdAt).localeCompare(
@@ -114,7 +117,7 @@ export default async function IncidentPage({ params }: PageProps<"/petugas/kejad
               ),
             )
             .map((r) => (
-              <li key={r.id} className="panel px-3 py-3">
+              <li key={r.id} className="rounded-[var(--radius-sheet)] bg-surface px-4 py-3">
                 <p className="num text-sm text-ink-2">
                   {formatDateTime(r.sourceMeta?.sentAt ?? r.createdAt)},{" "}
                   {r.source === "form"
@@ -131,8 +134,8 @@ export default async function IncidentPage({ params }: PageProps<"/petugas/kejad
                     }))}
                   />
                 </div>
-                <Link href={`/petugas?laporan=${r.id}`} className="mt-2 inline-block text-sm">
-                  Ubah status atau urgensi laporan <span className="code-text">{r.publicCode}</span>
+                <Link href={`/petugas?laporan=${r.id}`} className="mt-2 inline-block">
+                  Buka laporan <span className="code-text">{r.publicCode}</span>
                 </Link>
               </li>
             ))}

@@ -16,6 +16,7 @@ const MAX_FILE_BYTES = 2_000_000;
 export function WhatsAppImport({ sampleUrl }: { sampleUrl: string | null }) {
   const [raw, setRaw] = useState("");
   const [fileError, setFileError] = useState<string | null>(null);
+  const [fileName, setFileName] = useState<string | null>(null);
   const [progress, setProgress] = useState<Progress>({ kind: "siap" });
 
   const parsed = useMemo(() => {
@@ -34,6 +35,7 @@ export function WhatsAppImport({ sampleUrl }: { sampleUrl: string | null }) {
       setFileError("Berkas lebih dari 2 MB. Ekspor chat tanpa media, atau tempel sebagian pesan.");
       return;
     }
+    setFileName(file.name);
     setRaw(await file.text());
   }
 
@@ -84,10 +86,10 @@ export function WhatsAppImport({ sampleUrl }: { sampleUrl: string | null }) {
   const total = parsed.messages.length;
 
   return (
-    <div className="mt-6 flex flex-col gap-5">
+    <div className="sheet mt-6 flex flex-col gap-6">
       {sampleUrl && (
         <div className="notice flex flex-wrap items-center justify-between gap-3 px-4 py-3">
-          <p>Mode demo: pakai contoh ekspor grup WhatsApp kepala desa (fiktif).</p>
+          <p>Contoh fiktif untuk demonstrasi: ekspor grup WhatsApp kepala desa.</p>
           <button type="button" className="btn btn-secondary" onClick={loadSample} disabled={busy}>
             Pakai contoh chat
           </button>
@@ -107,16 +109,27 @@ export function WhatsAppImport({ sampleUrl }: { sampleUrl: string | null }) {
         />
       </div>
       <div>
-        <label htmlFor="berkas" className="label">
-          Atau unggah berkas .txt
-        </label>
-        <input id="berkas" type="file" accept=".txt,text/plain" onChange={onFile} disabled={busy} />
+        <p className="label">Atau unggah berkas .txt</p>
+        <div className="flex flex-wrap items-center gap-3">
+          <label className="file-pick btn btn-secondary btn-compact">
+            <input
+              type="file"
+              accept=".txt,text/plain"
+              onChange={onFile}
+              disabled={busy}
+              aria-label="Atau unggah berkas .txt"
+              className="sr-only"
+            />
+            Pilih berkas
+          </label>
+          <span className="text-ink-2">{fileName ?? "Belum ada berkas dipilih."}</span>
+        </div>
         {fileError && <p className="error-text mt-1">{fileError}</p>}
       </div>
 
       {raw.trim() && (
         <p className="notice px-4 py-3" aria-live="polite">
-          <span className="num font-semibold">{total}</span> pesan terbaca
+          <span className="num font-bold">{total}</span> pesan terbaca
           {parsed.skipped > 0 && (
             <>
               , <span className="num">{parsed.skipped}</span> pesan sistem/media dilewati
@@ -132,18 +145,21 @@ export function WhatsAppImport({ sampleUrl }: { sampleUrl: string | null }) {
       <button
         type="button"
         className="btn btn-primary self-start"
+        aria-busy={busy}
         disabled={busy || total === 0}
         onClick={run}
       >
         {busy
           ? `Memproses ${progress.done} dari ${progress.total} kelompok...`
-          : `Proses ${total} pesan`}
+          : total === 0
+            ? "Tempel pesan dulu"
+            : `Proses ${total} pesan`}
       </button>
 
       <div aria-live="polite">
         {progress.kind === "selesai" && (
           <div className="notice flex flex-col gap-2 px-4 py-3">
-            <p className="font-semibold">
+            <p className="font-bold">
               {progress.created} laporan masuk antrean. {progress.skipped} pesan bukan laporan
               (salam, &ldquo;siap pak&rdquo;, terusan peringatan cuaca).
             </p>

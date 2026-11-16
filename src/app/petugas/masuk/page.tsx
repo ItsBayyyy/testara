@@ -11,32 +11,35 @@ export default async function MasukPage() {
   if (await getStaff()) redirect("/petugas");
   const configured = authConfigured();
   return (
-    <main className="face-petugas mx-auto flex min-h-dvh max-w-md flex-col justify-center gap-6 px-4 py-10">
-      <div>
-        <Link href="/" className="text-lg font-semibold no-underline">
-          Testara
-        </Link>
-        <h1 className="mt-4 text-xl">Masuk petugas</h1>
-        <p className="mt-1 text-ink-2">
-          Untuk petugas BPBD dan koordinator posko. Akun dibuat oleh admin.
-        </p>
+    <main className="face-petugas mx-auto flex min-h-dvh max-w-md flex-col justify-center gap-6 px-4 py-12">
+      <Link href="/" className="flex items-center gap-2 text-lg font-bold no-underline">
+        <span aria-hidden className="block h-5 w-2 bg-spidol" />
+        Testara
+      </Link>
+      <div className="sheet flex flex-col gap-6">
+        <div>
+          <h1 className="text-xl">Masuk petugas</h1>
+          <p className="mt-1 text-ink-2">
+            Untuk petugas BPBD dan koordinator posko. Akun dibuat oleh admin.
+          </p>
+        </div>
+        {configured ? (
+          <LoginForm />
+        ) : (
+          <p className="notice px-4 py-3">
+            Masuk petugas belum dikonfigurasi di server ini. Juri dan pengunjung bisa mencoba lewat
+            mode demo di bawah.
+          </p>
+        )}
       </div>
-      {configured ? (
-        <LoginForm />
-      ) : (
-        <p className="notice px-4 py-3">
-          Masuk petugas belum dikonfigurasi di server ini. Juri dan pengunjung bisa mencoba lewat
-          mode demo di bawah.
+      <div>
+        <p className="font-bold">Mode demo untuk juri</p>
+        <p className="mt-1 text-ink-2">
+          Contoh fiktif untuk demonstrasi, hanya terlihat di perangkat ini, dihapus setelah 24 jam.
         </p>
-      )}
-      <div className="border-t border-line pt-5">
-        <p className="mb-2 text-ink-2">Ingin mencoba tanpa akun?</p>
-        <a href="/demo/petugas" className="btn btn-secondary w-full">
+        <a href="/demo/petugas" className="btn btn-secondary mt-3 w-full">
           Masuk sebagai petugas demo
         </a>
-        <p className="hint mt-2">
-          Data contoh fiktif, hanya terlihat di perangkat ini, dihapus setelah 24 jam.
-        </p>
       </div>
     </main>
   );

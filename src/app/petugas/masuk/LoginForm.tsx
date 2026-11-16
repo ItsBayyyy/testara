@@ -8,7 +8,7 @@ export function LoginForm() {
   return (
     <form action={action} className="flex flex-col gap-4">
       {state.error && (
-        <p role="alert" className="alert-action px-4 py-3 font-semibold">
+        <p role="alert" className="alert-action px-4 py-3 font-bold">
           {state.error}
         </p>
       )}
@@ -38,7 +38,7 @@ export function LoginForm() {
           required
         />
       </div>
-      <button type="submit" className="btn btn-primary" disabled={pending}>
+      <button type="submit" className="btn btn-primary" aria-busy={pending} disabled={pending}>
         {pending ? "Memeriksa..." : "Masuk"}
       </button>
     </form>
