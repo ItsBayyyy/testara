@@ -64,6 +64,8 @@
     font-size: var(--text-base);
     line-height: 1.55;
     min-height: 100dvh;
+    /* Pita selebar layar di beranda tidak boleh memicu gulir ke samping. */
+    overflow-x: clip;
   }
 
   /* Sisi korban 17 px; sisi petugas 15 px supaya padat seperti tabel kerja. */

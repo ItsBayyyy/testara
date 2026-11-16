@@ -13,7 +13,8 @@ export default async function HomePage() {
     <div className="flex flex-col gap-8">
       {/* Di beranda, pita demo selalu tampil supaya juri menemukannya tanpa mencari. */}
       {!demoSessionId && (
-        <div>
+        // Pita selebar layar walau berada di dalam kolom isi.
+        <div className="-mt-6 ml-[calc(50%-50vw)] w-screen">
           <DemoRibbon inSession={false} side="korban" />
         </div>
       )}

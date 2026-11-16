@@ -3,7 +3,7 @@ import { uniqueIp } from "../e2e/helpers";
 
 // Audit desain: semua halaman, termasuk state kosong, error, dan laporan mendesak.
 // AUDIT_STAGE=before|after menentukan folder tujuan di docs/design-audit/.
-const stage = process.env.AUDIT_STAGE ?? "before";
+const stage = process.env.AUDIT_STAGE ?? "after";
 
 const shot = (page: Page, name: string) =>
   page.screenshot({

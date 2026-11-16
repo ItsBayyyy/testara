@@ -32,7 +32,7 @@ export default async function BoardPage({ params }: PageProps<"/info/[village]">
         <h1 className="text-xl">{title}</h1>
         <p className="mt-1 text-ink-2">Kecamatan {village.districtName}</p>
         {latest && (
-          <p className="mt-4 inline-flex flex-wrap items-baseline gap-x-2 border-l-4 border-done bg-surface px-3 py-2">
+          <p className="mt-4 inline-flex flex-wrap items-baseline gap-x-2 bg-surface px-3 py-2">
             <span>Diperbarui petugas</span>
             <span className="num font-bold">{formatDateTime(latest.publishedAt)}</span>
           </p>
