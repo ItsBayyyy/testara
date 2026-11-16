@@ -5,8 +5,8 @@ export const metadata: Metadata = { title: "Cara kerja" };
 
 function Step({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <li className="border-l-2 border-line pl-4">
-      <h3 className="font-semibold">{title}</h3>
+    <li>
+      <h3 className="font-bold">{title}</h3>
       <div className="text-ink-2">{children}</div>
     </li>
   );
@@ -14,7 +14,7 @@ function Step({ title, children }: { title: string; children: React.ReactNode })
 
 export default function CaraKerjaPage() {
   return (
-    <article className="flex flex-col gap-8">
+    <article className="sheet flex flex-col gap-8">
       <header>
         <h1 className="text-xl">Cara kerja Testara</h1>
         <p className="mt-2">

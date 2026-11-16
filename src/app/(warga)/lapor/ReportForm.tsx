@@ -352,7 +352,7 @@ export function ReportForm({
           role="alert"
           className="alert-action flex flex-col gap-3 px-4 py-4"
         >
-          <p className="font-semibold">{phase.message}</p>
+          <p className="font-bold">{phase.message}</p>
           <p className="text-base text-ink-2">
             Pesan WhatsApp sudah tersusun dari isian Anda.
             {poskoIsExample && " Nomor posko di demo ini adalah nomor contoh."}

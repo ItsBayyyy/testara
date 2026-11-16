@@ -21,9 +21,9 @@ export default async function StatusLookupPage({ searchParams }: PageProps<"/sta
     <div className="flex flex-col gap-6">
       <div>
         <h1 className="text-xl">Cek status laporan</h1>
-        <p className="mt-1 text-ink-2">Masukkan kode yang Anda terima setelah mengirim laporan.</p>
+        <p className="mt-2">Masukkan kode yang tertulis di karcis laporan Anda.</p>
       </div>
-      <form action={openStatus} className="flex flex-col gap-3">
+      <form action={openStatus} className="sheet flex flex-col gap-3">
         <label htmlFor="kode" className="label">
           Kode laporan
         </label>
@@ -31,7 +31,7 @@ export default async function StatusLookupPage({ searchParams }: PageProps<"/sta
           id="kode"
           name="kode"
           className="field code-text text-lg uppercase"
-          placeholder="TS-XXXX-XXXX"
+          placeholder="TS-7K4Q-9M2X"
           defaultValue={typed}
           autoComplete="off"
           autoCapitalize="characters"

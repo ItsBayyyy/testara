@@ -30,28 +30,28 @@ export default async function BoardPage({ params }: PageProps<"/info/[village]">
     <div className="flex flex-col gap-6">
       <div>
         <h1 className="text-xl">{title}</h1>
-        <p className="text-ink-2">Kecamatan {village.districtName}</p>
+        <p className="mt-1 text-ink-2">Kecamatan {village.districtName}</p>
         {latest && (
-          <p className="mt-1">
-            Diperbarui petugas{" "}
-            <span className="num font-semibold">{formatDateTime(latest.publishedAt)}</span>
+          <p className="mt-4 inline-flex flex-wrap items-baseline gap-x-2 border-l-4 border-done bg-surface px-3 py-2">
+            <span>Diperbarui petugas</span>
+            <span className="num font-bold">{formatDateTime(latest.publishedAt)}</span>
           </p>
         )}
       </div>
 
       {latest ? (
         <>
-          <ShareButton title={title} />
           <AskBox
             villageCode={village.code}
             poskoPhone={poskoPhone}
             poskoIsExample={config.poskoIsExample}
           />
           <BoardView content={latest.content} />
+          <ShareButton title={title} />
         </>
       ) : (
-        <div className="notice flex flex-col gap-3 px-4 py-4">
-          <p className="font-semibold">Belum ada papan info resmi untuk desa ini.</p>
+        <div className="sheet flex flex-col gap-4">
+          <h2 className="text-lg">Belum ada papan info resmi untuk desa ini.</h2>
           <p>
             Petugas belum menerbitkan informasi. Jika butuh bantuan sekarang, kirim laporan, atau
             telepon {config.emergencyNumber} jika ada nyawa yang terancam.

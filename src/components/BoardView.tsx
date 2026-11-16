@@ -13,11 +13,11 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section aria-labelledby={id} className="border-t border-line pt-4">
+    <section aria-labelledby={id}>
       <h2 id={id} className="text-lg">
         {title}
       </h2>
-      {empty ? <p className="mt-1 text-ink-2">Belum ada informasi resmi.</p> : children}
+      {empty ? <p className="mt-2 text-ink-2">Belum ada informasi resmi.</p> : children}
     </section>
   );
 }
@@ -25,12 +25,12 @@ function Section({
 /** Isi papan info desa. Setiap butir punya id agar bisa ditunjuk oleh jawaban tanya. */
 export function BoardView({ content }: { content: BoardContent }) {
   return (
-    <div className="flex flex-col gap-6">
+    <div className="sheet flex flex-col gap-8">
       <Section id="pengungsian" title="Pengungsian" empty={content.shelters.length === 0}>
         <ul className="mt-2 flex flex-col gap-3">
           {content.shelters.map((s) => (
             <li key={s.id} id={`butir-${s.id}`}>
-              <p className="font-semibold">{s.name}</p>
+              <p className="font-bold">{s.name}</p>
               {s.location && <p>{s.location}</p>}
               {s.note && <p className="text-ink-2">{s.note}</p>}
             </li>
@@ -41,7 +41,7 @@ export function BoardView({ content }: { content: BoardContent }) {
         <ul className="mt-2 flex flex-col gap-3">
           {content.aidPoints.map((a) => (
             <li key={a.id} id={`butir-${a.id}`}>
-              <p className="font-semibold">
+              <p className="font-bold">
                 {AID_KIND_LABELS[a.kind]}: {a.name}
               </p>
               {a.location && <p>{a.location}</p>}
@@ -68,9 +68,9 @@ export function BoardView({ content }: { content: BoardContent }) {
         <ul className="mt-2 flex flex-col gap-3">
           {content.contacts.map((c) => (
             <li key={c.id} id={`butir-${c.id}`}>
-              <p className="font-semibold">{c.name}</p>
+              <p className="font-bold">{c.name}</p>
               {c.phone && (
-                <a href={`tel:${c.phone.replace(/[^\d+]/g, "")}`} className="num font-semibold">
+                <a href={`tel:${c.phone.replace(/[^\d+]/g, "")}`} className="num text-lg font-bold">
                   {c.phone}
                 </a>
               )}

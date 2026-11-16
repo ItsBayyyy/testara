@@ -62,14 +62,11 @@ export function AskBox({
   }
 
   return (
-    <section
-      aria-labelledby="judul-tanya"
-      className="notice rounded-[var(--radius-control)] px-4 py-4"
-    >
+    <section aria-labelledby="judul-tanya" className="sheet">
       <h2 id="judul-tanya" className="text-lg">
         Tanya papan info
       </h2>
-      <p className="hint">Jawaban hanya dari informasi resmi di papan ini.</p>
+      <p className="hint mt-1">Jawaban hanya dari informasi resmi di papan ini.</p>
       <form onSubmit={ask} className="mt-3 flex flex-col gap-2 sm:flex-row">
         <label htmlFor="pertanyaan" className="sr-only">
           Pertanyaan
@@ -82,29 +79,28 @@ export function AskBox({
           maxLength={300}
           onChange={(e) => setQuestion(e.target.value)}
         />
-        <button type="submit" className="btn btn-primary shrink-0" disabled={busy}>
+        <button type="submit" className="btn btn-primary shrink-0" aria-busy={busy} disabled={busy}>
           {busy ? "Mencari..." : "Tanya"}
         </button>
       </form>
 
-      <div aria-live="polite" className="mt-3">
+      <div aria-live="polite" className="mt-4">
         {answer?.kind === "jawaban" && (
-          <div>
+          <div className="border-l-4 border-spidol pl-4">
             <p className="text-lg">{answer.answer}</p>
             <ItemList items={answer.items} label="Dari papan info:" />
           </div>
         )}
         {answer?.kind === "belum_ada" && (
-          <div>
-            <p className="font-semibold">
-              Belum ada informasi resmi untuk itu. Hubungi posko di nomor berikut.
-            </p>
+          <div className="notice border-l-4 border-ink p-4">
+            <p className="text-lg font-bold">Belum ada informasi resmi untuk itu.</p>
+            <p className="mt-1">Hubungi posko di nomor berikut.</p>
             {answer.contacts.length > 0 ? (
               <ul className="mt-1">
                 {answer.contacts.map((c) => (
                   <li key={c.id}>
                     {c.name}:{" "}
-                    <a className="num font-semibold" href={`tel:${c.phone.replace(/[^\d+]/g, "")}`}>
+                    <a className="num font-bold" href={`tel:${c.phone.replace(/[^\d+]/g, "")}`}>
                       {c.phone}
                     </a>
                   </li>
@@ -113,7 +109,7 @@ export function AskBox({
             ) : (
               <p className="mt-1">
                 Posko:{" "}
-                <a className="num font-semibold" href={`tel:${poskoPhone}`}>
+                <a className="num font-bold" href={`tel:${poskoPhone}`}>
                   {poskoPhone}
                 </a>
                 {poskoIsExample && " (nomor contoh untuk demo)"}
