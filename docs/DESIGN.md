@@ -5,6 +5,28 @@ dua arah yang dibandingkan, dan screenshot sebelum/sesudah ada di
 [`docs/design-audit/`](design-audit/AUDIT.md). Semua token ada di satu tempat:
 [`src/app/globals.css`](../src/app/globals.css).
 
+## Revisi 16 November 2026: lebih sedikit teks, lebih bersih
+
+Masukan: tampilan terasa terlalu banyak teks dan mirip situs berita. Perubahan:
+
+- **Halaman putih tanpa lembar.** Latar papan (`bg`) kini hanya untuk karcis, pita demo, dan
+  pemberitahuan. Kelas `.sheet` dihapus; bagian dipisah dengan ruang saja.
+- **Judul lebih ringan**: berat 600 (bukan 700), label 600.
+- **Teks dipangkas** di semua halaman korban: subjudul beranda dan lapor, petunjuk "Boleh pilih
+  lebih dari satu", petunjuk cari desa, keterangan di bawah tombol kirim, paragraf penjelas papan
+  info, dan teks pengantar halaman petugas. Persetujuan, ajakan menelepon 112, kalimat "bukan
+  jaminan waktu kedatangan bantuan", dan label AI tetap ada, tapi lebih pendek atau lebih kecil.
+- **Ajakan darurat** jadi satu baris: "Nyawa terancam?" + tombol "Telepon 112".
+- **Beranda**: judul, satu baris keterangan, tombol utama, ajakan darurat, lalu dua tombol
+  sekunder (Papan info, Cek status). Daftar tautan bergaris bawah dengan deskripsi dihapus.
+- **Pita demo** jadi satu baris tautan kecil berlatar papan.
+- **Papan info**: bagian kosong disembunyikan (kecuali kontak posko), stempel pembaruan digabung
+  ke baris kecamatan, petunjuk di kotak tanya dihapus.
+- **Status**: rincian berupa satu baris kecil di bawah linimasa, bukan daftar berjudul.
+- **Footer**: tiga tautan (Cara kerja, Privasi, Masuk petugas).
+
+Bagian di bawah ini tetap berlaku, kecuali hal yang disebut di atas.
+
 ## Konsep
 
 Setiap laporan adalah **karcis** yang disobek dari blok posko, dan setiap papan info adalah
