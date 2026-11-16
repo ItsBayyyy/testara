@@ -218,3 +218,22 @@ Tangkapan layar 375 px dan 1440 px ada di `docs/screenshots/` (buat ulang dengan
 | Hiasan yang dibuang: garis putus-putus di panel mode demo beranda. Tidak membawa makna.                                             | Diganti garis biasa seperti panel lain.                                                                                                                                                            |
 
 Cek ulang terhadap daftar larangan: tidak ada gradien hiasan (sapuan stabilo memakai `background-size` satu warna sebagai animasi fungsional), tidak ada emoji/ikon AI, tidak ada label kapital berjarak, tidak ada panah di tombol, tidak ada kartu seragam berbayangan. Meja periksa dengan angka berbeda belum bisa difoto dalam keadaan sebenarnya karena angka hanya muncul dari ekstraksi AI, dan kunci AI belum tersedia.
+
+## Revisi: lebih bersih dan minimalis (16 November 2026)
+
+Permintaan: tampilan dibuat lebih bersih dan minimalis. Palet, tipografi, dan prinsip tetap; yang berubah adalah berat visual.
+
+| Sebelum                                                          | Sesudah                                                                                        | Alasan                                                      |
+| ---------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| Halaman abu `#F3F5F4` dengan panel putih berbingkai              | Halaman putih; `bg` dipakai hanya sebagai latar tipis blok pemberitahuan dan baris terpilih    | Lebih sedikit "kotak di dalam kotak"                        |
+| Garis `line` `#C9D1CD`                                           | `#E2E7E4` (hairline)                                                                           | Pemisah terasa, tidak menonjol                              |
+| Bingkai tombol, kolom, dan kartu kebutuhan 1,5 sampai 2 px       | 1 px `line-strong` (3,6:1, tetap lolos 3:1 untuk komponen UI)                                  | Lebih ringan                                                |
+| Judul dan label `700`                                            | `600`, judul `h1` dirapatkan sedikit                                                           | Hierarki lewat ukuran dan ruang, bukan ketebalan            |
+| Blok pemberitahuan: panel putih berbingkai + garis oranye        | Kelas `.notice`: latar tipis tanpa bingkai, garis oranye 3 px hanya jika perlu tindakan        | Oranye tetap khusus "perlu tindakan"                        |
+| Kalimat "bukan jaminan waktu kedatangan bantuan" bergaris oranye | Teks sekunder biasa                                                                            | Bukan hal yang perlu tindakan                               |
+| Tanda terima: bingkai tinta 2 px                                 | Blok latar tipis radius 16 px, kode tetap besar                                                | Elemen yang diingat tetap paling menonjol lewat ukuran kode |
+| Header petugas berlatar tinta                                    | Putih dengan garis bawah hairline                                                              | Alat kerja yang tenang; konten jadi fokus                   |
+| Tombol "quiet" berbingkai abu                                    | Tombol teks bergaris bawah, teks sejajar dengan isi lain                                       | Satu tombol utama per layar terlihat jelas                  |
+| Beranda: tombol demo dan tautan tersebar                         | Tombol utama, pemberitahuan darurat, dua tautan dalam daftar bergaris, lalu mode demo di bawah | Urutan baca sesuai prioritas                                |
+
+Target sentuh 48 px, kontras AA, dan fokus keyboard tidak berubah. Tangkapan layar di `docs/screenshots/` sudah dibuat ulang.
