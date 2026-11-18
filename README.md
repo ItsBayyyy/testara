@@ -147,7 +147,7 @@ Tidak ada kunci rahasia yang memakai awalan `NEXT_PUBLIC_`.
 ## Tools dan model AI
 
 - **Dalam produk**: Groq `openai/gpt-oss-120b` (utama) dan Google Gemini `gemini-3.5-flash-lite` (cadangan).
-- **Dalam pengembangan**: Claude Code dengan model Claude Opus 5.5 (Anthropic) dipakai untuk menulis kode, test, dan dokumentasi bersama tim. Commit yang dibantu AI memakai baris `Co-Authored-By`.
+- **Dalam pengembangan**: Claude Code dengan model Claude Opus 5.5 (Anthropic) dipakai untuk menulis kode, test, dan dokumentasi bersama tim.
 
 ## Tim
 
